@@ -1,0 +1,22 @@
+# Functions and pointers
+
+## Function declaration
+
+## Functions parameters
+
+## Return values
+
+## Error handling
+
+## Variadic functions
+
+## Iteration and recursion
+
+## Anonymous functions
+
+## Panic
+
+## Pointers
+
+## Functions and pointers
+

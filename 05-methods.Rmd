@@ -1,0 +1,16 @@
+# Methods
+
+## Method declarations
+
+## Methods with a pointer receiver
+
+## Composing types with structs
+
+## Working with struct methods
+
+## Method values
+
+## Method expressions
+
+## Encapsulation
+

@@ -1,0 +1,5 @@
+book_filename: "go-course"
+language:
+  ui:
+    chapter_name: "Module "
+delete_merged_file: true

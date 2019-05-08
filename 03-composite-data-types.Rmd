@@ -1,0 +1,22 @@
+# Composite Data Types
+
+## Arrays
+
+## Loops and arrays
+
+## Slices
+
+## Appending items to slices
+
+## Range
+
+## Maps
+
+## Arrays vs maps
+
+## Structs
+
+## Struct literals
+
+## Operations with structs
+

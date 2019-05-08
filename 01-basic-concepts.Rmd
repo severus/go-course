@@ -1,0 +1,47 @@
+# Basic Concepts
+
+## What is Go?
+
+## Hello, world!
+
+## The Go CLI
+
+## Value types
+
+## Variables
+
+## Operators
+
+## Constants
+
+## Comments
+
+## Packages and imports
+
+## Module project {-}
+
+```{go}
+// This is a comment.
+// Every Go file must be a part of some package.
+// This file is a part of package main.
+package main
+
+// We import package "fmt" from the standard Go library.
+import "fmt"
+
+// `who` is a constant.
+const who = "world"
+
+// Function main() is the main entry point of any application written in Go.
+func main() {
+    // We declare `greeting` as a variable of type string and assign the value.
+	var greeting string = "Hello"
+    // We declare `message` variable using the shorthand syntax. The type of
+    // the variable is determined by the assigned value. In our case it is
+    // string type.
+	message := greeting + ", " + who
+    // Let's print the value of the variable `message` using the function from
+    // the package "fmt".
+	fmt.Println(message)
+}
+```

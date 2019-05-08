@@ -1,0 +1,20 @@
+# Interfaces
+
+## Introduction
+
+## Interface types
+
+## Satisfaction
+
+## `flag.Value`
+
+## Interface values
+
+## Sorting with `sort.Interface`
+
+## The `error` interface
+
+## Type assertions
+
+## Type switches
+

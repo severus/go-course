@@ -1,0 +1,14 @@
+---
+title: "Go course"
+author: "Petr Shevtsov"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+description: "The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)."
+---
+
+# Preface {-}
+
+The course is targeted at a beginner level student new to Go but might be
+familiar with 1-2 other languages (e.g. Python, HTML).
