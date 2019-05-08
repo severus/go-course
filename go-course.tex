@@ -1,0 +1,388 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Go course},
+            pdfauthor={Petr Shevtsov},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Go course}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Petr Shevtsov}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{2019-05-08}
+
+\renewcommand{\chaptername}{Module}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{preface}{%
+\chapter*{Preface}\label{preface}}
+\addcontentsline{toc}{chapter}{Preface}
+
+The course is targeted at a beginner level student new to Go but might be
+familiar with 1-2 other languages (e.g.~Python, HTML).
+
+\hypertarget{basic-concepts}{%
+\chapter{Basic Concepts}\label{basic-concepts}}
+
+\hypertarget{what-is-go}{%
+\section{What is Go?}\label{what-is-go}}
+
+\hypertarget{hello-world}{%
+\section{Hello, world!}\label{hello-world}}
+
+\hypertarget{the-go-cli}{%
+\section{The Go CLI}\label{the-go-cli}}
+
+\hypertarget{value-types}{%
+\section{Value types}\label{value-types}}
+
+\hypertarget{variables}{%
+\section{Variables}\label{variables}}
+
+\hypertarget{operators}{%
+\section{Operators}\label{operators}}
+
+\hypertarget{constants}{%
+\section{Constants}\label{constants}}
+
+\hypertarget{comments}{%
+\section{Comments}\label{comments}}
+
+\hypertarget{packages-and-imports}{%
+\section{Packages and imports}\label{packages-and-imports}}
+
+\hypertarget{module-project}{%
+\section*{Module project}\label{module-project}}
+\addcontentsline{toc}{section}{Module project}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// This is a comment.}
+\CommentTok{// Every Go file must be a part of some package.}
+\CommentTok{// This file is a part of package main.}
+\KeywordTok{package}\NormalTok{ main}
+
+\CommentTok{// We import package "fmt" from the standard Go library.}
+\KeywordTok{import} \StringTok{"fmt"}
+
+\CommentTok{// `who` is a constant.}
+\KeywordTok{const}\NormalTok{ who = }\StringTok{"world"}
+
+\CommentTok{// Function main() is the main entry point of any application written in Go.}
+\KeywordTok{func}\NormalTok{ main() \{}
+    \CommentTok{// We declare `greeting` as a variable of type string and assign the value.}
+    \KeywordTok{var}\NormalTok{ greeting }\DataTypeTok{string}\NormalTok{ = }\StringTok{"Hello"}
+    \CommentTok{// We declare `message` variable using the shorthand syntax. The type of}
+    \CommentTok{// the variable is determined by the assigned value. In our case it is}
+    \CommentTok{// string type.}
+\NormalTok{    message := greeting + }\StringTok{", "}\NormalTok{ + who}
+    \CommentTok{// Let's print the value of the variable `message` using the function from}
+    \CommentTok{// the package "fmt".}
+\NormalTok{    fmt.Println(message)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Hello, world
+\end{verbatim}
+
+\hypertarget{conditionals-and-loops}{%
+\chapter{Conditionals and Loops}\label{conditionals-and-loops}}
+
+\hypertarget{the-if-statement}{%
+\section{\texorpdfstring{The \texttt{if} statement}{The if statement}}\label{the-if-statement}}
+
+\hypertarget{the-else-statement}{%
+\section{\texorpdfstring{The \texttt{else} statement}{The else statement}}\label{the-else-statement}}
+
+\hypertarget{ifelse-chains}{%
+\section{\texorpdfstring{\texttt{if}/\texttt{else} chains}{if/else chains}}\label{ifelse-chains}}
+
+\hypertarget{the-if-statement-with-expression}{%
+\section{\texorpdfstring{The \texttt{if} statement with expression}{The if statement with expression}}\label{the-if-statement-with-expression}}
+
+\hypertarget{the-switch-statement}{%
+\section{\texorpdfstring{The \texttt{switch} statement}{The switch statement}}\label{the-switch-statement}}
+
+\hypertarget{the-switch-without-condition}{%
+\section{\texorpdfstring{The \texttt{switch} without condition}{The switch without condition}}\label{the-switch-without-condition}}
+
+\hypertarget{the-for-statement}{%
+\section{\texorpdfstring{The \texttt{for} statement}{The for statement}}\label{the-for-statement}}
+
+\hypertarget{the-defer-statement}{%
+\section{\texorpdfstring{The \texttt{defer} statement}{The defer statement}}\label{the-defer-statement}}
+
+\hypertarget{composite-data-types}{%
+\chapter{Composite Data Types}\label{composite-data-types}}
+
+\hypertarget{arrays}{%
+\section{Arrays}\label{arrays}}
+
+\hypertarget{loops-and-arrays}{%
+\section{Loops and arrays}\label{loops-and-arrays}}
+
+\hypertarget{slices}{%
+\section{Slices}\label{slices}}
+
+\hypertarget{appending-items-to-slices}{%
+\section{Appending items to slices}\label{appending-items-to-slices}}
+
+\hypertarget{range}{%
+\section{Range}\label{range}}
+
+\hypertarget{maps}{%
+\section{Maps}\label{maps}}
+
+\hypertarget{arrays-vs-maps}{%
+\section{Arrays vs maps}\label{arrays-vs-maps}}
+
+\hypertarget{structs}{%
+\section{Structs}\label{structs}}
+
+\hypertarget{struct-literals}{%
+\section{Struct literals}\label{struct-literals}}
+
+\hypertarget{operations-with-structs}{%
+\section{Operations with structs}\label{operations-with-structs}}
+
+\hypertarget{functions-and-pointers}{%
+\chapter{Functions and pointers}\label{functions-and-pointers}}
+
+\hypertarget{function-declaration}{%
+\section{Function declaration}\label{function-declaration}}
+
+\hypertarget{functions-parameters}{%
+\section{Functions parameters}\label{functions-parameters}}
+
+\hypertarget{return-values}{%
+\section{Return values}\label{return-values}}
+
+\hypertarget{error-handling}{%
+\section{Error handling}\label{error-handling}}
+
+\hypertarget{variadic-functions}{%
+\section{Variadic functions}\label{variadic-functions}}
+
+\hypertarget{iteration-and-recursion}{%
+\section{Iteration and recursion}\label{iteration-and-recursion}}
+
+\hypertarget{anonymous-functions}{%
+\section{Anonymous functions}\label{anonymous-functions}}
+
+\hypertarget{panic}{%
+\section{Panic}\label{panic}}
+
+\hypertarget{pointers}{%
+\section{Pointers}\label{pointers}}
+
+\hypertarget{functions-and-pointers-1}{%
+\section{Functions and pointers}\label{functions-and-pointers-1}}
+
+\hypertarget{methods}{%
+\chapter{Methods}\label{methods}}
+
+\hypertarget{method-declarations}{%
+\section{Method declarations}\label{method-declarations}}
+
+\hypertarget{methods-with-a-pointer-receiver}{%
+\section{Methods with a pointer receiver}\label{methods-with-a-pointer-receiver}}
+
+\hypertarget{composing-types-with-structs}{%
+\section{Composing types with structs}\label{composing-types-with-structs}}
+
+\hypertarget{working-with-struct-methods}{%
+\section{Working with struct methods}\label{working-with-struct-methods}}
+
+\hypertarget{method-values}{%
+\section{Method values}\label{method-values}}
+
+\hypertarget{method-expressions}{%
+\section{Method expressions}\label{method-expressions}}
+
+\hypertarget{encapsulation}{%
+\section{Encapsulation}\label{encapsulation}}
+
+\hypertarget{interfaces}{%
+\chapter{Interfaces}\label{interfaces}}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{interface-types}{%
+\section{Interface types}\label{interface-types}}
+
+\hypertarget{satisfaction}{%
+\section{Satisfaction}\label{satisfaction}}
+
+\hypertarget{flag.value}{%
+\section{\texorpdfstring{\texttt{flag.Value}}{flag.Value}}\label{flag.value}}
+
+\hypertarget{interface-values}{%
+\section{Interface values}\label{interface-values}}
+
+\hypertarget{sorting-with-sort.interface}{%
+\section{\texorpdfstring{Sorting with \texttt{sort.Interface}}{Sorting with sort.Interface}}\label{sorting-with-sort.interface}}
+
+\hypertarget{the-error-interface}{%
+\section{\texorpdfstring{The \texttt{error} interface}{The error interface}}\label{the-error-interface}}
+
+\hypertarget{type-assertions}{%
+\section{Type assertions}\label{type-assertions}}
+
+\hypertarget{type-switches}{%
+\section{Type switches}\label{type-switches}}
+
+\hypertarget{goroutines-and-channels}{%
+\chapter{Goroutines and channels}\label{goroutines-and-channels}}
+
+\hypertarget{what-is-goroutine}{%
+\section{What is goroutine}\label{what-is-goroutine}}
+
+\hypertarget{introduction-to-concurrency}{%
+\section{Introduction to concurrency}\label{introduction-to-concurrency}}
+
+\hypertarget{channels}{%
+\section{Channels}\label{channels}}
+
+\hypertarget{types-of-channels}{%
+\section{Types of channels}\label{types-of-channels}}
+
+\hypertarget{pipelines}{%
+\section{Pipelines}\label{pipelines}}
+
+\hypertarget{looping-in-parallel}{%
+\section{Looping in parallel}\label{looping-in-parallel}}
+
+\hypertarget{time.tick}{%
+\section{\texorpdfstring{\texttt{time.Tick}}{time.Tick}}\label{time.tick}}
+
+\hypertarget{the-select-statement}{%
+\section{\texorpdfstring{The \texttt{select} statement}{The select statement}}\label{the-select-statement}}
+
+\hypertarget{cancellation}{%
+\section{Cancellation}\label{cancellation}}
+
+
+\end{document}
