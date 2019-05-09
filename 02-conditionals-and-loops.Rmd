@@ -16,3 +16,26 @@
 
 ## The `defer` statement
 
+## Module project {-}
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+	for age := 0; age < 99; age++ {
+		switch age {
+		case 16:
+			fmt.Println("When you're", age, "you can drive a car!")
+		case 18:
+			fmt.Println("When you're", age, "you can buy a lottery ticket!")
+		case 21:
+			fmt.Println("When you're", age, "you can buy some beer!")
+			break
+		default:
+			continue
+		}
+	}
+}
+```
