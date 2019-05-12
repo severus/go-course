@@ -123,7 +123,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-09}
+    \date{2019-05-12}
 
 \renewcommand{\chaptername}{Module}
 
@@ -349,87 +349,87 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 \end{Shaded}
 
 \begin{verbatim}
-## flame 1
-## sweet 1
-## pity 1
-## increase 1
-## beauty's 1
-## never 1
-## riper 1
-## to 4
-## be 1
-## should 1
-## gaudy 1
-## buriest 1
-## now 1
-## content 1
-## that 2
-## rose 1
-## decease 1
-## feed'st 1
-## self-substantial 1
-## own 2
-## with 1
-## waste 1
-## world 1
-## glutton 1
-## desire 1
-## die 1
-## thou 2
-## fuel 1
-## lies 1
-## grave 1
-## bright 1
-## self 2
-## world's 2
-## fresh 1
-## eat 1
-## due 1
+## thy 5
+## light's 1
+## niggarding 1
 ## might 2
-## as 1
-## thine 2
-## a 1
-## bud 1
-## from 1
-## within 1
-## time 1
-## memory 1
-## spring 1
-## in 1
+## decease 1
+## herald 1
 ## or 1
 ## this 1
-## fairest 1
-## his 2
-## light's 1
-## cruel 1
-## ornament 1
-## but 2
-## heir 1
-## thy 5
-## thee 1
+## glutton 1
+## from 1
 ## thereby 1
+## to 4
+## fresh 1
+## within 1
+## lies 1
+## sweet 1
+## too 1
+## world's 2
+## ornament 1
+## rose 1
+## by 2
+## time 1
+## eyes 1
+## with 1
 ## abundance 1
-## only 1
-## churl 1
-## niggarding 1
+## else 1
+## be 1
+## fairest 1
+## buriest 1
+## world 1
+## content 1
+## eat 1
+## increase 1
+## as 1
+## heir 1
+## bear 1
+## bright 1
+## feed'st 1
+## grave 1
+## tender 2
+## thou 2
+## gaudy 1
+## bud 1
+## fuel 1
 ## making 1
+## where 1
+## never 1
+## the 6
+## should 1
+## his 2
+## memory 1
+## die 1
+## but 2
+## contracted 1
+## own 2
+## self-substantial 1
+## pity 1
+## that 2
+## beauty's 1
 ## famine 1
 ## foe 1
+## only 1
+## flame 1
+## due 1
+## churl 1
+## waste 1
 ## creatures 1
-## by 2
-## tender 2
-## bear 1
-## contracted 1
 ## we 1
-## eyes 1
-## and 3
-## mak'st 1
-## else 1
-## the 6
-## where 1
+## thine 2
+## a 1
+## self 2
 ## art 1
-## too 1
-## herald 1
+## in 1
+## thee 1
+## mak'st 1
+## desire 1
+## riper 1
+## cruel 1
+## now 1
+## and 3
+## spring 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -464,6 +464,48 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 
 \hypertarget{functions-and-pointers-1}{%
 \section{Functions and pointers}\label{functions-and-pointers-1}}
+
+\hypertarget{module-project-3}{%
+\section*{Module project}\label{module-project-3}}
+\addcontentsline{toc}{section}{Module project}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\CommentTok{// fibonacci returns the nth Fibonacci number.}
+\KeywordTok{func}\NormalTok{ fibonacci(n }\DataTypeTok{int}\NormalTok{) }\DataTypeTok{int}\NormalTok{ \{}
+    \KeywordTok{if}\NormalTok{ n < }\DecValTok{2}\NormalTok{ \{}
+        \KeywordTok{return}\NormalTok{ n}
+\NormalTok{    \}}
+    \KeywordTok{return}\NormalTok{ fibonacci(n}\DecValTok{-1}\NormalTok{) + fibonacci(n}\DecValTok{-2}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{// fibonacciSequence changes the int slice to make it contain the Fibonacci}
+\CommentTok{// numbers according to its keys. This function operates on the actual slice,}
+\CommentTok{// that's why it does not return anything.}
+\KeywordTok{func}\NormalTok{ fibonacciSequence(slice []}\DataTypeTok{int}\NormalTok{) \{}
+    \KeywordTok{for}\NormalTok{ n := }\KeywordTok{range}\NormalTok{ slice \{}
+\NormalTok{        slice[n] = fibonacci(n)}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+    \CommentTok{// Create an empty int slice of length 10}
+\NormalTok{    sequence := }\BuiltInTok{make}\NormalTok{([]}\DataTypeTok{int}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+    \CommentTok{// Fill the slice with Fibonacci numbers secuence}
+\NormalTok{    fibonacciSequence(sequence)}
+
+\NormalTok{    fmt.Println(sequence)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [0 1 1 2 3 5 8 13 21 34]
+\end{verbatim}
 
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}
