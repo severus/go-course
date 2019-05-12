@@ -20,3 +20,36 @@
 
 ## Functions and pointers
 
+## Module project {-}
+
+```{go}
+package main
+
+import "fmt"
+
+// fibonacci returns the nth Fibonacci number.
+func fibonacci(n int) int {
+	if n < 2 {
+		return n
+	}
+	return fibonacci(n-1) + fibonacci(n-2)
+}
+
+// fibonacciSequence changes the int slice to make it contain the Fibonacci
+// numbers according to its keys. This function operates on the actual slice,
+// that's why it does not return anything.
+func fibonacciSequence(slice []int) {
+	for n := range slice {
+		slice[n] = fibonacci(n)
+	}
+}
+
+func main() {
+	// Create an empty int slice of length 10
+	sequence := make([]int, 10)
+	// Fill the slice with Fibonacci numbers secuence
+	fibonacciSequence(sequence)
+
+	fmt.Println(sequence)
+}
+```
