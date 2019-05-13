@@ -17,3 +17,91 @@
 ## The `select` statement
 
 ## Cancellation
+
+## Module project {-}
+
+```{go}
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"time"
+)
+
+const (
+	NumberOfRacers   = 10
+	NumberOfLaps     = 3
+	MaxSleepDuration = 3 // seconds
+)
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func race(racer int, start chan struct{}, finish chan int, status chan []int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	<-start
+	for lap := 1; lap <= NumberOfLaps; lap++ {
+		sleep := time.Duration(rand.Intn(MaxSleepDuration))
+		time.Sleep(sleep * time.Second)
+		go func(racer, lap int) {
+			status <- []int{racer, lap}
+		}(racer, lap)
+	}
+	finish <- racer
+}
+
+func main() {
+	start := make(chan struct{})
+	finish := make(chan int)
+	status := make(chan []int)
+	done := make(chan struct{})
+	var wg sync.WaitGroup
+	wg.Add(NumberOfRacers)
+	for racer := 1; racer <= NumberOfRacers; racer++ {
+		go race(racer, start, finish, status, &wg)
+	}
+
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	startTime := time.Now()
+	close(start)
+
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	var winners []int
+
+OuterLoop:
+	for {
+		select {
+		case t := <-ticker.C:
+			fmt.Println("Race time:", t.Sub(startTime))
+		case s := <-status:
+			fmt.Printf("Racer #%d is on lap %d\n", s[0], s[1])
+		case finished := <-finish:
+			fmt.Printf("Racer #%d finished!\n", finished)
+			if len(winners) < 3 {
+				winners = append(winners, finished)
+			}
+		case <-done:
+			break OuterLoop
+		}
+	}
+
+	close(finish)
+	close(status)
+
+	fmt.Println("\nWinners:")
+	place := 1
+	for _, racer := range winners {
+		fmt.Printf("%d place: Racer #%d\n", place, racer)
+		place++
+	}
+}
+```
