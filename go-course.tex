@@ -123,7 +123,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-12}
+    \date{2019-05-13}
 
 \renewcommand{\chaptername}{Module}
 
@@ -349,87 +349,87 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 \end{Shaded}
 
 \begin{verbatim}
-## thy 5
-## light's 1
-## niggarding 1
-## might 2
-## decease 1
-## herald 1
-## or 1
-## this 1
-## glutton 1
-## from 1
-## thereby 1
-## to 4
-## fresh 1
-## within 1
-## lies 1
-## sweet 1
-## too 1
-## world's 2
-## ornament 1
-## rose 1
-## by 2
-## time 1
-## eyes 1
-## with 1
-## abundance 1
-## else 1
-## be 1
-## fairest 1
-## buriest 1
-## world 1
-## content 1
-## eat 1
-## increase 1
-## as 1
-## heir 1
-## bear 1
-## bright 1
-## feed'st 1
-## grave 1
-## tender 2
-## thou 2
-## gaudy 1
-## bud 1
-## fuel 1
-## making 1
-## where 1
-## never 1
-## the 6
-## should 1
-## his 2
-## memory 1
-## die 1
 ## but 2
-## contracted 1
-## own 2
-## self-substantial 1
-## pity 1
-## that 2
-## beauty's 1
-## famine 1
-## foe 1
-## only 1
-## flame 1
-## due 1
-## churl 1
 ## waste 1
-## creatures 1
-## we 1
-## thine 2
-## a 1
-## self 2
-## art 1
 ## in 1
-## thee 1
-## mak'st 1
-## desire 1
-## riper 1
+## self-substantial 1
+## fuel 1
+## die 1
+## as 1
+## his 2
+## bear 1
+## thou 2
+## feed'st 1
+## niggarding 1
+## tender 2
+## with 1
+## spring 1
+## or 1
+## grave 1
+## might 2
+## should 1
+## bright 1
 ## cruel 1
 ## now 1
+## churl 1
+## rose 1
+## eat 1
+## the 6
+## decease 1
+## thine 2
+## art 1
+## content 1
+## memory 1
+## own 2
+## self 2
+## gaudy 1
+## mak'st 1
+## lies 1
+## herald 1
+## too 1
+## never 1
+## time 1
+## to 4
+## thy 5
+## flame 1
+## where 1
+## creatures 1
+## a 1
+## thee 1
+## riper 1
+## world's 2
+## ornament 1
+## only 1
+## world 1
+## this 1
+## bud 1
+## buriest 1
+## desire 1
+## by 2
+## heir 1
+## famine 1
+## abundance 1
 ## and 3
-## spring 1
+## pity 1
+## be 1
+## fairest 1
+## increase 1
+## contracted 1
+## fresh 1
+## else 1
+## we 1
+## light's 1
+## sweet 1
+## within 1
+## due 1
+## foe 1
+## glutton 1
+## from 1
+## that 2
+## thereby 1
+## beauty's 1
+## eyes 1
+## making 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -590,6 +590,151 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 
 \hypertarget{cancellation}{%
 \section{Cancellation}\label{cancellation}}
+
+\hypertarget{module-project-4}{%
+\section*{Module project}\label{module-project-4}}
+\addcontentsline{toc}{section}{Module project}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import}\NormalTok{ (}
+    \StringTok{"fmt"}
+    \StringTok{"math/rand"}
+    \StringTok{"sync"}
+    \StringTok{"time"}
+\NormalTok{)}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    NumberOfRacers   = }\DecValTok{10}
+\NormalTok{    NumberOfLaps     = }\DecValTok{3}
+\NormalTok{    MaxSleepDuration = }\DecValTok{3} \CommentTok{// seconds}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ init() \{}
+\NormalTok{    rand.Seed(time.Now().UnixNano())}
+\NormalTok{\}}
+
+\KeywordTok{func}\NormalTok{ race(racer }\DataTypeTok{int}\NormalTok{, start }\KeywordTok{chan} \KeywordTok{struct}\NormalTok{\{\}, finish }\KeywordTok{chan} \DataTypeTok{int}\NormalTok{, status }\KeywordTok{chan}\NormalTok{ []}\DataTypeTok{int}\NormalTok{, wg *sync.WaitGroup) \{}
+    \KeywordTok{defer}\NormalTok{ wg.Done()}
+\NormalTok{    <-start}
+    \KeywordTok{for}\NormalTok{ lap := }\DecValTok{1}\NormalTok{; lap <= NumberOfLaps; lap++ \{}
+\NormalTok{        sleep := time.Duration(rand.Intn(MaxSleepDuration))}
+\NormalTok{        time.Sleep(sleep * time.Second)}
+        \KeywordTok{go} \KeywordTok{func}\NormalTok{(racer, lap }\DataTypeTok{int}\NormalTok{) \{}
+\NormalTok{            status <- []}\DataTypeTok{int}\NormalTok{\{racer, lap\}}
+\NormalTok{        \}(racer, lap)}
+\NormalTok{    \}}
+\NormalTok{    finish <- racer}
+\NormalTok{\}}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    start := }\BuiltInTok{make}\NormalTok{(}\KeywordTok{chan} \KeywordTok{struct}\NormalTok{\{\})}
+\NormalTok{    finish := }\BuiltInTok{make}\NormalTok{(}\KeywordTok{chan} \DataTypeTok{int}\NormalTok{)}
+\NormalTok{    status := }\BuiltInTok{make}\NormalTok{(}\KeywordTok{chan}\NormalTok{ []}\DataTypeTok{int}\NormalTok{)}
+\NormalTok{    done := }\BuiltInTok{make}\NormalTok{(}\KeywordTok{chan} \KeywordTok{struct}\NormalTok{\{\})}
+    \KeywordTok{var}\NormalTok{ wg sync.WaitGroup}
+\NormalTok{    wg.Add(NumberOfRacers)}
+    \KeywordTok{for}\NormalTok{ racer := }\DecValTok{1}\NormalTok{; racer <= NumberOfRacers; racer++ \{}
+        \KeywordTok{go}\NormalTok{ race(racer, start, finish, status, &wg)}
+\NormalTok{    \}}
+
+    \KeywordTok{go} \KeywordTok{func}\NormalTok{() \{}
+\NormalTok{        wg.Wait()}
+        \BuiltInTok{close}\NormalTok{(done)}
+\NormalTok{    \}()}
+
+\NormalTok{    startTime := time.Now()}
+    \BuiltInTok{close}\NormalTok{(start)}
+
+\NormalTok{    ticker := time.NewTicker(time.Second)}
+    \KeywordTok{defer}\NormalTok{ ticker.Stop()}
+
+    \KeywordTok{var}\NormalTok{ winners []}\DataTypeTok{int}
+
+\NormalTok{OuterLoop:}
+    \KeywordTok{for}\NormalTok{ \{}
+        \KeywordTok{select}\NormalTok{ \{}
+        \KeywordTok{case}\NormalTok{ t := <-ticker.C:}
+\NormalTok{            fmt.Println(}\StringTok{"Race time:"}\NormalTok{, t.Sub(startTime))}
+        \KeywordTok{case}\NormalTok{ s := <-status:}
+\NormalTok{            fmt.Printf(}\StringTok{"Racer #%d is on lap %d}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, s[}\DecValTok{0}\NormalTok{], s[}\DecValTok{1}\NormalTok{])}
+        \KeywordTok{case}\NormalTok{ finished := <-finish:}
+\NormalTok{            fmt.Printf(}\StringTok{"Racer #%d finished!}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, finished)}
+            \KeywordTok{if} \BuiltInTok{len}\NormalTok{(winners) < }\DecValTok{3}\NormalTok{ \{}
+\NormalTok{                winners = }\BuiltInTok{append}\NormalTok{(winners, finished)}
+\NormalTok{            \}}
+        \KeywordTok{case}\NormalTok{ <-done:}
+            \KeywordTok{break}\NormalTok{ OuterLoop}
+\NormalTok{        \}}
+\NormalTok{    \}}
+
+    \BuiltInTok{close}\NormalTok{(finish)}
+    \BuiltInTok{close}\NormalTok{(status)}
+
+\NormalTok{    fmt.Println(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{Winners:"}\NormalTok{)}
+\NormalTok{    place := }\DecValTok{1}
+    \KeywordTok{for}\NormalTok{ _, racer := }\KeywordTok{range}\NormalTok{ winners \{}
+\NormalTok{        fmt.Printf(}\StringTok{"%d place: Racer #%d}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, place, racer)}
+\NormalTok{        place++}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Racer #10 is on lap 2
+## Racer #7 is on lap 1
+## Racer #9 is on lap 2
+## Racer #9 is on lap 1
+## Racer #10 is on lap 1
+## Race time: 1.000174895s
+## Racer #8 is on lap 1
+## Racer #1 finished!
+## Racer #1 is on lap 1
+## Racer #1 is on lap 2
+## Racer #1 is on lap 3
+## Racer #7 finished!
+## Racer #7 is on lap 2
+## Racer #7 is on lap 3
+## Racer #6 finished!
+## Racer #6 is on lap 1
+## Racer #6 is on lap 2
+## Racer #6 is on lap 3
+## Race time: 2.000160288s
+## Racer #2 is on lap 1
+## Racer #10 finished!
+## Racer #4 is on lap 1
+## Racer #3 is on lap 2
+## Racer #5 is on lap 1
+## Racer #10 is on lap 3
+## Racer #3 is on lap 1
+## Racer #8 is on lap 2
+## Racer #9 finished!
+## Racer #9 is on lap 3
+## Race time: 3.000149888s
+## Racer #5 is on lap 2
+## Racer #3 finished!
+## Racer #3 is on lap 3
+## Race time: 4.00017553s
+## Racer #8 finished!
+## Racer #2 is on lap 2
+## Racer #4 finished!
+## Racer #8 is on lap 3
+## Racer #4 is on lap 2
+## Racer #4 is on lap 3
+## Race time: 5.000275273s
+## Racer #5 finished!
+## Racer #2 finished!
+## Racer #5 is on lap 3
+## Racer #2 is on lap 3
+## 
+## Winners:
+## 1 place: Racer #1
+## 2 place: Racer #7
+## 3 place: Racer #6
+\end{verbatim}
 
 
 \end{document}

@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-12" />
+<meta name="date" content="2019-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -207,6 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#time.tick"><i class="fa fa-check"></i><b>7.7</b> <code>time.Tick</code></a></li>
 <li class="chapter" data-level="7.8" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#the-select-statement"><i class="fa fa-check"></i><b>7.8</b> The <code>select</code> statement</a></li>
 <li class="chapter" data-level="7.9" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#cancellation"><i class="fa fa-check"></i><b>7.9</b> Cancellation</a></li>
+<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 </ul>
 
@@ -253,6 +254,141 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="cancellation" class="section level2">
 <h2><span class="header-section-number">7.9</span> Cancellation</h2>
+</div>
+<div id="module-project-4" class="section level2 unnumbered">
+<h2>Module project</h2>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="st">&quot;fmt&quot;</span>
+    <span class="st">&quot;math/rand&quot;</span>
+    <span class="st">&quot;sync&quot;</span>
+    <span class="st">&quot;time&quot;</span>
+)
+
+<span class="kw">const</span> (
+    NumberOfRacers   = <span class="dv">10</span>
+    NumberOfLaps     = <span class="dv">3</span>
+    MaxSleepDuration = <span class="dv">3</span> <span class="co">// seconds</span>
+)
+
+<span class="kw">func</span> init() {
+    rand.Seed(time.Now().UnixNano())
+}
+
+<span class="kw">func</span> race(racer <span class="dt">int</span>, start <span class="kw">chan</span> <span class="kw">struct</span>{}, finish <span class="kw">chan</span> <span class="dt">int</span>, status <span class="kw">chan</span> []<span class="dt">int</span>, wg *sync.WaitGroup) {
+    <span class="kw">defer</span> wg.Done()
+    &lt;-start
+    <span class="kw">for</span> lap := <span class="dv">1</span>; lap &lt;= NumberOfLaps; lap++ {
+        sleep := time.Duration(rand.Intn(MaxSleepDuration))
+        time.Sleep(sleep * time.Second)
+        <span class="kw">go</span> <span class="kw">func</span>(racer, lap <span class="dt">int</span>) {
+            status &lt;- []<span class="dt">int</span>{racer, lap}
+        }(racer, lap)
+    }
+    finish &lt;- racer
+}
+
+<span class="kw">func</span> main() {
+    start := <span class="bu">make</span>(<span class="kw">chan</span> <span class="kw">struct</span>{})
+    finish := <span class="bu">make</span>(<span class="kw">chan</span> <span class="dt">int</span>)
+    status := <span class="bu">make</span>(<span class="kw">chan</span> []<span class="dt">int</span>)
+    done := <span class="bu">make</span>(<span class="kw">chan</span> <span class="kw">struct</span>{})
+    <span class="kw">var</span> wg sync.WaitGroup
+    wg.Add(NumberOfRacers)
+    <span class="kw">for</span> racer := <span class="dv">1</span>; racer &lt;= NumberOfRacers; racer++ {
+        <span class="kw">go</span> race(racer, start, finish, status, &amp;wg)
+    }
+
+    <span class="kw">go</span> <span class="kw">func</span>() {
+        wg.Wait()
+        <span class="bu">close</span>(done)
+    }()
+
+    startTime := time.Now()
+    <span class="bu">close</span>(start)
+
+    ticker := time.NewTicker(time.Second)
+    <span class="kw">defer</span> ticker.Stop()
+
+    <span class="kw">var</span> winners []<span class="dt">int</span>
+
+OuterLoop:
+    <span class="kw">for</span> {
+        <span class="kw">select</span> {
+        <span class="kw">case</span> t := &lt;-ticker.C:
+            fmt.Println(<span class="st">&quot;Race time:&quot;</span>, t.Sub(startTime))
+        <span class="kw">case</span> s := &lt;-status:
+            fmt.Printf(<span class="st">&quot;Racer #%d is on lap %d</span><span class="ch">\n</span><span class="st">&quot;</span>, s[<span class="dv">0</span>], s[<span class="dv">1</span>])
+        <span class="kw">case</span> finished := &lt;-finish:
+            fmt.Printf(<span class="st">&quot;Racer #%d finished!</span><span class="ch">\n</span><span class="st">&quot;</span>, finished)
+            <span class="kw">if</span> <span class="bu">len</span>(winners) &lt; <span class="dv">3</span> {
+                winners = <span class="bu">append</span>(winners, finished)
+            }
+        <span class="kw">case</span> &lt;-done:
+            <span class="kw">break</span> OuterLoop
+        }
+    }
+
+    <span class="bu">close</span>(finish)
+    <span class="bu">close</span>(status)
+
+    fmt.Println(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Winners:&quot;</span>)
+    place := <span class="dv">1</span>
+    <span class="kw">for</span> _, racer := <span class="kw">range</span> winners {
+        fmt.Printf(<span class="st">&quot;%d place: Racer #%d</span><span class="ch">\n</span><span class="st">&quot;</span>, place, racer)
+        place++
+    }
+}</code></pre>
+<pre><code>## Racer #2 is on lap 2
+## Racer #10 is on lap 1
+## Racer #6 is on lap 1
+## Racer #1 is on lap 1
+## Racer #2 is on lap 1
+## Racer #4 is on lap 2
+## Racer #4 is on lap 1
+## Race time: 1.000140058s
+## Racer #5 is on lap 1
+## Racer #3 is on lap 2
+## Racer #7 finished!
+## Racer #8 is on lap 1
+## Racer #10 is on lap 2
+## Racer #3 is on lap 1
+## Racer #7 is on lap 1
+## Racer #7 is on lap 2
+## Racer #7 is on lap 3
+## Race time: 2.000289239s
+## Racer #3 is on lap 3
+## Racer #3 finished!
+## Racer #2 finished!
+## Racer #9 is on lap 2
+## Racer #6 is on lap 2
+## Racer #1 is on lap 2
+## Racer #4 finished!
+## Racer #5 is on lap 2
+## Racer #2 is on lap 3
+## Racer #9 is on lap 1
+## Racer #4 is on lap 3
+## Racer #10 finished!
+## Racer #10 is on lap 3
+## Race time: 3.000141363s
+## Racer #1 finished!
+## Racer #9 finished!
+## Racer #6 finished!
+## Racer #8 is on lap 2
+## Racer #9 is on lap 3
+## Racer #6 is on lap 3
+## Racer #1 is on lap 3
+## Race time: 4.000170603s
+## Racer #5 finished!
+## Racer #5 is on lap 3
+## Race time: 5.000135797s
+## Racer #8 finished!
+## 
+## Winners:
+## 1 place: Racer #7
+## 2 place: Racer #3
+## 3 place: Racer #2</code></pre>
 
 </div>
 </div>
