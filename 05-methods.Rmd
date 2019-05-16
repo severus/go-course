@@ -14,3 +14,76 @@
 
 ## Encapsulation
 
+## Module project {-}
+
+```{go}
+package main
+
+import (
+	"fmt"
+)
+
+// printer is a struct with no fields. It only has a method.
+type printer struct{}
+
+// receipt is a variadic function. It can be called with any number of
+// arguments, just like fmt.Println()
+func (p printer) receipt(a ...interface{}) {
+	fmt.Println(a...)
+}
+
+// Account represents a bank account data structure, it has one field and an
+// embedded struct.
+type Account struct {
+	balance int
+	printer
+}
+
+// NewAccount created a new Account setting the initial balance.
+func NewAccount(balance int) *Account {
+	return &Account{
+		balance: balance,
+	}
+}
+
+// Deposit increases the account balance by the specified amount.
+// It prints the information about the operation using the method of the
+// embedded printer struct.
+func (a *Account) Deposit(amount int) {
+	a.receipt("--> trying to deposit", amount)
+	a.balance = a.balance + amount
+}
+
+// Withdraw checks if the account balance is not lesser than the amount to
+// withdraw and decreses the balance by the specified amount.
+// It prints the information about the operation using the method of the
+// embedded printer struct.
+func (a *Account) Withdraw(amount int) {
+	a.receipt("<-- trying to withdraw", amount)
+	if amount > a.balance {
+		a.receipt("Withdraw error: not enough funds to withdraw", amount)
+		return
+	}
+	a.balance = a.balance - amount
+}
+
+// Balance outputs the account balance using the Method of the embedded printer
+// struct.
+func (a Account) Balance() {
+	a.receipt("Account balance:", a.balance)
+}
+
+func main() {
+	account := NewAccount(100)
+	account.Balance()
+
+	account.Withdraw(25)
+	account.Balance()
+
+	account.Deposit(50)
+	account.Balance()
+
+	account.Withdraw(1000)
+	account.Balance()
+}
+```
