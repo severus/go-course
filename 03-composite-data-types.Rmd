@@ -30,6 +30,8 @@ import (
 	"strings"
 )
 
+// Shakespeare contains the text of one of the Shakespeare's sonets. We'll use
+// this text to count words in it.
 const Shakespeare = `
 From fairest creatures we desire increase,
 That thereby beauty's rose might never die,
@@ -47,16 +49,25 @@ And tender churl mak'st waste in niggarding:
   To eat the world's due, by the grave and thee.
 `
 
+// getWord returns a word in lower case and with trimmed punctuation.
+func getWord(s string) string {
+	return strings.ToLower(strings.Trim(s, ",:."))
+}
+
 func main() {
 	wordCount := make(map[string]int)
+	// Here we loop through the slice of words produced using strings.Fields
+	// function. That function splits text into a slice of strings using
+	// space-characters: whitespaces, tabs, new line symbols, etc.
 	for _, word := range strings.Fields(Shakespeare) {
-		word = strings.Trim(word, ",:.")
-		word = strings.ToLower(word)
-		count := wordCount[word]
-		count++
-		wordCount[word] = count
+		// Trim punctuation and make it lower case.
+		word = getWord(word)
+		// Increase the count. If the there was no such word in the map it uses
+		// zero as its count.
+		wordCount[word]++
 	}
 
+	// Loop through the map and print its keys and values.
 	for word, count := range wordCount {
 		fmt.Println(word, count)
 	}
