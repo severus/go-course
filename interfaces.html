@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 6 Interfaces | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
-  <meta name="generator" content="bookdown 0.10.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.10.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 6 Interfaces | Go course" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-13" />
+<meta name="date" content="2019-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="methods.html"><a href="methods.html#method-values"><i class="fa fa-check"></i><b>5.5</b> Method values</a></li>
 <li class="chapter" data-level="5.6" data-path="methods.html"><a href="methods.html#method-expressions"><i class="fa fa-check"></i><b>5.6</b> Method expressions</a></li>
 <li class="chapter" data-level="5.7" data-path="methods.html"><a href="methods.html#encapsulation"><i class="fa fa-check"></i><b>5.7</b> Encapsulation</a></li>
+<li class="chapter" data-level="" data-path="methods.html"><a href="methods.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interfaces.html"><a href="interfaces.html"><i class="fa fa-check"></i><b>6</b> Interfaces</a><ul>
 <li class="chapter" data-level="6.1" data-path="interfaces.html"><a href="interfaces.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
@@ -196,6 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="interfaces.html"><a href="interfaces.html#the-error-interface"><i class="fa fa-check"></i><b>6.7</b> The <code>error</code> interface</a></li>
 <li class="chapter" data-level="6.8" data-path="interfaces.html"><a href="interfaces.html#type-assertions"><i class="fa fa-check"></i><b>6.8</b> Type assertions</a></li>
 <li class="chapter" data-level="6.9" data-path="interfaces.html"><a href="interfaces.html#type-switches"><i class="fa fa-check"></i><b>6.9</b> Type switches</a></li>
+<li class="chapter" data-level="" data-path="interfaces.html"><a href="interfaces.html#module-project-5"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html"><i class="fa fa-check"></i><b>7</b> Goroutines and channels</a><ul>
 <li class="chapter" data-level="7.1" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#what-is-goroutine"><i class="fa fa-check"></i><b>7.1</b> What is goroutine</a></li>
@@ -207,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#time.tick"><i class="fa fa-check"></i><b>7.7</b> <code>time.Tick</code></a></li>
 <li class="chapter" data-level="7.8" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#the-select-statement"><i class="fa fa-check"></i><b>7.8</b> The <code>select</code> statement</a></li>
 <li class="chapter" data-level="7.9" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#cancellation"><i class="fa fa-check"></i><b>7.9</b> Cancellation</a></li>
-<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
+<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-6"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="course-project.html"><a href="course-project.html"><i class="fa fa-check"></i>Course project</a></li>
 </ul>
@@ -255,6 +257,234 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="type-switches" class="section level2">
 <h2><span class="header-section-number">6.9</span> Type switches</h2>
+</div>
+<div id="module-project-5" class="section level2 unnumbered">
+<h2>Module project</h2>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="st">&quot;bufio&quot;</span>
+    <span class="st">&quot;fmt&quot;</span>
+    <span class="st">&quot;io&quot;</span>
+    <span class="st">&quot;sort&quot;</span>
+    <span class="st">&quot;strings&quot;</span>
+)
+
+<span class="co">// Shakespeare contains the text of one of the Shakespeare&#39;s sonets. We&#39;ll use</span>
+<span class="co">// this text to count words in it.</span>
+<span class="kw">const</span> Shakespeare = <span class="st">`</span>
+<span class="st">From fairest creatures we desire increase,</span>
+<span class="st">That thereby beauty&#39;s rose might never die,</span>
+<span class="st">But as the riper should by time decease,</span>
+<span class="st">His tender heir might bear his memory:</span>
+<span class="st">But thou contracted to thine own bright eyes,</span>
+<span class="st">Feed&#39;st thy light&#39;s flame with self-substantial fuel,</span>
+<span class="st">Making a famine where abundance lies,</span>
+<span class="st">Thy self thy foe, to thy sweet self too cruel:</span>
+<span class="st">Thou that art now the world&#39;s fresh ornament,</span>
+<span class="st">And only herald to the gaudy spring,</span>
+<span class="st">Within thine own bud buriest thy content,</span>
+<span class="st">And tender churl mak&#39;st waste in niggarding:</span>
+<span class="st">  Pity the world, or else this glutton be,</span>
+<span class="st">  To eat the world&#39;s due, by the grave and thee.</span>
+<span class="st">`</span>
+
+<span class="co">// WordCountPair is a record of word and its count.</span>
+<span class="kw">type</span> WordCountPair <span class="kw">struct</span> {
+    Word  <span class="dt">string</span>
+    Count <span class="dt">int</span>
+}
+
+<span class="co">// getWord returns a word in lower case and with trimmed punctuation.</span>
+<span class="kw">func</span> getWord(s <span class="dt">string</span>) <span class="dt">string</span> {
+    <span class="kw">return</span> strings.ToLower(strings.Trim(s, <span class="st">&quot;,:.&quot;</span>))
+}
+
+<span class="co">// Functions can be types too!</span>
+<span class="kw">type</span> lessFunc <span class="kw">func</span>(p1, p2 *WordCountPair) <span class="dt">bool</span>
+
+<span class="co">// multiSorter implements the Sort interface, sorting the word-count pairs.</span>
+<span class="kw">type</span> multiSorter <span class="kw">struct</span> {
+    wordCountPairs []WordCountPair
+    less           []lessFunc
+}
+
+<span class="co">// Sort sorts the argument slice according to the less functions passed to</span>
+<span class="co">// OrderedBy.</span>
+<span class="kw">func</span> (ms *multiSorter) Sort(wordCountPairs []WordCountPair) {
+    ms.wordCountPairs = wordCountPairs
+    sort.Sort(ms)
+}
+
+<span class="co">// OrderedBy returns a Sorter that sorts using the less functions, in order.</span>
+<span class="co">// Call its Sort method to sort the data.</span>
+<span class="kw">func</span> OrderedBy(less ...lessFunc) *multiSorter {
+    <span class="kw">return</span> &amp;multiSorter{
+        less: less,
+    }
+}
+
+<span class="co">// Len is part of sort.Interface.</span>
+<span class="kw">func</span> (ms *multiSorter) Len() <span class="dt">int</span> {
+    <span class="kw">return</span> <span class="bu">len</span>(ms.wordCountPairs)
+}
+
+<span class="co">// Swap is part of sort.Interface.</span>
+<span class="kw">func</span> (ms *multiSorter) Swap(i, j <span class="dt">int</span>) {
+    ms.wordCountPairs[i], ms.wordCountPairs[j] =
+        ms.wordCountPairs[j], ms.wordCountPairs[i]
+}
+
+<span class="co">// Less is part of sort.Interface. It is implemented by looping along the less</span>
+<span class="co">// functions until it finds a comparison the discriminates between the two items</span>
+<span class="co">// (one is less than the other).</span>
+<span class="kw">func</span> (ms *multiSorter) Less(i, j <span class="dt">int</span>) <span class="dt">bool</span> {
+    p, q := &amp;ms.wordCountPairs[i], &amp;ms.wordCountPairs[j]
+    <span class="co">// Try all but the last comparison.</span>
+    <span class="kw">var</span> k <span class="dt">int</span>
+    <span class="kw">for</span> k = <span class="dv">0</span>; k &lt; <span class="bu">len</span>(ms.less)-<span class="dv">1</span>; k++ {
+        less := ms.less[k]
+        <span class="kw">switch</span> {
+        <span class="kw">case</span> less(p, q):
+            <span class="co">// p &lt; q, so we have a decision.</span>
+            <span class="kw">return</span> <span class="ot">true</span>
+        <span class="kw">case</span> less(q, p):
+            <span class="co">// p &gt; q, so we have a decision.</span>
+            <span class="kw">return</span> <span class="ot">false</span>
+        }
+        <span class="co">// p == q; try the next comparison.</span>
+    }
+    <span class="co">// All comparisons to here said &quot;equal&quot;, so just return whatever the final</span>
+    <span class="co">// comparison reports.</span>
+    <span class="kw">return</span> ms.less[k](p, q)
+}
+
+<span class="co">// WordCount counts words read from input (io.Reader interface) and returns the</span>
+<span class="co">// word-count pairs.</span>
+<span class="kw">func</span> WordCount(input io.Reader) []WordCountPair {
+    m := <span class="bu">make</span>(<span class="kw">map</span>[<span class="dt">string</span>]<span class="dt">int</span>)
+    scanner := bufio.NewScanner(input)
+    scanner.Split(bufio.ScanWords)
+    <span class="kw">for</span> scanner.Scan() {
+        <span class="co">// Read a word using word scanner, trim punctuation and make it lower case.</span>
+        word := getWord(scanner.Text())
+        <span class="co">// Increase the count. If the there was no such word in the map it uses</span>
+        <span class="co">// zero as its count.</span>
+        m[word]++
+    }
+
+    <span class="co">// Create a slice the same length as the word-count map.</span>
+    pairs := <span class="bu">make</span>([]WordCountPair, <span class="bu">len</span>(m))
+
+    <span class="co">// Fill the silce with data from the map.</span>
+    i := <span class="dv">0</span>
+    <span class="kw">for</span> word, count := <span class="kw">range</span> m {
+        pairs[i] = WordCountPair{Word: word, Count: count}
+        i++
+    }
+
+    <span class="kw">return</span> pairs
+}
+
+<span class="kw">func</span> main() {
+    input := strings.NewReader(Shakespeare)
+    pairs := WordCount(input)
+
+    <span class="co">// Closures that order the WordCountPair structure.</span>
+    word := <span class="kw">func</span>(p1, p2 *WordCountPair) <span class="dt">bool</span> {
+        <span class="kw">return</span> p1.Word &lt; p2.Word
+    }
+    count := <span class="kw">func</span>(p1, p2 *WordCountPair) <span class="dt">bool</span> {
+        <span class="kw">return</span> p1.Count &gt; p2.Count <span class="co">// Note: &gt; orders downward.</span>
+    }
+
+    OrderedBy(count, word).Sort(pairs)
+
+    <span class="kw">for</span> _, pair := <span class="kw">range</span> pairs {
+        fmt.Println(pair.Word, pair.Count)
+    }
+}</code></pre>
+<pre><code>## the 6
+## thy 5
+## to 4
+## and 3
+## but 2
+## by 2
+## his 2
+## might 2
+## own 2
+## self 2
+## tender 2
+## that 2
+## thine 2
+## thou 2
+## world&#39;s 2
+## a 1
+## abundance 1
+## art 1
+## as 1
+## be 1
+## bear 1
+## beauty&#39;s 1
+## bright 1
+## bud 1
+## buriest 1
+## churl 1
+## content 1
+## contracted 1
+## creatures 1
+## cruel 1
+## decease 1
+## desire 1
+## die 1
+## due 1
+## eat 1
+## else 1
+## eyes 1
+## fairest 1
+## famine 1
+## feed&#39;st 1
+## flame 1
+## foe 1
+## fresh 1
+## from 1
+## fuel 1
+## gaudy 1
+## glutton 1
+## grave 1
+## heir 1
+## herald 1
+## in 1
+## increase 1
+## lies 1
+## light&#39;s 1
+## mak&#39;st 1
+## making 1
+## memory 1
+## never 1
+## niggarding 1
+## now 1
+## only 1
+## or 1
+## ornament 1
+## pity 1
+## riper 1
+## rose 1
+## self-substantial 1
+## should 1
+## spring 1
+## sweet 1
+## thee 1
+## thereby 1
+## this 1
+## time 1
+## too 1
+## waste 1
+## we 1
+## where 1
+## with 1
+## within 1
+## world 1</code></pre>
 
 </div>
 </div>

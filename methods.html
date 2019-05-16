@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 5 Methods | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
-  <meta name="generator" content="bookdown 0.10.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.10.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 5 Methods | Go course" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-13" />
+<meta name="date" content="2019-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="methods.html"><a href="methods.html#method-values"><i class="fa fa-check"></i><b>5.5</b> Method values</a></li>
 <li class="chapter" data-level="5.6" data-path="methods.html"><a href="methods.html#method-expressions"><i class="fa fa-check"></i><b>5.6</b> Method expressions</a></li>
 <li class="chapter" data-level="5.7" data-path="methods.html"><a href="methods.html#encapsulation"><i class="fa fa-check"></i><b>5.7</b> Encapsulation</a></li>
+<li class="chapter" data-level="" data-path="methods.html"><a href="methods.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interfaces.html"><a href="interfaces.html"><i class="fa fa-check"></i><b>6</b> Interfaces</a><ul>
 <li class="chapter" data-level="6.1" data-path="interfaces.html"><a href="interfaces.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
@@ -196,6 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="interfaces.html"><a href="interfaces.html#the-error-interface"><i class="fa fa-check"></i><b>6.7</b> The <code>error</code> interface</a></li>
 <li class="chapter" data-level="6.8" data-path="interfaces.html"><a href="interfaces.html#type-assertions"><i class="fa fa-check"></i><b>6.8</b> Type assertions</a></li>
 <li class="chapter" data-level="6.9" data-path="interfaces.html"><a href="interfaces.html#type-switches"><i class="fa fa-check"></i><b>6.9</b> Type switches</a></li>
+<li class="chapter" data-level="" data-path="interfaces.html"><a href="interfaces.html#module-project-5"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html"><i class="fa fa-check"></i><b>7</b> Goroutines and channels</a><ul>
 <li class="chapter" data-level="7.1" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#what-is-goroutine"><i class="fa fa-check"></i><b>7.1</b> What is goroutine</a></li>
@@ -207,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#time.tick"><i class="fa fa-check"></i><b>7.7</b> <code>time.Tick</code></a></li>
 <li class="chapter" data-level="7.8" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#the-select-statement"><i class="fa fa-check"></i><b>7.8</b> The <code>select</code> statement</a></li>
 <li class="chapter" data-level="7.9" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#cancellation"><i class="fa fa-check"></i><b>7.9</b> Cancellation</a></li>
-<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
+<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-6"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="course-project.html"><a href="course-project.html"><i class="fa fa-check"></i>Course project</a></li>
 </ul>
@@ -249,6 +251,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="encapsulation" class="section level2">
 <h2><span class="header-section-number">5.7</span> Encapsulation</h2>
+</div>
+<div id="module-project-4" class="section level2 unnumbered">
+<h2>Module project</h2>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="st">&quot;fmt&quot;</span>
+)
+
+<span class="co">// printer is a struct with no fields. It only has a method.</span>
+<span class="kw">type</span> printer <span class="kw">struct</span>{}
+
+<span class="co">// receipt is a variadic function. It can be called with any number of</span>
+<span class="co">// arguments, just like fmt.Println()</span>
+<span class="kw">func</span> (p printer) receipt(a ...<span class="kw">interface</span>{}) {
+    fmt.Println(a...)
+}
+
+<span class="co">// Account represents a bank account data structure, it has one field and an</span>
+<span class="co">// embedded struct.</span>
+<span class="kw">type</span> Account <span class="kw">struct</span> {
+    balance <span class="dt">int</span>
+    printer
+}
+
+<span class="co">// NewAccount created a new Account setting the initial balance.</span>
+<span class="kw">func</span> NewAccount(balance <span class="dt">int</span>) *Account {
+    <span class="kw">return</span> &amp;Account{
+        balance: balance,
+    }
+}
+
+<span class="co">// Deposit increases the account balance by the specified amount.</span>
+<span class="co">// It prints the information about the operation using the method of the</span>
+<span class="co">// embedded printer struct.</span>
+<span class="kw">func</span> (a *Account) Deposit(amount <span class="dt">int</span>) {
+    a.receipt(<span class="st">&quot;--&gt; trying to deposit&quot;</span>, amount)
+    a.balance = a.balance + amount
+}
+
+<span class="co">// Withdraw checks if the account balance is not lesser than the amount to</span>
+<span class="co">// withdraw and decreses the balance by the specified amount.</span>
+<span class="co">// It prints the information about the operation using the method of the</span>
+<span class="co">// embedded printer struct.</span>
+<span class="kw">func</span> (a *Account) Withdraw(amount <span class="dt">int</span>) {
+    a.receipt(<span class="st">&quot;&lt;-- trying to withdraw&quot;</span>, amount)
+    <span class="kw">if</span> amount &gt; a.balance {
+        a.receipt(<span class="st">&quot;Withdraw error: not enough funds to withdraw&quot;</span>, amount)
+        <span class="kw">return</span>
+    }
+    a.balance = a.balance - amount
+}
+
+<span class="co">// Balance outputs the account balance using the Method of the embedded printer</span>
+<span class="co">// struct.</span>
+<span class="kw">func</span> (a Account) Balance() {
+    a.receipt(<span class="st">&quot;Account balance:&quot;</span>, a.balance)
+}
+
+<span class="kw">func</span> main() {
+    account := NewAccount(<span class="dv">100</span>)
+    account.Balance()
+
+    account.Withdraw(<span class="dv">25</span>)
+    account.Balance()
+
+    account.Deposit(<span class="dv">50</span>)
+    account.Balance()
+
+    account.Withdraw(<span class="dv">1000</span>)
+    account.Balance()
+}</code></pre>
+<pre><code>## Account balance: 100
+## &lt;-- trying to withdraw 25
+## Account balance: 75
+## --&gt; trying to deposit 50
+## Account balance: 125
+## &lt;-- trying to withdraw 1000
+## Withdraw error: not enough funds to withdraw 1000
+## Account balance: 125</code></pre>
 
 </div>
 </div>

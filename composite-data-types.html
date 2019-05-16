@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 3 Composite Data Types | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
-  <meta name="generator" content="bookdown 0.10.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.10.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 3 Composite Data Types | Go course" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-13" />
+<meta name="date" content="2019-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="methods.html"><a href="methods.html#method-values"><i class="fa fa-check"></i><b>5.5</b> Method values</a></li>
 <li class="chapter" data-level="5.6" data-path="methods.html"><a href="methods.html#method-expressions"><i class="fa fa-check"></i><b>5.6</b> Method expressions</a></li>
 <li class="chapter" data-level="5.7" data-path="methods.html"><a href="methods.html#encapsulation"><i class="fa fa-check"></i><b>5.7</b> Encapsulation</a></li>
+<li class="chapter" data-level="" data-path="methods.html"><a href="methods.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interfaces.html"><a href="interfaces.html"><i class="fa fa-check"></i><b>6</b> Interfaces</a><ul>
 <li class="chapter" data-level="6.1" data-path="interfaces.html"><a href="interfaces.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
@@ -196,6 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="interfaces.html"><a href="interfaces.html#the-error-interface"><i class="fa fa-check"></i><b>6.7</b> The <code>error</code> interface</a></li>
 <li class="chapter" data-level="6.8" data-path="interfaces.html"><a href="interfaces.html#type-assertions"><i class="fa fa-check"></i><b>6.8</b> Type assertions</a></li>
 <li class="chapter" data-level="6.9" data-path="interfaces.html"><a href="interfaces.html#type-switches"><i class="fa fa-check"></i><b>6.9</b> Type switches</a></li>
+<li class="chapter" data-level="" data-path="interfaces.html"><a href="interfaces.html#module-project-5"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html"><i class="fa fa-check"></i><b>7</b> Goroutines and channels</a><ul>
 <li class="chapter" data-level="7.1" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#what-is-goroutine"><i class="fa fa-check"></i><b>7.1</b> What is goroutine</a></li>
@@ -207,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#time.tick"><i class="fa fa-check"></i><b>7.7</b> <code>time.Tick</code></a></li>
 <li class="chapter" data-level="7.8" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#the-select-statement"><i class="fa fa-check"></i><b>7.8</b> The <code>select</code> statement</a></li>
 <li class="chapter" data-level="7.9" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#cancellation"><i class="fa fa-check"></i><b>7.9</b> Cancellation</a></li>
-<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-4"><i class="fa fa-check"></i>Module project</a></li>
+<li class="chapter" data-level="" data-path="goroutines-and-channels.html"><a href="goroutines-and-channels.html#module-project-6"><i class="fa fa-check"></i>Module project</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="course-project.html"><a href="course-project.html"><i class="fa fa-check"></i>Course project</a></li>
 </ul>
@@ -268,6 +270,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="st">&quot;strings&quot;</span>
 )
 
+<span class="co">// Shakespeare contains the text of one of the Shakespeare&#39;s sonets. We&#39;ll use</span>
+<span class="co">// this text to count words in it.</span>
 <span class="kw">const</span> Shakespeare = <span class="st">`</span>
 <span class="st">From fairest creatures we desire increase,</span>
 <span class="st">That thereby beauty&#39;s rose might never die,</span>
@@ -285,101 +289,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="st">  To eat the world&#39;s due, by the grave and thee.</span>
 <span class="st">`</span>
 
+<span class="co">// getWord returns a word in lower case and with trimmed punctuation.</span>
+<span class="kw">func</span> getWord(s <span class="dt">string</span>) <span class="dt">string</span> {
+    <span class="kw">return</span> strings.ToLower(strings.Trim(s, <span class="st">&quot;,:.&quot;</span>))
+}
+
 <span class="kw">func</span> main() {
     wordCount := <span class="bu">make</span>(<span class="kw">map</span>[<span class="dt">string</span>]<span class="dt">int</span>)
+    <span class="co">// Here we loop through the slice of words produced using strings.Fields</span>
+    <span class="co">// function. That function splits text into a slice of strings using</span>
+    <span class="co">// space-characters: whitespaces, tabs, new line symbols, etc.</span>
     <span class="kw">for</span> _, word := <span class="kw">range</span> strings.Fields(Shakespeare) {
-        word = strings.Trim(word, <span class="st">&quot;,:.&quot;</span>)
-        word = strings.ToLower(word)
-        count := wordCount[word]
-        count++
-        wordCount[word] = count
+        <span class="co">// Trim punctuation and make it lower case.</span>
+        word = getWord(word)
+        <span class="co">// Increase the count. If the there was no such word in the map it uses</span>
+        <span class="co">// zero as its count.</span>
+        wordCount[word]++
     }
 
+    <span class="co">// Loop through the map and print its keys and values.</span>
     <span class="kw">for</span> word, count := <span class="kw">range</span> wordCount {
         fmt.Println(word, count)
     }
 }</code></pre>
-<pre><code>## time 1
-## tender 2
+<pre><code>## rose 1
+## too 1
+## spring 1
+## else 1
+## riper 1
+## lies 1
+## foe 1
+## and 3
+## in 1
+## niggarding 1
 ## bear 1
+## memory 1
+## herald 1
+## waste 1
+## feed&#39;st 1
+## abundance 1
+## only 1
+## pity 1
+## world 1
+## churl 1
+## fairest 1
+## beauty&#39;s 1
+## time 1
+## eyes 1
+## self 2
+## world&#39;s 2
+## gaudy 1
+## that 2
+## decease 1
+## bud 1
 ## thee 1
 ## die 1
-## flame 1
-## with 1
-## and 3
-## be 1
-## eat 1
+## but 2
+## where 1
+## or 1
+## due 1
 ## from 1
-## heir 1
-## to 4
-## too 1
-## churl 1
-## pity 1
-## rose 1
+## we 1
+## increase 1
+## tender 2
+## mak&#39;st 1
+## bright 1
+## flame 1
+## art 1
+## now 1
+## ornament 1
+## within 1
+## content 1
 ## by 2
 ## thine 2
-## light&#39;s 1
-## herald 1
-## mak&#39;st 1
-## that 2
-## making 1
-## self 2
-## gaudy 1
-## due 1
-## decease 1
 ## thy 5
-## bud 1
-## in 1
-## beauty&#39;s 1
-## never 1
-## riper 1
 ## self-substantial 1
-## a 1
-## abundance 1
-## this 1
-## the 6
-## famine 1
-## waste 1
-## else 1
-## but 2
-## foe 1
-## cruel 1
-## desire 1
-## his 2
-## bright 1
-## buriest 1
-## or 1
-## might 2
-## contracted 1
-## own 2
-## eyes 1
 ## fuel 1
-## lies 1
 ## sweet 1
-## art 1
-## glutton 1
-## grave 1
-## creatures 1
-## memory 1
-## ornament 1
-## spring 1
-## world 1
-## world&#39;s 2
-## only 1
-## fairest 1
-## we 1
-## thereby 1
 ## should 1
-## thou 2
-## now 1
-## within 1
-## niggarding 1
-## increase 1
-## as 1
-## feed&#39;st 1
-## where 1
+## with 1
+## this 1
+## never 1
+## cruel 1
+## buriest 1
+## eat 1
+## creatures 1
+## his 2
+## to 4
+## own 2
+## famine 1
 ## fresh 1
-## content 1</code></pre>
+## grave 1
+## desire 1
+## thereby 1
+## as 1
+## contracted 1
+## light&#39;s 1
+## making 1
+## a 1
+## the 6
+## thou 2
+## glutton 1
+## be 1
+## might 2
+## heir 1</code></pre>
 
 </div>
 </div>
