@@ -2,21 +2,337 @@
 
 ## What is Go?
 
+### Welcome to Go
+
+Go is a general purpose programming language.
+
+It was designed as a “C for the 21st century”. It belongs to the C-family, like
+C++, Java and C#. It also has characteristics of a dynamic language, so Ruby or
+Python programmers would also find it comfortable to work with.
+
+Go is used to create computer programs. Anything from graphics and mobile
+application to machine learning and networked servers can be written in Go.
+
+### Quiz
+
+Go is a:
+
+* Client-side scripting language
+* **General purpose programming language**
+* Machine learning program
+
 ## Hello, world!
+
+### Your first Go program
+
+A “Hello, world!” program is traditionally used to introduce programmers to a programming language. Below is a Go code that outputs “Hello, world!”:
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, world!")
+}
+```
+
+Let's break down the code to understand each line:
+
+```{go eval=FALSE}
+package main
+```
+
+Every go file belongs to one (and only one) *package*. The package to which the code file belongs must be indicated before any other code lines. A standalone executable belongs to package `main`.
+
+```{go eval=FALSE}
+import "fmt"
+```
+
+This line tells Go that this program needs some elements (in out case the
+function `Println`) from the package `fmt`, which implements formatted I/O
+analogous to `printf` and `scanf` in C. The package names are enclosed within
+double quotes (`""`).
+
+```{go eval=FALSE}
+function main() { }
+```
+
+When the program executes, the first function called will be `main()` (like in C). The code in functions (or the body) is enclosed between braces: `{ }`
+
+> The first `{` must be on the same line as the function declaration!
+
+```{go eval=FALSE}
+	fmt.Println("Hello, world!")
+```
+
+This line calls the function `Println` from the package `fmt`, which prints the string parameter to the console, followed by a newline character `\n`.
+
+> The same result can be obtained with `fmt.Println("Hello, world!\n")`
+
+### Quiz
+
+Fill in the blanks to import the `fmt` package:
+
+`import "`**`fmt`**`"`
+
+### Quiz
+
+What is the starting point for a computer program written in Go?
+
+* **Main function**
+* Fist line
+* `package main`
+
+### Quiz
+
+Rearrange the code blocks to form a valid Go program:
+
+```{go eval=FALSE}
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Go is awesome!")
+}
+```
 
 ## The Go CLI
 
+### Getting the tools
+
+TODO:
+
+[Installation instructions](https://golang.org/doc/install)
+
 ## Value types
+
+### Boolean types
+
+A boolean type contains either `true` or `false`. The boolean type is `bool`
+
+### Numerical types
+
+Go has the well known types such as `int`. The length of this type depends on
+the machine, so on 32-bit machine it is 32 bits while on 64-bit machine it is
+64 bits. `uint` type is like `int` but it stores unsigned values. This type
+also has the appropriate length for the machine.
+
+However, If you want to be explicit about the length you can use either `int32`
+or `uint32`.
+
+The full list of integers (signed and unsigned) is the following: `int8`,
+`int16`, `int64`, `byte`, `uint8`, `uint16`, `uint32` and `uint64`.
+
+> `byte` is an alias for `uint8`. 
+
+For floating point values there is `float32` and `float64`. There is *no*
+machine dependent `float` type.
+
+> A 64 bit integer or floating point value is *always* 64 bit, even on 32-bit
+> architectures.
+
+### Strings
+
+Another important built-in type is `string`.
+
+### Runes
+
+`rune` is an alias for `int32`. It is an UTF-8 encoded code point.
+
+### Complex numbers
+
+Go has native support for complex numbers. Complex numbers types are
+`complex64` and `complex128`.
 
 ## Variables
 
+### Variable names
+
+A variable is a name for an area in memory. Creating a variable reserves a
+memory location, or a space in memory for storing values.
+
+The name of a variable (also called the identifier) in Go is a sequence of
+letters, digits and underscore character. The first character in a variable
+name must be a letter or an underscore.
+
+For example:
+
+```{go eval=FALSE}
+x
+_z5
+```
+
+Letters in Go variable names are not limited to the letters of the Latin
+alphabet, so the following variable names are also valid:
+
+```{go eval=FALSE}
+αβ
+åβč
+```
+
+The naming of identifiers for variables follows the `camelCase` rules (start
+with a small letter, every new part of the word starts with a capital letter):
+`startDate`, `wordCount`.
+
+### Declaration and assignment
+
+Variables can be declared using the `var` keyword. Go is different from other
+languages (e.g. C or C++) in that the type of a variable is specified *after*
+the variable name.
+
+In C:
+
+```{c eval=FALSE}
+int a;
+```
+
+In Go:
+
+```{go eval=FALSE}
+var a int
+```
+
+> Multiple variables of the same type can be also declared on a single line:
+> `var x, y int`.
+
+Multiple `var` declarations may also be grouped:
+
+```{go eval=FALSE}
+var (
+    n int
+    s string
+)
+```
+
+When a variable is declared it contains the default zero or null value for its
+type: `0` for `int`, `false` for `bool`, empty string (`""`) for `string`, etc.
+
+Declaring and assigning variables in Go is a two step process, but they may be
+combined. The following two pieces of code have the same effect:
+
+```{go eval=FALSE}
+var a int
+var b bool
+a = 42
+b = true
+```
+
+```{go eval=FALSE}
+var a int = 42
+var b bool = true
+```
+
+Go can infer the type of the declared and assigned variable:
+
+```{go eval=FALSE}
+var a = 42   // inferred type: int
+var b = true // inferred type: bool
+```
+
+### Short declaration syntax
+
+With the type omitted, the keyword `var` is pretty superfluous, so we may write as the following:
+
+```{go eval=FALSE}
+a := 42
+b := true
+```
+
+> The types of `a` and `b` (`int` and `bool`) are inferred by the compiler.
+
+You can also make use of parallel assignment:
+
+```{go eval=FALSE}
+a, b := 42, true
+```
+
+### Discard assignments
+
+A special name for a variable is `_` (underscore). Any value assigned to it is discarded:
+
+```{go eval=FALSE}
+// we only assign the integer value of 36 to b and discard the value 25.
+_, b := 25, 36
+```
+
+### Declaration and usage
+
+A variable which is used, but not declared, gives a compiler error:
+
+```{go eval=FALSE}
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(a)
+}
+```
+
+```
+undefined: a
+```
+
+Declared but otherwise unused variables are a compiler error in Go:
+
+```{go eval=FALSE}
+package main
+
+func main() {
+    var x int
+}
+```
+
+```
+x declared and not used
+```
+
 ## Operators
+
+TODO:
 
 ## Constants
 
+TODO:
+
 ## Comments
 
+Comments are explanatory information that you can include in the Go code to
+explain what the code is doing. The compiler ignores comments, so they have no
+affect on a program.
+
+Go uses C++-style comments: `//` for single-line comments that finish at the
+end of the line and `/* … */` for comments than can span multiple lines.
+
+For example:
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+    // Output a string "Hello, world!"
+	fmt.Println("Hello, world!")
+}
+```
+
+> Comments clarify the program's intent to the reader. Later on you'll learn
+> how to use comments to produce documentation for the Go code.
+
+### Quiz
+
+Which of the following indicates a single-line comment?
+
+* `-- single-line comment`
+* **`// single-line comment`**
+* `# single-line comment`
+
 ## Packages and imports
+
+TODO:
 
 ## Module project {-}
 
