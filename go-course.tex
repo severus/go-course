@@ -123,7 +123,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-16}
+    \date{2019-05-17}
 
 \renewcommand{\chaptername}{Module}
 
@@ -147,29 +147,443 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 \hypertarget{what-is-go}{%
 \section{What is Go?}\label{what-is-go}}
 
+\hypertarget{welcome-to-go}{%
+\subsection{Welcome to Go}\label{welcome-to-go}}
+
+Go is a general purpose programming language.
+
+It was designed as a ``C for the 21st century''. It belongs to the C-family, like
+C++, Java and C\#. It also has characteristics of a dynamic language, so Ruby or
+Python programmers would also find it comfortable to work with.
+
+Go is used to create computer programs. Anything from graphics and mobile
+application to machine learning and networked servers can be written in Go.
+
+\hypertarget{quiz}{%
+\subsection{Quiz}\label{quiz}}
+
+Go is a:
+
+\begin{itemize}
+\tightlist
+\item
+  Client-side scripting language
+\item
+  \textbf{General purpose programming language}
+\item
+  Machine learning program
+\end{itemize}
+
 \hypertarget{hello-world}{%
 \section{Hello, world!}\label{hello-world}}
+
+\hypertarget{your-first-go-program}{%
+\subsection{Your first Go program}\label{your-first-go-program}}
+
+A ``Hello, world!'' program is traditionally used to introduce programmers to a programming language. Below is a Go code that outputs ``Hello, world!'':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(}\StringTok{"Hello, world!"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Hello, world!
+\end{verbatim}
+
+Let's break down the code to understand each line:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+\end{Highlighting}
+\end{Shaded}
+
+Every go file belongs to one (and only one) \emph{package}. The package to which the code file belongs must be indicated before any other code lines. A standalone executable belongs to package \texttt{main}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import} \StringTok{"fmt"}
+\end{Highlighting}
+\end{Shaded}
+
+This line tells Go that this program needs some elements (in out case the
+function \texttt{Println}) from the package \texttt{fmt}, which implements formatted I/O
+analogous to \texttt{printf} and \texttt{scanf} in C. The package names are enclosed within
+double quotes (\texttt{""}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{function main() \{ \}}
+\end{Highlighting}
+\end{Shaded}
+
+When the program executes, the first function called will be \texttt{main()} (like in C). The code in functions (or the body) is enclosed between braces: \texttt{\{\ \}}
+
+\begin{quote}
+The first \texttt{\{} must be on the same line as the function declaration!
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    fmt.Println(}\StringTok{"Hello, world!"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This line calls the function \texttt{Println} from the package \texttt{fmt}, which prints the string parameter to the console, followed by a newline character \texttt{\textbackslash{}n}.
+
+\begin{quote}
+The same result can be obtained with \texttt{fmt.Println("Hello,\ world!\textbackslash{}n")}
+\end{quote}
+
+\hypertarget{quiz-1}{%
+\subsection{Quiz}\label{quiz-1}}
+
+Fill in the blanks to import the \texttt{fmt} package:
+
+\texttt{import\ "}\textbf{\texttt{fmt}}\texttt{"}
+
+\hypertarget{quiz-2}{%
+\subsection{Quiz}\label{quiz-2}}
+
+What is the starting point for a computer program written in Go?
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Main function}
+\item
+  Fist line
+\item
+  \texttt{package\ main}
+\end{itemize}
+
+\hypertarget{quiz-3}{%
+\subsection{Quiz}\label{quiz-3}}
+
+Rearrange the code blocks to form a valid Go program:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(}\StringTok{"Go is awesome!"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{the-go-cli}{%
 \section{The Go CLI}\label{the-go-cli}}
 
+\hypertarget{getting-the-tools}{%
+\subsection{Getting the tools}\label{getting-the-tools}}
+
+TODO:
+
+\href{https://golang.org/doc/install}{Installation instructions}
+
 \hypertarget{value-types}{%
 \section{Value types}\label{value-types}}
+
+\hypertarget{boolean-types}{%
+\subsection{Boolean types}\label{boolean-types}}
+
+A boolean type contains either \texttt{true} or \texttt{false}. The boolean type is \texttt{bool}
+
+\hypertarget{numerical-types}{%
+\subsection{Numerical types}\label{numerical-types}}
+
+Go has the well known types such as \texttt{int}. The length of this type depends on
+the machine, so on 32-bit machine it is 32 bits while on 64-bit machine it is
+64 bits. \texttt{uint} type is like \texttt{int} but it stores unsigned values. This type
+also has the appropriate length for the machine.
+
+However, If you want to be explicit about the length you can use either \texttt{int32}
+or \texttt{uint32}.
+
+The full list of integers (signed and unsigned) is the following: \texttt{int8},
+\texttt{int16}, \texttt{int64}, \texttt{byte}, \texttt{uint8}, \texttt{uint16}, \texttt{uint32} and \texttt{uint64}.
+
+\begin{quote}
+\texttt{byte} is an alias for \texttt{uint8}.
+\end{quote}
+
+For floating point values there is \texttt{float32} and \texttt{float64}. There is \emph{no}
+machine dependent \texttt{float} type.
+
+\begin{quote}
+A 64 bit integer or floating point value is \emph{always} 64 bit, even on 32-bit
+architectures.
+\end{quote}
+
+\hypertarget{strings}{%
+\subsection{Strings}\label{strings}}
+
+Another important built-in type is \texttt{string}.
+
+\hypertarget{runes}{%
+\subsection{Runes}\label{runes}}
+
+\texttt{rune} is an alias for \texttt{int32}. It is an UTF-8 encoded code point.
+
+\hypertarget{complex-numbers}{%
+\subsection{Complex numbers}\label{complex-numbers}}
+
+Go has native support for complex numbers. Complex numbers types are
+\texttt{complex64} and \texttt{complex128}.
 
 \hypertarget{variables}{%
 \section{Variables}\label{variables}}
 
+\hypertarget{variable-names}{%
+\subsection{Variable names}\label{variable-names}}
+
+A variable is a name for an area in memory. Creating a variable reserves a
+memory location, or a space in memory for storing values.
+
+The name of a variable (also called the identifier) in Go is a sequence of
+letters, digits and underscore character. The first character in a variable
+name must be a letter or an underscore.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}
+\NormalTok{_z5}
+\end{Highlighting}
+\end{Shaded}
+
+Letters in Go variable names are not limited to the letters of the Latin
+alphabet, so the following variable names are also valid:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{αβ}
+\NormalTok{åβč}
+\end{Highlighting}
+\end{Shaded}
+
+The naming of identifiers for variables follows the \texttt{camelCase} rules (start
+with a small letter, every new part of the word starts with a capital letter):
+\texttt{startDate}, \texttt{wordCount}.
+
+\hypertarget{declaration-and-assignment}{%
+\subsection{Declaration and assignment}\label{declaration-and-assignment}}
+
+Variables can be declared using the \texttt{var} keyword. Go is different from other
+languages (e.g.~C or C++) in that the type of a variable is specified \emph{after}
+the variable name.
+
+In C:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ a;}
+\end{Highlighting}
+\end{Shaded}
+
+In Go:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ a }\DataTypeTok{int}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+Multiple variables of the same type can be also declared on a single line:
+\texttt{var\ x,\ y\ int}.
+\end{quote}
+
+Multiple \texttt{var} declarations may also be grouped:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ (}
+\NormalTok{    n }\DataTypeTok{int}
+\NormalTok{    s }\DataTypeTok{string}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When a variable is declared it contains the default zero or null value for its
+type: \texttt{0} for \texttt{int}, \texttt{false} for \texttt{bool}, empty string (\texttt{""}) for \texttt{string}, etc.
+
+Declaring and assigning variables in Go is a two step process, but they may be
+combined. The following two pieces of code have the same effect:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ a }\DataTypeTok{int}
+\KeywordTok{var}\NormalTok{ b }\DataTypeTok{bool}
+\NormalTok{a = }\DecValTok{42}
+\NormalTok{b = }\OtherTok{true}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ a }\DataTypeTok{int}\NormalTok{ = }\DecValTok{42}
+\KeywordTok{var}\NormalTok{ b }\DataTypeTok{bool}\NormalTok{ = }\OtherTok{true}
+\end{Highlighting}
+\end{Shaded}
+
+Go can infer the type of the declared and assigned variable:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ a = }\DecValTok{42}   \CommentTok{// inferred type: int}
+\KeywordTok{var}\NormalTok{ b = }\OtherTok{true} \CommentTok{// inferred type: bool}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{short-declaration-syntax}{%
+\subsection{Short declaration syntax}\label{short-declaration-syntax}}
+
+With the type omitted, the keyword \texttt{var} is pretty superfluous, so we may write as the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a := }\DecValTok{42}
+\NormalTok{b := }\OtherTok{true}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+The types of \texttt{a} and \texttt{b} (\texttt{int} and \texttt{bool}) are inferred by the compiler.
+\end{quote}
+
+You can also make use of parallel assignment:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a, b := }\DecValTok{42}\NormalTok{, }\OtherTok{true}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{discard-assignments}{%
+\subsection{Discard assignments}\label{discard-assignments}}
+
+A special name for a variable is \texttt{\_} (underscore). Any value assigned to it is discarded:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// we only assign the integer value of 36 to b and discard the value 25.}
+\NormalTok{_, b := }\DecValTok{25}\NormalTok{, }\DecValTok{36}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{declaration-and-usage}{%
+\subsection{Declaration and usage}\label{declaration-and-usage}}
+
+A variable which is used, but not declared, gives a compiler error:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+undefined: a
+\end{verbatim}
+
+Declared but otherwise unused variables are a compiler error in Go:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+    \KeywordTok{var}\NormalTok{ x }\DataTypeTok{int}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+x declared and not used
+\end{verbatim}
+
 \hypertarget{operators}{%
 \section{Operators}\label{operators}}
+
+TODO:
 
 \hypertarget{constants}{%
 \section{Constants}\label{constants}}
 
+TODO:
+
 \hypertarget{comments}{%
 \section{Comments}\label{comments}}
 
+Comments are explanatory information that you can include in the Go code to
+explain what the code is doing. The compiler ignores comments, so they have no
+affect on a program.
+
+Go uses C++-style comments: \texttt{//} for single-line comments that finish at the
+end of the line and \texttt{/*~\ldots{}~*/} for comments than can span multiple lines.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+    \CommentTok{// Output a string "Hello, world!"}
+\NormalTok{    fmt.Println(}\StringTok{"Hello, world!"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Hello, world!
+\end{verbatim}
+
+\begin{quote}
+Comments clarify the program's intent to the reader. Later on you'll learn
+how to use comments to produce documentation for the Go code.
+\end{quote}
+
+\hypertarget{quiz-4}{%
+\subsection{Quiz}\label{quiz-4}}
+
+Which of the following indicates a single-line comment?
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{-\/-\ single-line\ comment}
+\item
+  \textbf{\texttt{//\ single-line\ comment}}
+\item
+  \texttt{\#\ single-line\ comment}
+\end{itemize}
+
 \hypertarget{packages-and-imports}{%
 \section{Packages and imports}\label{packages-and-imports}}
+
+TODO:
 
 \hypertarget{module-project}{%
 \section*{Module project}\label{module-project}}
@@ -362,87 +776,87 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 \end{Shaded}
 
 \begin{verbatim}
-## thou 2
-## feed'st 1
-## with 1
-## now 1
-## or 1
-## by 2
-## tender 2
-## waste 1
-## desire 1
-## spring 1
-## herald 1
+## creatures 1
+## might 2
+## time 1
 ## contracted 1
-## to 4
+## foe 1
+## waste 1
+## world 1
+## grave 1
+## thou 2
+## content 1
+## else 1
+## from 1
+## tender 2
+## memory 1
+## a 1
+## be 1
+## fairest 1
+## decease 1
+## own 2
+## making 1
+## where 1
+## world's 2
+## spring 1
+## mak'st 1
+## should 1
+## thine 2
+## with 1
+## fuel 1
+## only 1
+## buriest 1
+## pity 1
+## riper 1
 ## eyes 1
 ## self-substantial 1
-## a 1
-## glutton 1
-## as 1
-## the 6
-## but 2
+## now 1
+## gaudy 1
+## that 2
 ## rose 1
-## buriest 1
-## world 1
-## fairest 1
-## thereby 1
-## own 2
-## where 1
-## abundance 1
-## self 2
-## sweet 1
-## cruel 1
-## beauty's 1
-## die 1
-## and 3
-## making 1
-## foe 1
-## niggarding 1
-## thine 2
-## content 1
-## churl 1
-## world's 2
-## bud 1
-## bear 1
-## memory 1
-## fuel 1
-## within 1
-## mak'st 1
-## creatures 1
-## riper 1
-## art 1
-## pity 1
-## else 1
-## this 1
-## eat 1
-## never 1
+## his 2
+## thy 5
 ## flame 1
-## bright 1
-## light's 1
 ## famine 1
 ## too 1
-## fresh 1
 ## ornament 1
-## should 1
-## time 1
-## be 1
-## heir 1
-## gaudy 1
-## thee 1
-## from 1
-## his 2
-## decease 1
-## lies 1
-## only 1
-## due 1
+## bud 1
+## niggarding 1
 ## we 1
-## might 2
-## thy 5
-## in 1
-## grave 1
+## the 6
+## to 4
+## bright 1
+## light's 1
+## fresh 1
+## and 3
+## this 1
+## sweet 1
+## glutton 1
+## eat 1
+## abundance 1
+## lies 1
+## herald 1
+## within 1
+## beauty's 1
+## heir 1
+## self 2
+## due 1
+## desire 1
+## cruel 1
+## or 1
+## thee 1
 ## increase 1
-## that 2
+## thereby 1
+## never 1
+## but 2
+## as 1
+## by 2
+## bear 1
+## art 1
+## die 1
+## feed'st 1
+## churl 1
+## in 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -1023,56 +1437,55 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 \end{Shaded}
 
 \begin{verbatim}
-## Racer #2 is on lap 2
-## Racer #3 is on lap 1
-## Racer #4 is on lap 1
-## Racer #5 is on lap 1
-## Racer #2 is on lap 1
-## Race time: 1.000111085s
-## Racer #10 is on lap 1
 ## Racer #1 is on lap 1
-## Racer #2 finished!
-## Racer #3 finished!
+## Racer #6 finished!
 ## Racer #4 is on lap 2
-## Racer #5 is on lap 2
-## Racer #7 is on lap 2
-## Racer #9 is on lap 1
-## Racer #2 is on lap 3
-## Racer #3 is on lap 2
-## Racer #3 is on lap 3
-## Racer #7 is on lap 1
-## Race time: 2.000316665s
-## Racer #7 is on lap 3
-## Racer #7 finished!
+## Racer #4 is on lap 1
+## Racer #6 is on lap 3
 ## Racer #6 is on lap 1
-## Racer #8 finished!
+## Racer #6 is on lap 2
+## Race time: 1.000141984s
+## Racer #9 finished!
+## Racer #1 is on lap 2
+## Racer #3 is on lap 1
 ## Racer #4 finished!
+## Racer #9 is on lap 3
+## Racer #4 is on lap 3
+## Racer #10 finished!
+## Racer #10 is on lap 3
+## Racer #9 is on lap 1
+## Racer #9 is on lap 2
+## Racer #10 is on lap 1
+## Racer #10 is on lap 2
+## Race time: 2.000179003s
+## Racer #5 is on lap 2
+## Racer #5 is on lap 1
+## Racer #7 is on lap 2
+## Racer #7 is on lap 1
+## Racer #8 finished!
 ## Racer #8 is on lap 1
 ## Racer #8 is on lap 2
 ## Racer #8 is on lap 3
-## Racer #4 is on lap 3
-## Race time: 3.000266783s
-## Racer #9 is on lap 2
-## Racer #10 is on lap 2
+## Racer #2 is on lap 1
+## Race time: 3.000199009s
 ## Racer #1 finished!
-## Racer #5 finished!
-## Racer #1 is on lap 2
 ## Racer #1 is on lap 3
+## Racer #3 is on lap 2
+## Race time: 4.000207503s
+## Racer #3 finished!
+## Racer #5 finished!
+## Racer #7 finished!
+## Racer #2 is on lap 2
+## Racer #3 is on lap 3
 ## Racer #5 is on lap 3
-## Racer #6 finished!
-## Racer #6 is on lap 2
-## Racer #6 is on lap 3
-## Race time: 4.000161627s
-## Racer #10 finished!
-## Racer #10 is on lap 3
-## Race time: 5.000189757s
-## Racer #9 finished!
-## Racer #9 is on lap 3
+## Racer #7 is on lap 3
+## Race time: 5.00025259s
+## Racer #2 finished!
 ## 
 ## Winners:
-## 1 place: Racer #2
-## 2 place: Racer #3
-## 3 place: Racer #7
+## 1 place: Racer #6
+## 2 place: Racer #9
+## 3 place: Racer #4
 \end{verbatim}
 
 \hypertarget{course-project}{%
