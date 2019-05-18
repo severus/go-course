@@ -68,7 +68,7 @@ When the program executes, the first function called will be `main()` (like in C
 
 This line calls the function `Println` from the package `fmt`, which prints the string parameter to the console, followed by a newline character `\n`.
 
-> The same result can be obtained with `fmt.Println("Hello, world!\n")`
+> The same result can be obtained with `fmt.Print("Hello, world!\n")`
 
 ### Quiz
 
