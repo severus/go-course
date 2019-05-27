@@ -60,7 +60,9 @@ function main() { }
 
 When the program executes, the first function called will be `main()` (like in C). The code in functions (or the body) is enclosed between braces: `{ }`
 
-> The first `{` must be on the same line as the function declaration!
+```{block2, type="rmdnote"}
+The first `{` must be on the same line as the function declaration!
+```
 
 ```{go eval=FALSE}
 	fmt.Println("Hello, world!")
@@ -68,7 +70,9 @@ When the program executes, the first function called will be `main()` (like in C
 
 This line calls the function `Println` from the package `fmt`, which prints the string parameter to the console, followed by a newline character `\n`.
 
-> The same result can be obtained with `fmt.Print("Hello, world!\n")`
+```{block2, type="rmdnote"}
+The same result can be obtained with `fmt.Print("Hello, world!\n")`
+```
 
 ### Quiz
 
@@ -125,13 +129,17 @@ or `uint32`.
 The full list of integers (signed and unsigned) is the following: `int8`,
 `int16`, `int64`, `byte`, `uint8`, `uint16`, `uint32` and `uint64`.
 
-> `byte` is an alias for `uint8`. 
+```{block2, type="rmdnote"}
+`byte` is an alias for `uint8`. 
+```
 
 For floating point values there is `float32` and `float64`. There is *no*
 machine dependent `float` type.
 
-> A 64 bit integer or floating point value is *always* 64 bit, even on 32-bit
-> architectures.
+```{block2, type="rmdnote"}
+A 64 bit integer or floating point value is *always* 64 bit, even on 32-bit
+architectures.
+```
 
 ### Strings
 
@@ -194,8 +202,10 @@ In Go:
 var a int
 ```
 
-> Multiple variables of the same type can be also declared on a single line:
-> `var x, y int`.
+```{block2, type="rmdnote"}
+Multiple variables of the same type can be also declared on a single line:
+`var x, y int`.
+```
 
 Multiple `var` declarations may also be grouped:
 
@@ -233,14 +243,17 @@ var b = true // inferred type: bool
 
 ### Short declaration syntax
 
-With the type omitted, the keyword `var` is pretty superfluous, so we may write as the following:
+With the type omitted, the keyword `var` is pretty superfluous, so we may write
+as the following:
 
 ```{go eval=FALSE}
 a := 42
 b := true
 ```
 
-> The types of `a` and `b` (`int` and `bool`) are inferred by the compiler.
+```{block2, type="rmdnote"}
+The types of `a` and `b` (`int` and `bool`) are inferred by the compiler.
+```
 
 You can also make use of parallel assignment:
 
@@ -319,8 +332,10 @@ func main() {
 }
 ```
 
-> Comments clarify the program's intent to the reader. Later on you'll learn
-> how to use comments to produce documentation for the Go code.
+```{block2, type="rmdnote"}
+Comments clarify the program's intent to the reader. Later on you'll learn
+how to use comments to produce documentation for the Go code.
+```
 
 ### Quiz
 
