@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-18" />
+<meta name="date" content="2019-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,6 +115,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -128,16 +129,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="1" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>1</b> Basic concepts</a><ul>
 <li class="chapter" data-level="1.1" data-path="basic-concepts.html"><a href="basic-concepts.html#what-is-go"><i class="fa fa-check"></i><b>1.1</b> What is Go?</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="basic-concepts.html"><a href="basic-concepts.html#welcome-to-go"><i class="fa fa-check"></i><b>1.1.1</b> Welcome to Go</a></li>
 <li class="chapter" data-level="1.1.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz"><i class="fa fa-check"></i><b>1.1.2</b> Quiz</a></li>
+<li class="chapter" data-level="1.1.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-1"><i class="fa fa-check"></i><b>1.1.3</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="basic-concepts.html"><a href="basic-concepts.html#hello-world"><i class="fa fa-check"></i><b>1.2</b> Hello, world!</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-go-program"><i class="fa fa-check"></i><b>1.2.1</b> Your first Go program</a></li>
-<li class="chapter" data-level="1.2.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-1"><i class="fa fa-check"></i><b>1.2.2</b> Quiz</a></li>
-<li class="chapter" data-level="1.2.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-2"><i class="fa fa-check"></i><b>1.2.3</b> Quiz</a></li>
-<li class="chapter" data-level="1.2.4" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-3"><i class="fa fa-check"></i><b>1.2.4</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-2"><i class="fa fa-check"></i><b>1.2.2</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-3"><i class="fa fa-check"></i><b>1.2.3</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.4" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-4"><i class="fa fa-check"></i><b>1.2.4</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="basic-concepts.html"><a href="basic-concepts.html#the-go-cli"><i class="fa fa-check"></i><b>1.3</b> The Go CLI</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="basic-concepts.html"><a href="basic-concepts.html#getting-the-tools"><i class="fa fa-check"></i><b>1.3.1</b> Getting the tools</a></li>
@@ -159,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="basic-concepts.html"><a href="basic-concepts.html#operators"><i class="fa fa-check"></i><b>1.6</b> Operators</a></li>
 <li class="chapter" data-level="1.7" data-path="basic-concepts.html"><a href="basic-concepts.html#constants"><i class="fa fa-check"></i><b>1.7</b> Constants</a></li>
 <li class="chapter" data-level="1.8" data-path="basic-concepts.html"><a href="basic-concepts.html#comments"><i class="fa fa-check"></i><b>1.8</b> Comments</a><ul>
-<li class="chapter" data-level="1.8.1" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-4"><i class="fa fa-check"></i><b>1.8.1</b> Quiz</a></li>
+<li class="chapter" data-level="1.8.1" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-5"><i class="fa fa-check"></i><b>1.8.1</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="basic-concepts.html"><a href="basic-concepts.html#packages-and-imports"><i class="fa fa-check"></i><b>1.9</b> Packages and imports</a></li>
 <li class="chapter" data-level="" data-path="basic-concepts.html"><a href="basic-concepts.html#module-project"><i class="fa fa-check"></i>Module project</a></li>
@@ -336,87 +338,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         fmt.Println(word, count)
     }
 }</code></pre>
-<pre><code>## tender 2
-## memory 1
-## a 1
-## abundance 1
-## with 1
-## famine 1
-## creatures 1
-## beauty&#39;s 1
-## never 1
-## heir 1
-## as 1
-## the 6
-## should 1
-## time 1
-## glutton 1
-## thine 2
-## sweet 1
-## and 3
-## within 1
-## art 1
-## ornament 1
-## content 1
-## due 1
+<pre><code>## from 1
 ## fairest 1
-## desire 1
-## his 2
-## eyes 1
-## buriest 1
-## thereby 1
-## thou 2
-## flame 1
-## spring 1
-## die 1
-## foe 1
+## creatures 1
+## tender 2
+## heir 1
+## thy 5
+## herald 1
 ## in 1
+## die 1
+## but 2
+## own 2
+## eyes 1
+## lies 1
+## only 1
+## waste 1
+## riper 1
+## ornament 1
+## and 3
+## contracted 1
+## sweet 1
+## too 1
+## thereby 1
+## should 1
+## foe 1
+## now 1
+## niggarding 1
+## the 6
+## world&#39;s 2
+## buriest 1
+## or 1
+## thee 1
+## thine 2
+## famine 1
+## cruel 1
 ## pity 1
 ## we 1
-## too 1
-## waste 1
-## be 1
-## where 1
-## now 1
-## herald 1
-## else 1
-## might 2
-## to 4
-## bright 1
-## fuel 1
-## increase 1
-## but 2
-## lies 1
-## this 1
-## niggarding 1
-## grave 1
-## riper 1
-## bear 1
-## thy 5
-## making 1
-## fresh 1
-## only 1
-## mak&#39;st 1
-## or 1
-## rose 1
-## decease 1
-## contracted 1
-## own 2
-## feed&#39;st 1
 ## light&#39;s 1
-## self-substantial 1
-## world 1
-## bud 1
-## eat 1
+## flame 1
+## a 1
 ## self 2
-## thee 1
-## world&#39;s 2
+## mak&#39;st 1
+## grave 1
 ## gaudy 1
+## eat 1
+## desire 1
+## never 1
+## bear 1
+## to 4
+## self-substantial 1
+## abundance 1
+## within 1
+## else 1
+## glutton 1
+## his 2
+## memory 1
+## thou 2
+## fuel 1
+## this 1
+## increase 1
+## making 1
+## world 1
+## beauty&#39;s 1
+## rose 1
+## time 1
+## bud 1
+## content 1
 ## churl 1
-## from 1
+## due 1
 ## that 2
+## decease 1
+## where 1
+## art 1
+## spring 1
+## might 2
+## as 1
 ## by 2
-## cruel 1</code></pre>
+## bright 1
+## feed&#39;st 1
+## with 1
+## fresh 1
+## be 1</code></pre>
 
 </div>
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-05-18" />
+<meta name="date" content="2019-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,6 +115,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -128,16 +129,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="1" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>1</b> Basic concepts</a><ul>
 <li class="chapter" data-level="1.1" data-path="basic-concepts.html"><a href="basic-concepts.html#what-is-go"><i class="fa fa-check"></i><b>1.1</b> What is Go?</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="basic-concepts.html"><a href="basic-concepts.html#welcome-to-go"><i class="fa fa-check"></i><b>1.1.1</b> Welcome to Go</a></li>
 <li class="chapter" data-level="1.1.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz"><i class="fa fa-check"></i><b>1.1.2</b> Quiz</a></li>
+<li class="chapter" data-level="1.1.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-1"><i class="fa fa-check"></i><b>1.1.3</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="basic-concepts.html"><a href="basic-concepts.html#hello-world"><i class="fa fa-check"></i><b>1.2</b> Hello, world!</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-go-program"><i class="fa fa-check"></i><b>1.2.1</b> Your first Go program</a></li>
-<li class="chapter" data-level="1.2.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-1"><i class="fa fa-check"></i><b>1.2.2</b> Quiz</a></li>
-<li class="chapter" data-level="1.2.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-2"><i class="fa fa-check"></i><b>1.2.3</b> Quiz</a></li>
-<li class="chapter" data-level="1.2.4" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-3"><i class="fa fa-check"></i><b>1.2.4</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.2" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-2"><i class="fa fa-check"></i><b>1.2.2</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.3" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-3"><i class="fa fa-check"></i><b>1.2.3</b> Quiz</a></li>
+<li class="chapter" data-level="1.2.4" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-4"><i class="fa fa-check"></i><b>1.2.4</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="basic-concepts.html"><a href="basic-concepts.html#the-go-cli"><i class="fa fa-check"></i><b>1.3</b> The Go CLI</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="basic-concepts.html"><a href="basic-concepts.html#getting-the-tools"><i class="fa fa-check"></i><b>1.3.1</b> Getting the tools</a></li>
@@ -159,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="basic-concepts.html"><a href="basic-concepts.html#operators"><i class="fa fa-check"></i><b>1.6</b> Operators</a></li>
 <li class="chapter" data-level="1.7" data-path="basic-concepts.html"><a href="basic-concepts.html#constants"><i class="fa fa-check"></i><b>1.7</b> Constants</a></li>
 <li class="chapter" data-level="1.8" data-path="basic-concepts.html"><a href="basic-concepts.html#comments"><i class="fa fa-check"></i><b>1.8</b> Comments</a><ul>
-<li class="chapter" data-level="1.8.1" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-4"><i class="fa fa-check"></i><b>1.8.1</b> Quiz</a></li>
+<li class="chapter" data-level="1.8.1" data-path="basic-concepts.html"><a href="basic-concepts.html#quiz-5"><i class="fa fa-check"></i><b>1.8.1</b> Quiz</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="basic-concepts.html"><a href="basic-concepts.html#packages-and-imports"><i class="fa fa-check"></i><b>1.9</b> Packages and imports</a></li>
 <li class="chapter" data-level="" data-path="basic-concepts.html"><a href="basic-concepts.html#module-project"><i class="fa fa-check"></i>Module project</a></li>
@@ -367,52 +369,54 @@ OuterLoop:
         place++
     }
 }</code></pre>
-<pre><code>## Racer #1 is on lap 1
+<pre><code>## Racer #6 is on lap 2
 ## Racer #5 finished!
-## Racer #2 is on lap 2
-## Racer #4 is on lap 1
 ## Racer #5 is on lap 3
+## Racer #1 is on lap 2
 ## Racer #2 is on lap 1
+## Racer #4 is on lap 1
 ## Racer #5 is on lap 1
 ## Racer #5 is on lap 2
-## Racer #7 is on lap 1
-## Racer #8 is on lap 1
-## Racer #10 is on lap 2
-## Racer #10 is on lap 1
-## Race time: 1.000161689s
-## Racer #3 is on lap 1
-## Racer #1 finished!
-## Racer #1 is on lap 2
-## Racer #1 is on lap 3
-## Racer #4 is on lap 2
+## Racer #1 is on lap 1
 ## Racer #9 is on lap 2
-## Racer #9 is on lap 1
-## Racer #7 finished!
 ## Racer #7 is on lap 2
-## Racer #7 is on lap 3
-## Race time: 2.00015569s
-## Racer #6 is on lap 2
+## Racer #9 is on lap 1
+## Racer #7 is on lap 1
 ## Racer #6 is on lap 1
+## Race time: 1.000167128s
+## Racer #2 is on lap 2
+## Racer #6 finished!
+## Racer #6 is on lap 3
+## Racer #4 is on lap 2
+## Racer #7 finished!
+## Racer #7 is on lap 3
+## Racer #10 is on lap 1
+## Race time: 2.000191719s
+## Racer #8 is on lap 1
+## Racer #1 finished!
+## Racer #3 is on lap 1
+## Racer #9 finished!
+## Racer #1 is on lap 3
+## Racer #9 is on lap 3
+## Racer #10 is on lap 2
 ## Racer #2 finished!
 ## Racer #2 is on lap 3
+## Race time: 3.000211317s
+## Racer #3 is on lap 2
+## Racer #4 finished!
+## Racer #4 is on lap 3
+## Race time: 4.000330242s
+## Racer #8 is on lap 3
 ## Racer #8 finished!
 ## Racer #8 is on lap 2
-## Racer #8 is on lap 3
 ## Racer #10 finished!
 ## Racer #10 is on lap 3
 ## Racer #3 finished!
-## Racer #3 is on lap 2
 ## Racer #3 is on lap 3
-## Racer #4 finished!
-## Racer #4 is on lap 3
-## Race time: 3.000143954s
-## Racer #6 finished!
-## Racer #6 is on lap 3
-## Racer #9 finished!
 ## 
 ## Winners:
 ## 1 place: Racer #5
-## 2 place: Racer #1
+## 2 place: Racer #6
 ## 3 place: Racer #7</code></pre>
 
 </div>

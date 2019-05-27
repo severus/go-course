@@ -21,7 +21,6 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Go course},
@@ -123,10 +122,51 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-18}
+    \date{2019-05-27}
 
 \renewcommand{\chaptername}{Module}
 
+\makeatletter
+\newenvironment{kframe}{%
+\medskip{}
+\setlength{\fboxsep}{.8em}
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\newenvironment{rmdblock}[1]
+  {
+  \begin{itemize}
+  \renewcommand{\labelitemi}{
+    \raisebox{-.7\height}[0pt][0pt]{
+      {\setkeys{Gin}{width=3em,keepaspectratio}}
+    }
+  }
+  \setlength{\fboxsep}{1em}
+  \begin{kframe}
+  \item
+  }
+  {
+  \end{kframe}
+  \end{itemize}
+  }
+\newenvironment{rmdnote}
+  {\begin{rmdblock}{note}}
+  {\end{rmdblock}}
+
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
@@ -142,7 +182,7 @@ The course is targeted at a beginner level student new to Go but might be
 familiar with 1-2 other languages (e.g.~Python, HTML).
 
 \hypertarget{basic-concepts}{%
-\chapter{Basic Concepts}\label{basic-concepts}}
+\chapter{Basic concepts}\label{basic-concepts}}
 
 \hypertarget{what-is-go}{%
 \section{What is Go?}\label{what-is-go}}
@@ -152,12 +192,62 @@ familiar with 1-2 other languages (e.g.~Python, HTML).
 
 Go is a general purpose programming language.
 
-It was designed as a ``C for the 21st century''. It belongs to the C-family, like
-C++, Java and C\#. It also has characteristics of a dynamic language, so Ruby or
-Python programmers would also find it comfortable to work with.
+It was designed as a ``C for the 21st century'' with scalability and concurrency
+in mind. It belongs to the C-family, like C++, Java and C\#. It also has
+characteristics of a dynamic language, so Ruby or Python programmers would also
+find it comfortable to work with.
+
+Go is a compiled, statically typed language with garbage collection.
+
+What does it mean?
+
+\hypertarget{compilation}{%
+\subsubsection*{Compilation}\label{compilation}}
+\addcontentsline{toc}{subsubsection}{Compilation}
+
+During the compilation the source code you wrote is translated into the
+low-level language natural to the computer to execute. Compiled languages are
+tend to \textbf{run faster} because they operate closer to the ``bare metal'', but
+sometimes it is unpleasant to work with compiled languages because the
+compilation can be slow. Compilation speed is on of the Go's benefits, it was
+designed to be \textbf{quick to compile}.
+
+\hypertarget{static-typing}{%
+\subsubsection*{Static typing}\label{static-typing}}
+\addcontentsline{toc}{subsubsection}{Static typing}
+
+Being statically typed means that variables \textbf{must be of a specific type}
+(text string, number, boolean, list, etc). Using a type system, the compiler is
+able to \textbf{detect problems} earlier, before the program is actually used.
+
+\hypertarget{garbage-collection}{%
+\subsubsection*{Garbage collection}\label{garbage-collection}}
+\addcontentsline{toc}{subsubsection}{Garbage collection}
+
+Languages with garbage collectors are able to keep track of variables and free
+them when they \textbf{are no longer used}.
 
 Go is used to create computer programs. Anything from graphics and mobile
 application to machine learning and networked servers can be written in Go.
+
+The following notable software pieces are written (or have some parts) written
+in Go:
+
+\begin{itemize}
+\tightlist
+\item
+  Docker
+\item
+  Kubernetes
+\item
+  Dropbox
+\item
+  OpenShift
+\item
+  YouTube
+\item
+  Google Chrome
+\end{itemize}
 
 \hypertarget{quiz}{%
 \subsection{Quiz}\label{quiz}}
@@ -174,13 +264,31 @@ Go is a:
   Machine learning program
 \end{itemize}
 
+\hypertarget{quiz-1}{%
+\subsection{Quiz}\label{quiz-1}}
+
+Which of the following is true?
+
+\begin{itemize}
+\tightlist
+\item
+  Go is an interpreted language
+\item
+  \textbf{Go has garbage collection}
+\item
+  Go is a dynamically typed language
+\item
+  Go compiles into a virtual machine byte code
+\end{itemize}
+
 \hypertarget{hello-world}{%
 \section{Hello, world!}\label{hello-world}}
 
 \hypertarget{your-first-go-program}{%
 \subsection{Your first Go program}\label{your-first-go-program}}
 
-A ``Hello, world!'' program is traditionally used to introduce programmers to a programming language. Below is a Go code that outputs ``Hello, world!'':
+A ``Hello, world!'' program is traditionally used to introduce programmers to a
+programming language. Below is a Go code that outputs ``Hello, world!'':
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -206,7 +314,9 @@ Let's break down the code to understand each line:
 \end{Highlighting}
 \end{Shaded}
 
-Every go file belongs to one (and only one) \emph{package}. The package to which the code file belongs must be indicated before any other code lines. A standalone executable belongs to package \texttt{main}.
+Every Go file belongs to one (and only one) \emph{package}. The package to which the
+code file belongs must be indicated before any other code lines. A standalone
+executable belongs to package \texttt{main}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -225,11 +335,12 @@ double quotes (\texttt{""}).
 \end{Highlighting}
 \end{Shaded}
 
-When the program executes, the first function called will be \texttt{main()} (like in C). The code in functions (or the body) is enclosed between braces: \texttt{\{\ \}}
+When the program executes, the first function called will be \texttt{main()} (like in
+C). The code in functions (or the body) is enclosed between braces: \texttt{\{\ \}}
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 The first \texttt{\{} must be on the same line as the function declaration!
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -237,21 +348,22 @@ The first \texttt{\{} must be on the same line as the function declaration!
 \end{Highlighting}
 \end{Shaded}
 
-This line calls the function \texttt{Println} from the package \texttt{fmt}, which prints the string parameter to the console, followed by a newline character \texttt{\textbackslash{}n}.
+This line calls the function \texttt{Println} from the package \texttt{fmt}, which prints the
+string parameter to the console, followed by a newline character \texttt{\textbackslash{}n}.
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 The same result can be obtained with \texttt{fmt.Print("Hello,\ world!\textbackslash{}n")}
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
-\hypertarget{quiz-1}{%
-\subsection{Quiz}\label{quiz-1}}
+\hypertarget{quiz-2}{%
+\subsection{Quiz}\label{quiz-2}}
 
 Fill in the blanks to import the \texttt{fmt} package:
 
 \texttt{import\ "}\textbf{\texttt{fmt}}\texttt{"}
 
-\hypertarget{quiz-2}{%
-\subsection{Quiz}\label{quiz-2}}
+\hypertarget{quiz-3}{%
+\subsection{Quiz}\label{quiz-3}}
 
 What is the starting point for a computer program written in Go?
 
@@ -265,8 +377,8 @@ What is the starting point for a computer program written in Go?
   \texttt{package\ main}
 \end{itemize}
 
-\hypertarget{quiz-3}{%
-\subsection{Quiz}\label{quiz-3}}
+\hypertarget{quiz-4}{%
+\subsection{Quiz}\label{quiz-4}}
 
 Rearrange the code blocks to form a valid Go program:
 
@@ -314,17 +426,17 @@ or \texttt{uint32}.
 The full list of integers (signed and unsigned) is the following: \texttt{int8},
 \texttt{int16}, \texttt{int64}, \texttt{byte}, \texttt{uint8}, \texttt{uint16}, \texttt{uint32} and \texttt{uint64}.
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 \texttt{byte} is an alias for \texttt{uint8}.
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
 For floating point values there is \texttt{float32} and \texttt{float64}. There is \emph{no}
 machine dependent \texttt{float} type.
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 A 64 bit integer or floating point value is \emph{always} 64 bit, even on 32-bit
 architectures.
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
 \hypertarget{strings}{%
 \subsection{Strings}\label{strings}}
@@ -401,10 +513,10 @@ In Go:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 Multiple variables of the same type can be also declared on a single line:
 \texttt{var\ x,\ y\ int}.
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
 Multiple \texttt{var} declarations may also be grouped:
 
@@ -451,7 +563,8 @@ Go can infer the type of the declared and assigned variable:
 \hypertarget{short-declaration-syntax}{%
 \subsection{Short declaration syntax}\label{short-declaration-syntax}}
 
-With the type omitted, the keyword \texttt{var} is pretty superfluous, so we may write as the following:
+With the type omitted, the keyword \texttt{var} is pretty superfluous, so we may write
+as the following:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -460,9 +573,9 @@ With the type omitted, the keyword \texttt{var} is pretty superfluous, so we may
 \end{Highlighting}
 \end{Shaded}
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 The types of \texttt{a} and \texttt{b} (\texttt{int} and \texttt{bool}) are inferred by the compiler.
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
 You can also make use of parallel assignment:
 
@@ -475,7 +588,8 @@ You can also make use of parallel assignment:
 \hypertarget{discard-assignments}{%
 \subsection{Discard assignments}\label{discard-assignments}}
 
-A special name for a variable is \texttt{\_} (underscore). Any value assigned to it is discarded:
+A special name for a variable is \texttt{\_} (underscore). Any value assigned to it is
+discarded:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -560,13 +674,13 @@ For example:
 ## Hello, world!
 \end{verbatim}
 
-\begin{quote}
+\BeginKnitrBlock{rmdnote}
 Comments clarify the program's intent to the reader. Later on you'll learn
 how to use comments to produce documentation for the Go code.
-\end{quote}
+\EndKnitrBlock{rmdnote}
 
-\hypertarget{quiz-4}{%
-\subsection{Quiz}\label{quiz-4}}
+\hypertarget{quiz-5}{%
+\subsection{Quiz}\label{quiz-5}}
 
 Which of the following indicates a single-line comment?
 
@@ -776,87 +890,87 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
-## his 2
-## own 2
-## and 3
-## only 1
-## bud 1
-## bear 1
-## self-substantial 1
-## be 1
-## creatures 1
-## contracted 1
-## thine 2
-## with 1
-## famine 1
-## mak'st 1
-## pity 1
-## this 1
-## as 1
-## glutton 1
-## increase 1
-## beauty's 1
-## should 1
-## that 2
-## rose 1
-## lies 1
-## ornament 1
-## world 1
-## else 1
-## tender 2
-## heir 1
-## to 4
-## thy 5
-## gaudy 1
-## eat 1
-## due 1
-## from 1
-## riper 1
-## fresh 1
-## fairest 1
-## feed'st 1
-## sweet 1
-## by 2
-## time 1
-## foe 1
-## memory 1
-## bright 1
-## flame 1
-## a 1
-## never 1
-## fuel 1
-## where 1
-## too 1
-## cruel 1
-## world's 2
-## spring 1
-## waste 1
-## grave 1
-## might 2
-## die 1
-## but 2
-## decease 1
-## thou 2
-## eyes 1
-## making 1
-## abundance 1
 ## art 1
 ## herald 1
-## within 1
-## content 1
 ## churl 1
-## we 1
-## buriest 1
-## in 1
-## niggarding 1
+## else 1
 ## thee 1
-## desire 1
-## now 1
+## too 1
+## mak'st 1
+## waste 1
+## this 1
+## from 1
+## creatures 1
+## as 1
+## thou 2
+## contracted 1
+## and 3
+## due 1
+## foe 1
+## bud 1
+## eat 1
+## we 1
+## that 2
+## rose 1
+## his 2
+## a 1
+## buriest 1
+## world 1
+## tender 2
+## thine 2
+## feed'st 1
+## with 1
+## sweet 1
 ## thereby 1
-## the 6
-## light's 1
+## heir 1
+## where 1
+## cruel 1
+## might 2
+## spring 1
+## desire 1
+## bright 1
+## ornament 1
+## gaudy 1
+## within 1
+## to 4
+## flame 1
+## by 2
+## thy 5
+## fuel 1
 ## self 2
+## world's 2
+## die 1
+## abundance 1
+## only 1
+## glutton 1
+## should 1
+## eyes 1
+## light's 1
+## content 1
+## time 1
+## decease 1
+## memory 1
+## self-substantial 1
+## lies 1
+## making 1
+## famine 1
+## now 1
+## increase 1
+## never 1
+## but 2
+## the 6
+## own 2
+## fresh 1
 ## or 1
+## niggarding 1
+## pity 1
+## be 1
+## fairest 1
+## beauty's 1
+## riper 1
+## bear 1
+## in 1
+## grave 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -1437,54 +1551,54 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
-## Racer #1 is on lap 1
-## Racer #2 is on lap 1
-## Race time: 1.000141976s
-## Racer #10 is on lap 1
-## Racer #2 is on lap 2
-## Racer #3 is on lap 1
-## Racer #4 is on lap 1
-## Racer #8 is on lap 1
-## Racer #6 is on lap 1
-## Race time: 2.000159222s
-## Racer #9 is on lap 2
 ## Racer #5 is on lap 1
-## Racer #1 is on lap 2
+## Racer #6 is on lap 1
 ## Racer #7 is on lap 2
-## Racer #9 is on lap 1
 ## Racer #7 is on lap 1
-## Racer #10 is on lap 2
-## Racer #2 finished!
-## Racer #3 finished!
-## Racer #2 is on lap 3
+## Race time: 1.000354387s
 ## Racer #3 is on lap 2
-## Racer #3 is on lap 3
-## Race time: 3.000146251s
-## Racer #6 is on lap 2
-## Racer #9 finished!
+## Racer #5 finished!
+## Racer #9 is on lap 1
+## Racer #3 is on lap 1
 ## Racer #5 is on lap 2
+## Racer #5 is on lap 3
+## Race time: 2.000360272s
+## Racer #2 is on lap 1
+## Racer #4 is on lap 1
+## Racer #10 is on lap 2
+## Racer #6 is on lap 2
+## Racer #7 finished!
+## Racer #8 finished!
+## Racer #1 is on lap 2
+## Racer #10 is on lap 1
+## Racer #7 is on lap 3
+## Racer #8 is on lap 1
+## Racer #8 is on lap 2
+## Racer #8 is on lap 3
+## Racer #1 is on lap 1
+## Racer #3 finished!
+## Racer #3 is on lap 3
+## Race time: 3.000341974s
+## Racer #9 is on lap 2
+## Racer #2 is on lap 2
+## Racer #6 finished!
+## Racer #6 is on lap 3
+## Race time: 4.000240107s
 ## Racer #1 finished!
 ## Racer #4 finished!
-## Racer #8 is on lap 2
-## Racer #9 is on lap 3
+## Racer #10 finished!
 ## Racer #1 is on lap 3
 ## Racer #4 is on lap 2
 ## Racer #4 is on lap 3
-## Race time: 4.000139477s
-## Racer #6 finished!
-## Racer #7 finished!
-## Racer #6 is on lap 3
-## Racer #7 is on lap 3
-## Racer #10 finished!
 ## Racer #10 is on lap 3
-## Race time: 5.000175097s
-## Racer #8 finished!
-## Racer #5 finished!
+## Race time: 5.000290642s
+## Racer #2 finished!
+## Racer #9 finished!
 ## 
 ## Winners:
-## 1 place: Racer #2
-## 2 place: Racer #3
-## 3 place: Racer #9
+## 1 place: Racer #5
+## 2 place: Racer #7
+## 3 place: Racer #8
 \end{verbatim}
 
 \hypertarget{course-project}{%
