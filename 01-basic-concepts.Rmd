@@ -1,4 +1,4 @@
-# Basic Concepts
+# Basic concepts
 
 ## What is Go?
 
@@ -25,7 +25,8 @@ Go is a:
 
 ### Your first Go program
 
-A “Hello, world!” program is traditionally used to introduce programmers to a programming language. Below is a Go code that outputs “Hello, world!”:
+A “Hello, world!” program is traditionally used to introduce programmers to a
+programming language. Below is a Go code that outputs “Hello, world!”:
 
 ```{go}
 package main
@@ -43,7 +44,9 @@ Let's break down the code to understand each line:
 package main
 ```
 
-Every go file belongs to one (and only one) *package*. The package to which the code file belongs must be indicated before any other code lines. A standalone executable belongs to package `main`.
+Every Go file belongs to one (and only one) *package*. The package to which the
+code file belongs must be indicated before any other code lines. A standalone
+executable belongs to package `main`.
 
 ```{go eval=FALSE}
 import "fmt"
@@ -58,7 +61,8 @@ double quotes (`""`).
 function main() { }
 ```
 
-When the program executes, the first function called will be `main()` (like in C). The code in functions (or the body) is enclosed between braces: `{ }`
+When the program executes, the first function called will be `main()` (like in
+C). The code in functions (or the body) is enclosed between braces: `{ }`
 
 ```{block2, type="rmdnote"}
 The first `{` must be on the same line as the function declaration!
@@ -68,7 +72,8 @@ The first `{` must be on the same line as the function declaration!
 	fmt.Println("Hello, world!")
 ```
 
-This line calls the function `Println` from the package `fmt`, which prints the string parameter to the console, followed by a newline character `\n`.
+This line calls the function `Println` from the package `fmt`, which prints the
+string parameter to the console, followed by a newline character `\n`.
 
 ```{block2, type="rmdnote"}
 The same result can be obtained with `fmt.Print("Hello, world!\n")`
@@ -263,7 +268,8 @@ a, b := 42, true
 
 ### Discard assignments
 
-A special name for a variable is `_` (underscore). Any value assigned to it is discarded:
+A special name for a variable is `_` (underscore). Any value assigned to it is
+discarded:
 
 ```{go eval=FALSE}
 // we only assign the integer value of 36 to b and discard the value 25.
