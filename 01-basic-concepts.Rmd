@@ -6,12 +6,47 @@
 
 Go is a general purpose programming language.
 
-It was designed as a “C for the 21st century”. It belongs to the C-family, like
-C++, Java and C#. It also has characteristics of a dynamic language, so Ruby or
-Python programmers would also find it comfortable to work with.
+It was designed as a “C for the 21st century” with scalability and concurrency
+in mind. It belongs to the C-family, like C++, Java and C#. It also has
+characteristics of a dynamic language, so Ruby or Python programmers would also
+find it comfortable to work with.
+
+Go is a compiled, statically typed language with garbage collection.
+
+What does it mean?
+
+#### Compilation {-}
+
+During the compilation the source code you wrote is translated into the
+low-level language natural to the computer to execute. Compiled languages are
+tend to **run faster** because they operate closer to the “bare metal”, but
+sometimes it is unpleasant to work with compiled languages because the
+compilation can be slow. Compilation speed is on of the Go's benefits, it was
+designed to be **quick to compile**.
+
+#### Static typing {-}
+
+Being statically typed means that variables **must be of a specific type**
+(text string, number, boolean, list, etc). Using a type system, the compiler is
+able to **detect problems** earlier, before the program is actually used. 
+
+#### Garbage collection {-}
+
+Languages with garbage collectors are able to keep track of variables and free
+them when they **are no longer used**.
 
 Go is used to create computer programs. Anything from graphics and mobile
 application to machine learning and networked servers can be written in Go.
+
+The following notable software pieces are written (or have some parts) written
+in Go:
+
+* Docker
+* Kubernetes
+* Dropbox
+* OpenShift
+* YouTube
+* Google Chrome
 
 ### Quiz
 
@@ -20,6 +55,15 @@ Go is a:
 * Client-side scripting language
 * **General purpose programming language**
 * Machine learning program
+
+### Quiz
+
+Which of the following is true?
+
+* Go is an interpreted language
+* **Go has garbage collection**
+* Go is a dynamically typed language
+* Go compiles into a virtual machine byte code
 
 ## Hello, world!
 
