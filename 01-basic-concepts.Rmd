@@ -11,6 +11,19 @@ in mind. It belongs to the C-family, like C++, Java and C#. It also has
 characteristics of a dynamic language, so Ruby or Python programmers would also
 find it comfortable to work with.
 
+Go is used to create computer programs. Anything from graphics and mobile
+application to machine learning and networked servers can be written in Go.
+
+The following notable software pieces are written (or have some parts) written
+in Go:
+
+* Docker
+* Kubernetes
+* Dropbox
+* OpenShift
+* YouTube
+* Google Chrome
+
 Go is a compiled, statically typed language with garbage collection.
 
 What does it mean?
@@ -34,19 +47,6 @@ able to **detect problems** earlier, before the program is actually used.
 
 Languages with garbage collectors are able to keep track of variables and free
 them when they **are no longer used**.
-
-Go is used to create computer programs. Anything from graphics and mobile
-application to machine learning and networked servers can be written in Go.
-
-The following notable software pieces are written (or have some parts) written
-in Go:
-
-* Docker
-* Kubernetes
-* Dropbox
-* OpenShift
-* YouTube
-* Google Chrome
 
 ### Quiz
 
