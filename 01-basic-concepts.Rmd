@@ -200,6 +200,22 @@ A 64 bit integer or floating point value is *always* 64 bit, even on 32-bit
 architectures.
 ```
 
+#### Quiz {-}
+
+Which of the following are correct values for numeric types? Select all that apply
+
+* **1000**
+* true
+* **3.14**
+* "hello"
+
+#### Quiz {-}
+
+Is 3.14 an integer?
+
+* Yes
+* **No**
+
 ### Strings
 
 Another important built-in type is `string`.
