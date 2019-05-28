@@ -161,7 +161,7 @@ TODO:
 
 ## Value types
 
-### Boolean types
+### Boolean type
 
 A boolean type contains either `true` or `false`. The boolean type is `bool`
 
