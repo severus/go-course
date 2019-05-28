@@ -232,6 +232,16 @@ Unicode character while `char` in C++ contains an ASCII symbol.
 Go has native support for complex numbers. Complex numbers types are
 `complex64` and `complex128`.
 
+### Quiz {-}
+
+Which of the following are the valid value types in Go? Select all that apply.
+
+* boolean
+* **int**
+* float
+* integer32
+* **float64**
+
 ## Variables
 
 ### Variable names
@@ -261,6 +271,16 @@ alphabet, so the following variable names are also valid:
 The naming of identifiers for variables follows the `camelCase` rules (start
 with a small letter, every new part of the word starts with a capital letter):
 `startDate`, `wordCount`.
+
+#### Quiz {-}
+
+Which of the following are valid Go variable names? Select all that apply.
+
+* case
+* a+b
+* **x**
+* 1a
+* **sum**
 
 ### Declaration and assignment
 
@@ -338,6 +358,19 @@ You can also make use of parallel assignment:
 ```{go eval=FALSE}
 a, b := 42, true
 ```
+
+#### Quiz {-}
+
+What is the type of `b` in the following assignment?
+
+```{go eval=FALSE}
+var a int
+b := a
+```
+
+* **int**
+* pointer
+* interface{}
 
 ### Discard assignments
 
