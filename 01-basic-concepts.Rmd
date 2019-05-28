@@ -382,6 +382,12 @@ discarded:
 _, b := 25, 36
 ```
 
+```{block2, type="rmdnote"}
+In later sections you'll learn that Go supports **multiple return values** from
+functions. Discard addignments are useful if some of the returned values aren't
+needed, so such values can be _discarded_
+```
+
 ### Declaration and usage
 
 A variable which is used, but not declared, gives a compiler error:
