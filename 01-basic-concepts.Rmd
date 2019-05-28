@@ -165,7 +165,17 @@ TODO:
 
 A boolean type contains either `true` or `false`. The boolean type is `bool`
 
-### Numerical types
+```{block2, type="rmdnote"}
+**Conditional expressions** are an example of Boolean type.
+```
+
+#### Quiz {-}
+
+What is the result of `42 == 42` operation? Is it true or false?
+
+**true**
+
+### Numeric types
 
 Go has the well known types such as `int`. The length of this type depends on
 the machine, so on 32-bit machine it is 32 bits while on 64-bit machine it is
