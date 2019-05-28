@@ -218,11 +218,14 @@ Is 3.14 an integer?
 
 ### Strings
 
-Another important built-in type is `string`.
+Another important built-in type is `string`. `"a"`, `"Hello world"` or
+`"Καλημέρα κόσμε"` are `string` values.
 
 ### Runes
 
-`rune` is an alias for `int32`. It is an UTF-8 encoded code point.
+`rune` is an alias for `int32`. It is an UTF-8 encoded code point. The purpose
+of `rune` is similar to the `char` type in C++ but `rune` in Go may contain a
+Unicode character while `char` in C++ contains an ASCII symbol.
 
 ### Complex numbers
 
