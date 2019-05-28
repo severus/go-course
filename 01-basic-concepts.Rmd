@@ -467,7 +467,7 @@ Which of the following indicates a single-line comment?
 
 TODO:
 
-## Module project {-}
+## Try it yourself {-}
 
 ```{go}
 // This is a comment.
