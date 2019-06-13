@@ -20,7 +20,7 @@
 
 ## Module project {-}
 
-```{go}
+```{go cache=TRUE}
 package main
 
 import (
