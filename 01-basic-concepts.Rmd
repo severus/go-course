@@ -41,7 +41,7 @@ designed to be **quick to compile**.
 
 Being statically typed means that variables **must be of a specific type**
 (text string, number, boolean, list, etc). Using a type system, the compiler is
-able to **detect problems** earlier, before the program is actually used. 
+able to **detect problems** earlier, before the program is actually used.
 
 #### Garbage collection {-}
 
@@ -189,7 +189,7 @@ The full list of integers (signed and unsigned) is the following: `int8`,
 `int16`, `int64`, `byte`, `uint8`, `uint16`, `uint32` and `uint64`.
 
 ```{block2, type="rmdnote"}
-`byte` is an alias for `uint8`. 
+`byte` is an alias for `uint8`.
 ```
 
 For floating point values there is `float32` and `float64`. There is *no*
@@ -202,7 +202,8 @@ architectures.
 
 #### Quiz {-}
 
-Which of the following are correct values for numeric types? Select all that apply
+Which of the following are correct values for numeric types? Select all that
+apply
 
 * **1000**
 * true
@@ -483,14 +484,14 @@ const who = "world"
 
 // Function main() is the main entry point of any application written in Go.
 func main() {
-    // We declare `greeting` as a variable of type string and assign the value.
+	// We declare `greeting` as a variable of type string and assign the value.
 	var greeting string = "Hello"
-    // We declare `message` variable using the shorthand syntax. The type of
-    // the variable is determined by the assigned value. In our case it is
-    // string type.
+	// We declare `message` variable using the shorthand syntax. The type of
+	// the variable is determined by the assigned value. In our case it is
+	// string type.
 	message := greeting + ", " + who
-    // Let's print the value of the variable `message` using the function from
-    // the package "fmt".
+	// Let's print the value of the variable `message` using the function from
+	// the package "fmt".
 	fmt.Println(message)
 }
 ```
