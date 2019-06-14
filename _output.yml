@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: style.css
+  split_by: section+number
   config:
     edit: https://github.com/severus/go-course/edit/master/%s
     download: ["pdf", "epub"]
