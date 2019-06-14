@@ -423,7 +423,130 @@ x declared and not used
 
 ## Operators
 
-TODO:
+Values are combined together with **operators** into **expressions**. Every
+value type has its own defined set of operators, which can work with values of
+that type.
+
+```{block2, type="rmdnote"}
+Using an operator for a value type for which it is not defined leads to a
+compiler error.
+```
+
+### Arithmetic operators
+
+The common arithmetic operators exist for both integers and floats:
+
+* `+` (addition)
+* `-` (subtraction)
+* `*` (multiplication)
+* `/` (division)
+
+`/` for integers is integer division. For example:
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(9 / 4)
+}
+```
+
+The modulus operator `%` is only defined for integers:
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(9 % 4)
+}
+```
+
+There are shortcuts for these operations: `a = a + b` can be shortened to `a +=
+b`, and the same goes for `-=`, `*=`, `/=` and `%=`.
+
+#### Question {-}
+
+What is the value of the `result` variable?
+
+```{go eval = FALSE}
+a := 12
+b := 5
+result := a % b
+```
+
+**2**
+
+### Operator precedence
+
+Some operators have higher priority (precedence) than others. Operators of the
+same precedence are performed from left to right.
+
+`*`, `/` and `%` operators have higher precedence, while `+`, `-` operators
+have lower precedence.
+
+It is allowed to clarify expressions by using `( )` to indicate priority in
+operations.
+
+```{block2, type="rmdnote"}
+Expressions contained in `( )` are always computed first.
+```
+
+```{go}
+package main
+
+import "fmt"
+
+func main() {
+	a := 9
+	b := 6
+	c := 3
+
+	fmt.Println(a - b + c)
+	fmt.Println(a + b / c)
+	fmt.Println((a + b) / c)
+}
+```
+
+#### Question {-}
+
+Fill in the blanks to subtract `b` from `a` and add `c` to the result.
+
+```{go eval = FALSE}
+a := 9
+b := 6
+c := 3
+```
+`result := a`**` - `**`b`**` + `**`c`
+
+### Increment and decrement
+
+For integers and floats Go has `++` (increment) and `--` (decrement) operators:
+
+```{go eval = FALSE}
+i++ // is short for i += 1 is short for i = i + 1
+i-- // is short for i -= 1 is short for i = i - 1
+```
+
+The increment and decrement operators can only be used after the number
+(postfix).
+
+`++` and `--` may only be used as statements, not expressions. While `n = i++`
+is accepted in C, C++ and Java, it is invalid in Go.
+
+#### Question {-}
+
+Which of the following are correct use of increment and decrement operators in
+Go? Select all that apply:
+
+* x = y++
+* **j++**
+* --n
+* f(i++)
+* **i--**
 
 ## Constants
 
