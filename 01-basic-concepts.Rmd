@@ -48,7 +48,7 @@ able to **detect problems** earlier, before the program is actually used.
 Languages with garbage collectors are able to keep track of variables and free
 them when they **are no longer used**.
 
-### Quiz
+### Question {-}
 
 Go is a:
 
@@ -56,7 +56,7 @@ Go is a:
 * **General purpose programming language**
 * Machine learning program
 
-### Quiz
+### Question {-}
 
 Which of the following is true?
 
@@ -123,13 +123,13 @@ string parameter to the console, followed by a newline character `\n`.
 The same result can be obtained with `fmt.Print("Hello, world!\n")`
 ```
 
-### Quiz
+### Question {-}
 
 Fill in the blanks to import the `fmt` package:
 
 `import "`**`fmt`**`"`
 
-### Quiz
+### Question {-}
 
 What is the starting point for a computer program written in Go?
 
@@ -137,7 +137,7 @@ What is the starting point for a computer program written in Go?
 * Fist line
 * `package main`
 
-### Quiz
+### Question {-}
 
 Rearrange the code blocks to form a valid Go program:
 
@@ -169,7 +169,7 @@ A boolean type contains either `true` or `false`. The boolean type is `bool`
 **Conditional expressions** are an example of Boolean type.
 ```
 
-#### Quiz {-}
+#### Question {-}
 
 What is the result of `42 == 42` operation? Is it true or false?
 
@@ -200,7 +200,7 @@ A 64 bit integer or floating point value is *always* 64 bit, even on 32-bit
 architectures.
 ```
 
-#### Quiz {-}
+#### Question {-}
 
 Which of the following are correct values for numeric types? Select all that
 apply
@@ -210,7 +210,7 @@ apply
 * **3.14**
 * "hello"
 
-#### Quiz {-}
+#### Question {-}
 
 Is 3.14 an integer?
 
@@ -233,7 +233,7 @@ Unicode character while `char` in C++ contains an ASCII symbol.
 Go has native support for complex numbers. Complex numbers types are
 `complex64` and `complex128`.
 
-### Quiz {-}
+### Question {-}
 
 Which of the following are the valid value types in Go? Select all that apply.
 
@@ -273,7 +273,7 @@ The naming of identifiers for variables follows the `camelCase` rules (start
 with a small letter, every new part of the word starts with a capital letter):
 `startDate`, `wordCount`.
 
-#### Quiz {-}
+#### Question {-}
 
 Which of the following are valid Go variable names? Select all that apply.
 
@@ -360,7 +360,7 @@ You can also make use of parallel assignment:
 a, b := 42, true
 ```
 
-#### Quiz {-}
+#### Question {-}
 
 What is the type of `b` in the following assignment?
 
@@ -456,7 +456,7 @@ Comments clarify the program's intent to the reader. Later on you'll learn
 how to use comments to produce documentation for the Go code.
 ```
 
-### Quiz
+### Question {-}
 
 Which of the following indicates a single-line comment?
 
