@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Course project | Go course</title>
+  <title>1.6 Operators | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Course project | Go course" />
+  <meta property="og:title" content="1.6 Operators | Go course" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Course project | Go course" />
+  <meta name="twitter:title" content="1.6 Operators | Go course" />
   
   <meta name="twitter:description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="module-project-5.html">
-
+<link rel="prev" href="1-5-variables.html">
+<link rel="next" href="1-7-constants.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -260,126 +260,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="course-project" class="section level1 unnumbered">
-<h1>Course project</h1>
+<div id="operators" class="section level2">
+<h2><span class="header-section-number">1.6</span> Operators</h2>
+<p>Values are combined together with <strong>operators</strong> into <strong>expressions</strong>. Every
+value type has its own defined set of operators, which can work with values of
+that type.</p>
+
+<div class="rmdnote">
+Using an operator for a value type for which it is not defined leads to a
+compiler error.
+</div>
+
+<div id="arithmetic-operators" class="section level3">
+<h3><span class="header-section-number">1.6.1</span> Arithmetic operators</h3>
+<p>The common arithmetic operators exist for both integers and floats:</p>
+<ul>
+<li><code>+</code> (addition)</li>
+<li><code>-</code> (subtraction)</li>
+<li><code>*</code> (multiplication)</li>
+<li><code>/</code> (division)</li>
+</ul>
+<p><code>/</code> for integers is integer division. For example:</p>
 <pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
 
-<span class="kw">import</span> (
-    <span class="st">&quot;encoding/csv&quot;</span>
-    <span class="st">&quot;fmt&quot;</span>
-    <span class="st">&quot;io&quot;</span>
-    <span class="st">&quot;log&quot;</span>
-    <span class="st">&quot;os&quot;</span>
-    <span class="st">&quot;strconv&quot;</span>
-    <span class="st">&quot;strings&quot;</span>
-)
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
 
 <span class="kw">func</span> main() {
-    <span class="kw">var</span> input io.Reader
-
-    <span class="kw">switch</span> <span class="bu">len</span>(os.Args) {
-    <span class="kw">case</span> <span class="dv">1</span>:
-        input = os.Stdin
-    <span class="kw">case</span> <span class="dv">2</span>:
-        f, err := os.Open(os.Args[<span class="dv">1</span>])
-        <span class="kw">if</span> err != <span class="ot">nil</span> {
-            log.Fatal(err)
-        }
-        <span class="kw">defer</span> f.Close()
-        input = f
-    <span class="kw">default</span>:
-        log.Fatal(<span class="st">&quot;This program expects either 0 or 1 arguments.&quot;</span>)
-    }
-
-    r := csv.NewReader(input)
-    r.FieldsPerRecord = <span class="dv">-1</span>
-
-    records, err := r.ReadAll()
-    <span class="kw">if</span> err != <span class="ot">nil</span> {
-        log.Fatal(err)
-    }
-
-    <span class="co">// Remove the very first &quot;record&quot; (i.e &#39;Category: All categories&#39;) if exists</span>
-    <span class="kw">if</span> <span class="bu">len</span>(records[<span class="dv">0</span>]) == <span class="dv">1</span> {
-        records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-    }
-
-    <span class="co">// Save names to a slice</span>
-    names := records[<span class="dv">0</span>][<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-    commonSuffix := longestCommonSuffix(names)
-    <span class="kw">if</span> commonSuffix != <span class="st">&quot;&quot;</span> {
-        <span class="kw">for</span> i, name := <span class="kw">range</span> names {
-            names[i] = strings.TrimSuffix(name, commonSuffix)
-        }
-    }
-    records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-
-    avg := <span class="bu">make</span>([]<span class="dt">int</span>, <span class="bu">len</span>(names))
-
-    <span class="kw">for</span> _, record := <span class="kw">range</span> records {
-        record = record[<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-        <span class="kw">for</span> i, s := <span class="kw">range</span> record {
-            n, err := strconv.Atoi(s)
-            <span class="kw">if</span> err != <span class="ot">nil</span> {
-                log.Fatal(err)
-            }
-            avg[i] += n
-        }
-    }
-
-    <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; <span class="bu">len</span>(avg); i++ {
-        avg[i] = avg[i] / <span class="bu">len</span>(records)
-    }
-
-    <span class="kw">for</span> i, n := <span class="kw">range</span> avg {
-        n = n/<span class="dv">10</span> + <span class="dv">1</span>
-        fmt.Printf(<span class="st">&quot;%s %s (%d)</span><span class="ch">\n</span><span class="st">&quot;</span>, strings.Repeat(<span class="st">&quot;▓&quot;</span>, n), names[i], avg[i])
-    }
-}
-
-<span class="kw">func</span> longestCommonSuffix(a []<span class="dt">string</span>) <span class="dt">string</span> {
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">0</span> {
-        <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-    }
-
-    suffix := a[<span class="dv">0</span>]
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">1</span> {
-        <span class="kw">return</span> suffix
-    }
-
-    <span class="kw">for</span> _, s := <span class="kw">range</span> a[<span class="dv">1</span>:] {
-        suffixLength := <span class="bu">len</span>(suffix)
-        sLength := <span class="bu">len</span>(s)
-
-        <span class="kw">if</span> suffixLength == <span class="dv">0</span> || sLength == <span class="dv">0</span> {
-            <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-        }
-
-        maxLength := suffixLength
-        <span class="kw">if</span> sLength &lt; maxLength {
-            maxLength = sLength
-        }
-
-        <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; maxLength; i++ {
-            j := suffixLength - i - <span class="dv">1</span>
-            k := sLength - i - <span class="dv">1</span>
-            <span class="kw">if</span> suffix[j] != s[k] {
-                suffix = suffix[j+<span class="dv">1</span>:]
-                <span class="kw">break</span>
-            }
-        }
-    }
-    <span class="kw">return</span> suffix
+    fmt.Println(<span class="dv">9</span> / <span class="dv">4</span>)
 }</code></pre>
+<pre><code>## 2</code></pre>
+<p>The modulus operator <code>%</code> is only defined for integers:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
 
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">func</span> main() {
+    fmt.Println(<span class="dv">9</span> % <span class="dv">4</span>)
+}</code></pre>
+<pre><code>## 1</code></pre>
+<p>There are shortcuts for these operations: <code>a = a + b</code> can be shortened to <code>a += b</code>, and the same goes for <code>-=</code>, <code>*=</code>, <code>/=</code> and <code>%=</code>.</p>
+<div id="question-11" class="section level4 unnumbered">
+<h4>Question</h4>
+<p>What is the value of the <code>result</code> variable?</p>
+<pre class="sourceCode go"><code class="sourceCode go">a := <span class="dv">12</span>
+b := <span class="dv">5</span>
+result := a % b</code></pre>
+<p><strong>2</strong></p>
+</div>
+</div>
+<div id="operator-precedence" class="section level3">
+<h3><span class="header-section-number">1.6.2</span> Operator precedence</h3>
+<p>Some operators have higher priority (precedence) than others. Operators of the
+same precedence are performed from left to right.</p>
+<p><code>*</code>, <code>/</code> and <code>%</code> operators have higher precedence, while <code>+</code>, <code>-</code> operators
+have lower precedence.</p>
+<p>It is allowed to clarify expressions by using <code>( )</code> to indicate priority in
+operations.</p>
+
+<div class="rmdnote">
+Expressions contained in <code>( )</code> are always computed first.
+</div>
+
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">func</span> main() {
+    a := <span class="dv">9</span>
+    b := <span class="dv">6</span>
+    c := <span class="dv">3</span>
+
+    fmt.Println(a - b + c)
+    fmt.Println(a + b / c)
+    fmt.Println((a + b) / c)
+}</code></pre>
+<pre><code>## 6
+## 11
+## 5</code></pre>
+<div id="question-12" class="section level4 unnumbered">
+<h4>Question</h4>
+<p>Fill in the blanks to subtract <code>b</code> from <code>a</code> and add <code>c</code> to the result.</p>
+<pre class="sourceCode go"><code class="sourceCode go">a := <span class="dv">9</span>
+b := <span class="dv">6</span>
+c := <span class="dv">3</span></code></pre>
+<p><code>result := a</code><strong><code>-</code></strong><code>b</code><strong><code>+</code></strong><code>c</code></p>
+</div>
+</div>
+<div id="increment-and-decrement" class="section level3">
+<h3><span class="header-section-number">1.6.3</span> Increment and decrement</h3>
+<p>For integers and floats Go has <code>++</code> (increment) and <code>--</code> (decrement) operators:</p>
+<pre class="sourceCode go"><code class="sourceCode go">i++ <span class="co">// is short for i += 1 is short for i = i + 1</span>
+i-- <span class="co">// is short for i -= 1 is short for i = i - 1</span></code></pre>
+<p>The increment and decrement operators can only be used after the number
+(postfix).</p>
+<p><code>++</code> and <code>--</code> may only be used as statements, not expressions. While <code>n = i++</code>
+is accepted in C, C++ and Java, it is invalid in Go.</p>
+<div id="question-13" class="section level4 unnumbered">
+<h4>Question</h4>
+<p>Which of the following are correct use of increment and decrement operators in
+Go? Select all that apply:</p>
+<ul>
+<li>x = y++</li>
+<li><strong>j++</strong></li>
+<li>–n</li>
+<li>f(i++)</li>
+<li><strong>i–</strong></li>
+</ul>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-project-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="1-5-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-7-constants.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -409,7 +405,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/severus/go-course/edit/master/99-course-project.Rmd",
+"link": "https://github.com/severus/go-course/edit/master/01-basic-concepts.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Course project | Go course</title>
+  <title>4.6 Iteration and recursion | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Course project | Go course" />
+  <meta property="og:title" content="4.6 Iteration and recursion | Go course" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Course project | Go course" />
+  <meta name="twitter:title" content="4.6 Iteration and recursion | Go course" />
   
   <meta name="twitter:description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="module-project-5.html">
-
+<link rel="prev" href="4-5-variadic-functions.html">
+<link rel="next" href="4-7-anonymous-functions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -260,126 +260,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="course-project" class="section level1 unnumbered">
-<h1>Course project</h1>
-<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
-
-<span class="kw">import</span> (
-    <span class="st">&quot;encoding/csv&quot;</span>
-    <span class="st">&quot;fmt&quot;</span>
-    <span class="st">&quot;io&quot;</span>
-    <span class="st">&quot;log&quot;</span>
-    <span class="st">&quot;os&quot;</span>
-    <span class="st">&quot;strconv&quot;</span>
-    <span class="st">&quot;strings&quot;</span>
-)
-
-<span class="kw">func</span> main() {
-    <span class="kw">var</span> input io.Reader
-
-    <span class="kw">switch</span> <span class="bu">len</span>(os.Args) {
-    <span class="kw">case</span> <span class="dv">1</span>:
-        input = os.Stdin
-    <span class="kw">case</span> <span class="dv">2</span>:
-        f, err := os.Open(os.Args[<span class="dv">1</span>])
-        <span class="kw">if</span> err != <span class="ot">nil</span> {
-            log.Fatal(err)
-        }
-        <span class="kw">defer</span> f.Close()
-        input = f
-    <span class="kw">default</span>:
-        log.Fatal(<span class="st">&quot;This program expects either 0 or 1 arguments.&quot;</span>)
-    }
-
-    r := csv.NewReader(input)
-    r.FieldsPerRecord = <span class="dv">-1</span>
-
-    records, err := r.ReadAll()
-    <span class="kw">if</span> err != <span class="ot">nil</span> {
-        log.Fatal(err)
-    }
-
-    <span class="co">// Remove the very first &quot;record&quot; (i.e &#39;Category: All categories&#39;) if exists</span>
-    <span class="kw">if</span> <span class="bu">len</span>(records[<span class="dv">0</span>]) == <span class="dv">1</span> {
-        records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-    }
-
-    <span class="co">// Save names to a slice</span>
-    names := records[<span class="dv">0</span>][<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-    commonSuffix := longestCommonSuffix(names)
-    <span class="kw">if</span> commonSuffix != <span class="st">&quot;&quot;</span> {
-        <span class="kw">for</span> i, name := <span class="kw">range</span> names {
-            names[i] = strings.TrimSuffix(name, commonSuffix)
-        }
-    }
-    records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-
-    avg := <span class="bu">make</span>([]<span class="dt">int</span>, <span class="bu">len</span>(names))
-
-    <span class="kw">for</span> _, record := <span class="kw">range</span> records {
-        record = record[<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-        <span class="kw">for</span> i, s := <span class="kw">range</span> record {
-            n, err := strconv.Atoi(s)
-            <span class="kw">if</span> err != <span class="ot">nil</span> {
-                log.Fatal(err)
-            }
-            avg[i] += n
-        }
-    }
-
-    <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; <span class="bu">len</span>(avg); i++ {
-        avg[i] = avg[i] / <span class="bu">len</span>(records)
-    }
-
-    <span class="kw">for</span> i, n := <span class="kw">range</span> avg {
-        n = n/<span class="dv">10</span> + <span class="dv">1</span>
-        fmt.Printf(<span class="st">&quot;%s %s (%d)</span><span class="ch">\n</span><span class="st">&quot;</span>, strings.Repeat(<span class="st">&quot;▓&quot;</span>, n), names[i], avg[i])
-    }
-}
-
-<span class="kw">func</span> longestCommonSuffix(a []<span class="dt">string</span>) <span class="dt">string</span> {
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">0</span> {
-        <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-    }
-
-    suffix := a[<span class="dv">0</span>]
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">1</span> {
-        <span class="kw">return</span> suffix
-    }
-
-    <span class="kw">for</span> _, s := <span class="kw">range</span> a[<span class="dv">1</span>:] {
-        suffixLength := <span class="bu">len</span>(suffix)
-        sLength := <span class="bu">len</span>(s)
-
-        <span class="kw">if</span> suffixLength == <span class="dv">0</span> || sLength == <span class="dv">0</span> {
-            <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-        }
-
-        maxLength := suffixLength
-        <span class="kw">if</span> sLength &lt; maxLength {
-            maxLength = sLength
-        }
-
-        <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; maxLength; i++ {
-            j := suffixLength - i - <span class="dv">1</span>
-            k := sLength - i - <span class="dv">1</span>
-            <span class="kw">if</span> suffix[j] != s[k] {
-                suffix = suffix[j+<span class="dv">1</span>:]
-                <span class="kw">break</span>
-            }
-        }
-    }
-    <span class="kw">return</span> suffix
-}</code></pre>
-
+<div id="iteration-and-recursion" class="section level2">
+<h2><span class="header-section-number">4.6</span> Iteration and recursion</h2>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-project-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-5-variadic-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-7-anonymous-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -409,7 +299,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/severus/go-course/edit/master/99-course-project.Rmd",
+"link": "https://github.com/severus/go-course/edit/master/04-functions-and-pointers.Rmd",
 "text": "Edit"
 },
 "history": {

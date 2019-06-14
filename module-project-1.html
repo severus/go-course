@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Course project | Go course</title>
+  <title>Module project | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Course project | Go course" />
+  <meta property="og:title" content="Module project | Go course" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Course project | Go course" />
+  <meta name="twitter:title" content="Module project | Go course" />
   
   <meta name="twitter:description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="module-project-5.html">
-
+<link rel="prev" href="3-10-operations-with-structs.html">
+<link rel="next" href="4-functions-and-pointers.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -260,126 +260,148 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="course-project" class="section level1 unnumbered">
-<h1>Course project</h1>
+<div id="module-project-1" class="section level2 unnumbered">
+<h2>Module project</h2>
 <pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
 
 <span class="kw">import</span> (
-    <span class="st">&quot;encoding/csv&quot;</span>
     <span class="st">&quot;fmt&quot;</span>
-    <span class="st">&quot;io&quot;</span>
-    <span class="st">&quot;log&quot;</span>
-    <span class="st">&quot;os&quot;</span>
-    <span class="st">&quot;strconv&quot;</span>
     <span class="st">&quot;strings&quot;</span>
 )
 
-<span class="kw">func</span> main() {
-    <span class="kw">var</span> input io.Reader
+<span class="co">// Shakespeare contains the text of one of the Shakespeare&#39;s sonets. We&#39;ll use</span>
+<span class="co">// this text to count words in it.</span>
+<span class="kw">const</span> Shakespeare = <span class="st">`</span>
+<span class="st">From fairest creatures we desire increase,</span>
+<span class="st">That thereby beauty&#39;s rose might never die,</span>
+<span class="st">But as the riper should by time decease,</span>
+<span class="st">His tender heir might bear his memory:</span>
+<span class="st">But thou contracted to thine own bright eyes,</span>
+<span class="st">Feed&#39;st thy light&#39;s flame with self-substantial fuel,</span>
+<span class="st">Making a famine where abundance lies,</span>
+<span class="st">Thy self thy foe, to thy sweet self too cruel:</span>
+<span class="st">Thou that art now the world&#39;s fresh ornament,</span>
+<span class="st">And only herald to the gaudy spring,</span>
+<span class="st">Within thine own bud buriest thy content,</span>
+<span class="st">And tender churl mak&#39;st waste in niggarding:</span>
+<span class="st">  Pity the world, or else this glutton be,</span>
+<span class="st">  To eat the world&#39;s due, by the grave and thee.</span>
+<span class="st">`</span>
 
-    <span class="kw">switch</span> <span class="bu">len</span>(os.Args) {
-    <span class="kw">case</span> <span class="dv">1</span>:
-        input = os.Stdin
-    <span class="kw">case</span> <span class="dv">2</span>:
-        f, err := os.Open(os.Args[<span class="dv">1</span>])
-        <span class="kw">if</span> err != <span class="ot">nil</span> {
-            log.Fatal(err)
-        }
-        <span class="kw">defer</span> f.Close()
-        input = f
-    <span class="kw">default</span>:
-        log.Fatal(<span class="st">&quot;This program expects either 0 or 1 arguments.&quot;</span>)
-    }
-
-    r := csv.NewReader(input)
-    r.FieldsPerRecord = <span class="dv">-1</span>
-
-    records, err := r.ReadAll()
-    <span class="kw">if</span> err != <span class="ot">nil</span> {
-        log.Fatal(err)
-    }
-
-    <span class="co">// Remove the very first &quot;record&quot; (i.e &#39;Category: All categories&#39;) if exists</span>
-    <span class="kw">if</span> <span class="bu">len</span>(records[<span class="dv">0</span>]) == <span class="dv">1</span> {
-        records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-    }
-
-    <span class="co">// Save names to a slice</span>
-    names := records[<span class="dv">0</span>][<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-    commonSuffix := longestCommonSuffix(names)
-    <span class="kw">if</span> commonSuffix != <span class="st">&quot;&quot;</span> {
-        <span class="kw">for</span> i, name := <span class="kw">range</span> names {
-            names[i] = strings.TrimSuffix(name, commonSuffix)
-        }
-    }
-    records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-
-    avg := <span class="bu">make</span>([]<span class="dt">int</span>, <span class="bu">len</span>(names))
-
-    <span class="kw">for</span> _, record := <span class="kw">range</span> records {
-        record = record[<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-        <span class="kw">for</span> i, s := <span class="kw">range</span> record {
-            n, err := strconv.Atoi(s)
-            <span class="kw">if</span> err != <span class="ot">nil</span> {
-                log.Fatal(err)
-            }
-            avg[i] += n
-        }
-    }
-
-    <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; <span class="bu">len</span>(avg); i++ {
-        avg[i] = avg[i] / <span class="bu">len</span>(records)
-    }
-
-    <span class="kw">for</span> i, n := <span class="kw">range</span> avg {
-        n = n/<span class="dv">10</span> + <span class="dv">1</span>
-        fmt.Printf(<span class="st">&quot;%s %s (%d)</span><span class="ch">\n</span><span class="st">&quot;</span>, strings.Repeat(<span class="st">&quot;▓&quot;</span>, n), names[i], avg[i])
-    }
+<span class="co">// getWord returns a word in lower case and with trimmed punctuation.</span>
+<span class="kw">func</span> getWord(s <span class="dt">string</span>) <span class="dt">string</span> {
+    <span class="kw">return</span> strings.ToLower(strings.Trim(s, <span class="st">&quot;,:.&quot;</span>))
 }
 
-<span class="kw">func</span> longestCommonSuffix(a []<span class="dt">string</span>) <span class="dt">string</span> {
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">0</span> {
-        <span class="kw">return</span> <span class="st">&quot;&quot;</span>
+<span class="kw">func</span> main() {
+    wordCount := <span class="bu">make</span>(<span class="kw">map</span>[<span class="dt">string</span>]<span class="dt">int</span>)
+    <span class="co">// Here we loop through the slice of words produced using strings.Fields</span>
+    <span class="co">// function. That function splits text into a slice of strings using</span>
+    <span class="co">// space-characters: whitespaces, tabs, new line symbols, etc.</span>
+    <span class="kw">for</span> _, word := <span class="kw">range</span> strings.Fields(Shakespeare) {
+        <span class="co">// Trim punctuation and make it lower case.</span>
+        word = getWord(word)
+        <span class="co">// Increase the count. If the there was no such word in the map it uses</span>
+        <span class="co">// zero as its count.</span>
+        wordCount[word]++
     }
 
-    suffix := a[<span class="dv">0</span>]
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">1</span> {
-        <span class="kw">return</span> suffix
+    <span class="co">// Loop through the map and print its keys and values.</span>
+    <span class="kw">for</span> word, count := <span class="kw">range</span> wordCount {
+        fmt.Println(word, count)
     }
-
-    <span class="kw">for</span> _, s := <span class="kw">range</span> a[<span class="dv">1</span>:] {
-        suffixLength := <span class="bu">len</span>(suffix)
-        sLength := <span class="bu">len</span>(s)
-
-        <span class="kw">if</span> suffixLength == <span class="dv">0</span> || sLength == <span class="dv">0</span> {
-            <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-        }
-
-        maxLength := suffixLength
-        <span class="kw">if</span> sLength &lt; maxLength {
-            maxLength = sLength
-        }
-
-        <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; maxLength; i++ {
-            j := suffixLength - i - <span class="dv">1</span>
-            k := sLength - i - <span class="dv">1</span>
-            <span class="kw">if</span> suffix[j] != s[k] {
-                suffix = suffix[j+<span class="dv">1</span>:]
-                <span class="kw">break</span>
-            }
-        }
-    }
-    <span class="kw">return</span> suffix
 }</code></pre>
+<pre><code>## the 6
+## thou 2
+## now 1
+## fresh 1
+## bud 1
+## eat 1
+## within 1
+## or 1
+## creatures 1
+## never 1
+## die 1
+## famine 1
+## content 1
+## we 1
+## thine 2
+## where 1
+## mak&#39;st 1
+## waste 1
+## this 1
+## to 4
+## gaudy 1
+## be 1
+## rose 1
+## as 1
+## his 2
+## light&#39;s 1
+## flame 1
+## fuel 1
+## art 1
+## churl 1
+## fairest 1
+## desire 1
+## bright 1
+## pity 1
+## contracted 1
+## and 3
+## grave 1
+## thereby 1
+## riper 1
+## heir 1
+## self 2
+## foe 1
+## herald 1
+## by 2
+## with 1
+## self-substantial 1
+## a 1
+## in 1
+## else 1
+## increase 1
+## but 2
+## should 1
+## decease 1
+## own 2
+## eyes 1
+## feed&#39;st 1
+## making 1
+## buriest 1
+## time 1
+## bear 1
+## memory 1
+## too 1
+## thy 5
+## abundance 1
+## world&#39;s 2
+## glutton 1
+## due 1
+## from 1
+## tender 2
+## lies 1
+## sweet 1
+## cruel 1
+## ornament 1
+## spring 1
+## world 1
+## that 2
+## beauty&#39;s 1
+## might 2
+## only 1
+## niggarding 1
+## thee 1</code></pre>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-project-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="3-10-operations-with-structs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-functions-and-pointers.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -409,7 +431,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/severus/go-course/edit/master/99-course-project.Rmd",
+"link": "https://github.com/severus/go-course/edit/master/03-composite-data-types.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Course project | Go course</title>
+  <title>1.2 Hello, world! | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Course project | Go course" />
+  <meta property="og:title" content="1.2 Hello, world! | Go course" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Course project | Go course" />
+  <meta name="twitter:title" content="1.2 Hello, world! | Go course" />
   
   <meta name="twitter:description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="module-project-5.html">
-
+<link rel="prev" href="1-1-what-is-go.html">
+<link rel="next" href="1-3-the-go-cli.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -260,126 +260,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="course-project" class="section level1 unnumbered">
-<h1>Course project</h1>
+<div id="hello-world" class="section level2">
+<h2><span class="header-section-number">1.2</span> Hello, world!</h2>
+<div id="your-first-go-program" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Your first Go program</h3>
+<p>A “Hello, world!” program is traditionally used to introduce programmers to a
+programming language. Below is a Go code that outputs “Hello, world!”:</p>
 <pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
 
-<span class="kw">import</span> (
-    <span class="st">&quot;encoding/csv&quot;</span>
-    <span class="st">&quot;fmt&quot;</span>
-    <span class="st">&quot;io&quot;</span>
-    <span class="st">&quot;log&quot;</span>
-    <span class="st">&quot;os&quot;</span>
-    <span class="st">&quot;strconv&quot;</span>
-    <span class="st">&quot;strings&quot;</span>
-)
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
 
 <span class="kw">func</span> main() {
-    <span class="kw">var</span> input io.Reader
-
-    <span class="kw">switch</span> <span class="bu">len</span>(os.Args) {
-    <span class="kw">case</span> <span class="dv">1</span>:
-        input = os.Stdin
-    <span class="kw">case</span> <span class="dv">2</span>:
-        f, err := os.Open(os.Args[<span class="dv">1</span>])
-        <span class="kw">if</span> err != <span class="ot">nil</span> {
-            log.Fatal(err)
-        }
-        <span class="kw">defer</span> f.Close()
-        input = f
-    <span class="kw">default</span>:
-        log.Fatal(<span class="st">&quot;This program expects either 0 or 1 arguments.&quot;</span>)
-    }
-
-    r := csv.NewReader(input)
-    r.FieldsPerRecord = <span class="dv">-1</span>
-
-    records, err := r.ReadAll()
-    <span class="kw">if</span> err != <span class="ot">nil</span> {
-        log.Fatal(err)
-    }
-
-    <span class="co">// Remove the very first &quot;record&quot; (i.e &#39;Category: All categories&#39;) if exists</span>
-    <span class="kw">if</span> <span class="bu">len</span>(records[<span class="dv">0</span>]) == <span class="dv">1</span> {
-        records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-    }
-
-    <span class="co">// Save names to a slice</span>
-    names := records[<span class="dv">0</span>][<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-    commonSuffix := longestCommonSuffix(names)
-    <span class="kw">if</span> commonSuffix != <span class="st">&quot;&quot;</span> {
-        <span class="kw">for</span> i, name := <span class="kw">range</span> names {
-            names[i] = strings.TrimSuffix(name, commonSuffix)
-        }
-    }
-    records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-
-    avg := <span class="bu">make</span>([]<span class="dt">int</span>, <span class="bu">len</span>(names))
-
-    <span class="kw">for</span> _, record := <span class="kw">range</span> records {
-        record = record[<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-        <span class="kw">for</span> i, s := <span class="kw">range</span> record {
-            n, err := strconv.Atoi(s)
-            <span class="kw">if</span> err != <span class="ot">nil</span> {
-                log.Fatal(err)
-            }
-            avg[i] += n
-        }
-    }
-
-    <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; <span class="bu">len</span>(avg); i++ {
-        avg[i] = avg[i] / <span class="bu">len</span>(records)
-    }
-
-    <span class="kw">for</span> i, n := <span class="kw">range</span> avg {
-        n = n/<span class="dv">10</span> + <span class="dv">1</span>
-        fmt.Printf(<span class="st">&quot;%s %s (%d)</span><span class="ch">\n</span><span class="st">&quot;</span>, strings.Repeat(<span class="st">&quot;▓&quot;</span>, n), names[i], avg[i])
-    }
-}
-
-<span class="kw">func</span> longestCommonSuffix(a []<span class="dt">string</span>) <span class="dt">string</span> {
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">0</span> {
-        <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-    }
-
-    suffix := a[<span class="dv">0</span>]
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">1</span> {
-        <span class="kw">return</span> suffix
-    }
-
-    <span class="kw">for</span> _, s := <span class="kw">range</span> a[<span class="dv">1</span>:] {
-        suffixLength := <span class="bu">len</span>(suffix)
-        sLength := <span class="bu">len</span>(s)
-
-        <span class="kw">if</span> suffixLength == <span class="dv">0</span> || sLength == <span class="dv">0</span> {
-            <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-        }
-
-        maxLength := suffixLength
-        <span class="kw">if</span> sLength &lt; maxLength {
-            maxLength = sLength
-        }
-
-        <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; maxLength; i++ {
-            j := suffixLength - i - <span class="dv">1</span>
-            k := sLength - i - <span class="dv">1</span>
-            <span class="kw">if</span> suffix[j] != s[k] {
-                suffix = suffix[j+<span class="dv">1</span>:]
-                <span class="kw">break</span>
-            }
-        }
-    }
-    <span class="kw">return</span> suffix
+    fmt.Println(<span class="st">&quot;Hello, world!&quot;</span>)
 }</code></pre>
+<pre><code>## Hello, world!</code></pre>
+<p>Let’s break down the code to understand each line:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main</code></pre>
+<p>Every Go file belongs to one (and only one) <em>package</em>. The package to which the
+code file belongs must be indicated before any other code lines. A standalone
+executable belongs to package <code>main</code>.</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> <span class="st">&quot;fmt&quot;</span></code></pre>
+<p>This line tells Go that this program needs some elements (in out case the
+function <code>Println</code>) from the package <code>fmt</code>, which implements formatted I/O
+analogous to <code>printf</code> and <code>scanf</code> in C. The package names are enclosed within
+double quotes (<code>&quot;&quot;</code>).</p>
+<pre class="sourceCode go"><code class="sourceCode go">function main() { }</code></pre>
+<p>When the program executes, the first function called will be <code>main()</code> (like in
+C). The code in functions (or the body) is enclosed between braces: <code>{ }</code></p>
 
+<div class="rmdnote">
+The first <code>{</code> must be on the same line as the function declaration!
+</div>
+
+<pre class="sourceCode go"><code class="sourceCode go">    fmt.Println(<span class="st">&quot;Hello, world!&quot;</span>)</code></pre>
+<p>This line calls the function <code>Println</code> from the package <code>fmt</code>, which prints the
+string parameter to the console, followed by a newline character <code>\n</code>.</p>
+
+<div class="rmdnote">
+The same result can be obtained with <code>fmt.Print(&quot;Hello, world!\n&quot;)</code>
+</div>
+
+</div>
+<div id="question-2" class="section level3 unnumbered">
+<h3>Question</h3>
+<p>Fill in the blanks to import the <code>fmt</code> package:</p>
+<p><code>import &quot;</code><strong><code>fmt</code></strong><code>&quot;</code></p>
+</div>
+<div id="question-3" class="section level3 unnumbered">
+<h3>Question</h3>
+<p>What is the starting point for a computer program written in Go?</p>
+<ul>
+<li><strong>Main function</strong></li>
+<li>Fist line</li>
+<li><code>package main</code></li>
+</ul>
+</div>
+<div id="question-4" class="section level3 unnumbered">
+<h3>Question</h3>
+<p>Rearrange the code blocks to form a valid Go program:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">func</span> main() {
+    fmt.Println(<span class="st">&quot;Go is awesome!&quot;</span>)
+}</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-project-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="1-1-what-is-go.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-3-the-go-cli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -409,7 +363,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/severus/go-course/edit/master/99-course-project.Rmd",
+"link": "https://github.com/severus/go-course/edit/master/01-basic-concepts.Rmd",
 "text": "Edit"
 },
 "history": {

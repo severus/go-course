@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Course project | Go course</title>
+  <title>Module project | Go course</title>
   <meta name="description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Course project | Go course" />
+  <meta property="og:title" content="Module project | Go course" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Course project | Go course" />
+  <meta name="twitter:title" content="Module project | Go course" />
   
   <meta name="twitter:description" content="The course is targeted at a beginner level student new to Go but might be familiar with 1-2 other languages (e.g. Python, HTML)." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="module-project-5.html">
-
+<link rel="prev" href="7-9-cancellation.html">
+<link rel="next" href="course-project.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -260,126 +260,151 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="course-project" class="section level1 unnumbered">
-<h1>Course project</h1>
+<div id="module-project-5" class="section level2 unnumbered">
+<h2>Module project</h2>
 <pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
 
 <span class="kw">import</span> (
-    <span class="st">&quot;encoding/csv&quot;</span>
     <span class="st">&quot;fmt&quot;</span>
-    <span class="st">&quot;io&quot;</span>
-    <span class="st">&quot;log&quot;</span>
-    <span class="st">&quot;os&quot;</span>
-    <span class="st">&quot;strconv&quot;</span>
-    <span class="st">&quot;strings&quot;</span>
+    <span class="st">&quot;math/rand&quot;</span>
+    <span class="st">&quot;sync&quot;</span>
+    <span class="st">&quot;time&quot;</span>
 )
 
-<span class="kw">func</span> main() {
-    <span class="kw">var</span> input io.Reader
+<span class="kw">const</span> (
+    NumberOfRacers   = <span class="dv">10</span>
+    NumberOfLaps     = <span class="dv">3</span>
+    MaxSleepDuration = <span class="dv">3</span> <span class="co">// seconds</span>
+)
 
-    <span class="kw">switch</span> <span class="bu">len</span>(os.Args) {
-    <span class="kw">case</span> <span class="dv">1</span>:
-        input = os.Stdin
-    <span class="kw">case</span> <span class="dv">2</span>:
-        f, err := os.Open(os.Args[<span class="dv">1</span>])
-        <span class="kw">if</span> err != <span class="ot">nil</span> {
-            log.Fatal(err)
-        }
-        <span class="kw">defer</span> f.Close()
-        input = f
-    <span class="kw">default</span>:
-        log.Fatal(<span class="st">&quot;This program expects either 0 or 1 arguments.&quot;</span>)
-    }
-
-    r := csv.NewReader(input)
-    r.FieldsPerRecord = <span class="dv">-1</span>
-
-    records, err := r.ReadAll()
-    <span class="kw">if</span> err != <span class="ot">nil</span> {
-        log.Fatal(err)
-    }
-
-    <span class="co">// Remove the very first &quot;record&quot; (i.e &#39;Category: All categories&#39;) if exists</span>
-    <span class="kw">if</span> <span class="bu">len</span>(records[<span class="dv">0</span>]) == <span class="dv">1</span> {
-        records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-    }
-
-    <span class="co">// Save names to a slice</span>
-    names := records[<span class="dv">0</span>][<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-    commonSuffix := longestCommonSuffix(names)
-    <span class="kw">if</span> commonSuffix != <span class="st">&quot;&quot;</span> {
-        <span class="kw">for</span> i, name := <span class="kw">range</span> names {
-            names[i] = strings.TrimSuffix(name, commonSuffix)
-        }
-    }
-    records = <span class="bu">append</span>(records[:<span class="dv">0</span>], records[<span class="dv">1</span>:]...)
-
-    avg := <span class="bu">make</span>([]<span class="dt">int</span>, <span class="bu">len</span>(names))
-
-    <span class="kw">for</span> _, record := <span class="kw">range</span> records {
-        record = record[<span class="dv">1</span>:] <span class="co">// Skip &#39;weeks&#39; column</span>
-        <span class="kw">for</span> i, s := <span class="kw">range</span> record {
-            n, err := strconv.Atoi(s)
-            <span class="kw">if</span> err != <span class="ot">nil</span> {
-                log.Fatal(err)
-            }
-            avg[i] += n
-        }
-    }
-
-    <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; <span class="bu">len</span>(avg); i++ {
-        avg[i] = avg[i] / <span class="bu">len</span>(records)
-    }
-
-    <span class="kw">for</span> i, n := <span class="kw">range</span> avg {
-        n = n/<span class="dv">10</span> + <span class="dv">1</span>
-        fmt.Printf(<span class="st">&quot;%s %s (%d)</span><span class="ch">\n</span><span class="st">&quot;</span>, strings.Repeat(<span class="st">&quot;▓&quot;</span>, n), names[i], avg[i])
-    }
+<span class="kw">func</span> init() {
+    rand.Seed(time.Now().UnixNano())
 }
 
-<span class="kw">func</span> longestCommonSuffix(a []<span class="dt">string</span>) <span class="dt">string</span> {
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">0</span> {
-        <span class="kw">return</span> <span class="st">&quot;&quot;</span>
+<span class="kw">func</span> race(racer <span class="dt">int</span>, start <span class="kw">chan</span> <span class="kw">struct</span>{}, finish <span class="kw">chan</span> <span class="dt">int</span>, status <span class="kw">chan</span> []<span class="dt">int</span>, wg *sync.WaitGroup) {
+    <span class="kw">defer</span> wg.Done()
+    &lt;-start
+    <span class="kw">for</span> lap := <span class="dv">1</span>; lap &lt;= NumberOfLaps; lap++ {
+        sleep := time.Duration(rand.Intn(MaxSleepDuration))
+        time.Sleep(sleep * time.Second)
+        <span class="kw">go</span> <span class="kw">func</span>(racer, lap <span class="dt">int</span>) {
+            status &lt;- []<span class="dt">int</span>{racer, lap}
+        }(racer, lap)
+    }
+    finish &lt;- racer
+}
+
+<span class="kw">func</span> main() {
+    start := <span class="bu">make</span>(<span class="kw">chan</span> <span class="kw">struct</span>{})
+    finish := <span class="bu">make</span>(<span class="kw">chan</span> <span class="dt">int</span>)
+    status := <span class="bu">make</span>(<span class="kw">chan</span> []<span class="dt">int</span>)
+    done := <span class="bu">make</span>(<span class="kw">chan</span> <span class="kw">struct</span>{})
+    <span class="kw">var</span> wg sync.WaitGroup
+    wg.Add(NumberOfRacers)
+    <span class="kw">for</span> racer := <span class="dv">1</span>; racer &lt;= NumberOfRacers; racer++ {
+        <span class="kw">go</span> race(racer, start, finish, status, &amp;wg)
     }
 
-    suffix := a[<span class="dv">0</span>]
-    <span class="kw">if</span> <span class="bu">len</span>(a) == <span class="dv">1</span> {
-        <span class="kw">return</span> suffix
-    }
+    <span class="kw">go</span> <span class="kw">func</span>() {
+        wg.Wait()
+        <span class="bu">close</span>(done)
+    }()
 
-    <span class="kw">for</span> _, s := <span class="kw">range</span> a[<span class="dv">1</span>:] {
-        suffixLength := <span class="bu">len</span>(suffix)
-        sLength := <span class="bu">len</span>(s)
+    startTime := time.Now()
+    <span class="bu">close</span>(start)
 
-        <span class="kw">if</span> suffixLength == <span class="dv">0</span> || sLength == <span class="dv">0</span> {
-            <span class="kw">return</span> <span class="st">&quot;&quot;</span>
-        }
+    ticker := time.NewTicker(time.Second)
+    <span class="kw">defer</span> ticker.Stop()
 
-        maxLength := suffixLength
-        <span class="kw">if</span> sLength &lt; maxLength {
-            maxLength = sLength
-        }
+    <span class="kw">var</span> winners []<span class="dt">int</span>
 
-        <span class="kw">for</span> i := <span class="dv">0</span>; i &lt; maxLength; i++ {
-            j := suffixLength - i - <span class="dv">1</span>
-            k := sLength - i - <span class="dv">1</span>
-            <span class="kw">if</span> suffix[j] != s[k] {
-                suffix = suffix[j+<span class="dv">1</span>:]
-                <span class="kw">break</span>
+OuterLoop:
+    <span class="kw">for</span> {
+        <span class="kw">select</span> {
+        <span class="kw">case</span> t := &lt;-ticker.C:
+            fmt.Println(<span class="st">&quot;Race time:&quot;</span>, t.Sub(startTime))
+        <span class="kw">case</span> s := &lt;-status:
+            fmt.Printf(<span class="st">&quot;Racer #%d is on lap %d</span><span class="ch">\n</span><span class="st">&quot;</span>, s[<span class="dv">0</span>], s[<span class="dv">1</span>])
+        <span class="kw">case</span> finished := &lt;-finish:
+            fmt.Printf(<span class="st">&quot;Racer #%d finished!</span><span class="ch">\n</span><span class="st">&quot;</span>, finished)
+            <span class="kw">if</span> <span class="bu">len</span>(winners) &lt; <span class="dv">3</span> {
+                winners = <span class="bu">append</span>(winners, finished)
             }
+        <span class="kw">case</span> &lt;-done:
+            <span class="kw">break</span> OuterLoop
         }
     }
-    <span class="kw">return</span> suffix
+
+    <span class="bu">close</span>(finish)
+    <span class="bu">close</span>(status)
+
+    fmt.Println(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Winners:&quot;</span>)
+    place := <span class="dv">1</span>
+    <span class="kw">for</span> _, racer := <span class="kw">range</span> winners {
+        fmt.Printf(<span class="st">&quot;%d place: Racer #%d</span><span class="ch">\n</span><span class="st">&quot;</span>, place, racer)
+        place++
+    }
 }</code></pre>
+<pre><code>## Racer #10 finished!
+## Racer #6 is on lap 1
+## Racer #5 is on lap 2
+## Racer #5 is on lap 1
+## Racer #10 is on lap 1
+## Racer #10 is on lap 2
+## Racer #10 is on lap 3
+## Race time: 1.000141809s
+## Racer #1 is on lap 1
+## Racer #5 finished!
+## Racer #2 is on lap 1
+## Racer #7 is on lap 2
+## Racer #7 is on lap 1
+## Racer #1 is on lap 2
+## Racer #3 is on lap 1
+## Racer #5 is on lap 3
+## Race time: 2.000192958s
+## Racer #4 is on lap 1
+## Racer #9 is on lap 1
+## Racer #8 is on lap 2
+## Racer #8 is on lap 1
+## Racer #4 is on lap 2
+## Racer #6 is on lap 2
+## Racer #3 is on lap 2
+## Racer #2 is on lap 2
+## Racer #7 finished!
+## Racer #7 is on lap 3
+## Race time: 3.000157756s
+## Racer #3 finished!
+## Racer #1 finished!
+## Racer #9 is on lap 2
+## Racer #8 finished!
+## Racer #4 finished!
+## Racer #6 finished!
+## Racer #3 is on lap 3
+## Racer #1 is on lap 3
+## Racer #8 is on lap 3
+## Racer #4 is on lap 3
+## Racer #6 is on lap 3
+## Race time: 4.000212626s
+## Racer #2 finished!
+## Racer #2 is on lap 3
+## Race time: 5.000244014s
+## Racer #9 finished!
+## Racer #9 is on lap 3
+## 
+## Winners:
+## 1 place: Racer #10
+## 2 place: Racer #5
+## 3 place: Racer #7</code></pre>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-project-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="7-9-cancellation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="course-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -409,7 +434,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/severus/go-course/edit/master/99-course-project.Rmd",
+"link": "https://github.com/severus/go-course/edit/master/07-goroutines-and-channels.Rmd",
 "text": "Edit"
 },
 "history": {
