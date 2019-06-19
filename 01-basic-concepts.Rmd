@@ -733,7 +733,73 @@ Which of the following indicates a single-line comment?
 
 ## Packages and imports
 
-TODO:
+Packages are a way to structure code. A program in Go is constructed as a
+package, which may use resourses from other packages.
+
+Every Go file belongs to only one package. Go package may consist of multiple
+Go files.
+
+The first line of every Go file indicates the package to which the Go file
+belongs:
+
+```{go eval = FALSE}
+package main
+```
+
+A stanalone executable belongs to package `main`.
+
+### Question {-}
+
+Which of the following is true about Go packages. Select all that apply:
+
+* **Packages are used to structure code**
+* One Go file may belong to multiple packages
+* **Go package may consist of multiple Go files**
+* A standalone executable belongs to package `application`
+
+### Go standard library
+
+The standard library of Go contains a lot of packages (like `fmt`, `stings`,
+etc). It is also possible to create your own packages. For your own packages,
+you must choose a base path that is unlikely to collide with future additions
+to the standard library or other external libraries.
+
+To use *exported* elements (constants, types, variable and functions) from
+another package in your package, that another package must be *imported* using
+the `import` keyword:
+
+```{go eval = FALSE}
+import "fmt"
+```
+
+If you need to import multiple packages you can use multiple `import`
+statements:
+
+```{go eval = FALSE}
+import "bytes"
+import "fmt"
+import "strings"
+```
+
+But the Go idiomatic way of multiple imports is to use `import` keyword with
+brackets `( )`, the same way as with variables and constants:
+
+```{go eval = FALSE}
+import (
+	"bytes"
+	"fmt"
+	"strings"
+)
+```
+
+### Question {-}
+
+Which of the following is the correct way to import packages in Go?
+
+* `uses "fmt"`
+* **`import "fmt"`**
+* `#include <fmt>`
+* import fmt
 
 ## Try it yourself {-}
 
