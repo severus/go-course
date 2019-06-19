@@ -170,7 +170,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="1-8-comments.html"><a href="1-8-comments.html"><i class="fa fa-check"></i><b>1.8</b> Comments</a><ul>
 <li class="chapter" data-level="" data-path="1-8-comments.html"><a href="1-8-comments.html#question-16"><i class="fa fa-check"></i>Question</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html"><i class="fa fa-check"></i><b>1.9</b> Packages and imports</a></li>
+<li class="chapter" data-level="1.9" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html"><i class="fa fa-check"></i><b>1.9</b> Packages and imports</a><ul>
+<li class="chapter" data-level="" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html#question-17"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="1.9.1" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html#go-standard-library"><i class="fa fa-check"></i><b>1.9.1</b> Go standard library</a></li>
+<li class="chapter" data-level="" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html#question-18"><i class="fa fa-check"></i>Question</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="try-it-yourself.html"><a href="try-it-yourself.html"><i class="fa fa-check"></i>Try it yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="2-conditionals-and-loops.html"><a href="2-conditionals-and-loops.html"><i class="fa fa-check"></i><b>2</b> Conditionals and Loops</a><ul>
@@ -264,7 +268,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="packages-and-imports" class="section level2">
 <h2><span class="header-section-number">1.9</span> Packages and imports</h2>
-<p>TODO:</p>
+<p>Packages are a way to structure code. A program in Go is constructed as a
+package, which may use resourses from other packages.</p>
+<p>Every Go file belongs to only one package. Go package may consist of multiple
+Go files.</p>
+<p>The first line of every Go file indicates the package to which the Go file
+belongs:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main</code></pre>
+<p>A stanalone executable belongs to package <code>main</code>.</p>
+<div id="question-17" class="section level3 unnumbered">
+<h3>Question</h3>
+<p>Which of the following is true about Go packages. Select all that apply:</p>
+<ul>
+<li><strong>Packages are used to structure code</strong></li>
+<li>One Go file may belong to multiple packages</li>
+<li><strong>Go package may consist of multiple Go files</strong></li>
+<li>A standalone executable belongs to package <code>application</code></li>
+</ul>
+</div>
+<div id="go-standard-library" class="section level3">
+<h3><span class="header-section-number">1.9.1</span> Go standard library</h3>
+<p>The standard library of Go contains a lot of packages (like <code>fmt</code>, <code>stings</code>,
+etc). It is also possible to create your own packages. For your own packages,
+you must choose a base path that is unlikely to collide with future additions
+to the standard library or other external libraries.</p>
+<p>To use <em>exported</em> elements (constants, types, variable and functions) from
+another package in your package, that another package must be <em>imported</em> using
+the <code>import</code> keyword:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> <span class="st">&quot;fmt&quot;</span></code></pre>
+<p>If you need to import multiple packages you can use multiple <code>import</code>
+statements:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> <span class="st">&quot;bytes&quot;</span>
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+<span class="kw">import</span> <span class="st">&quot;strings&quot;</span></code></pre>
+<p>But the Go idiomatic way of multiple imports is to use <code>import</code> keyword with
+brackets <code>( )</code>, the same way as with variables and constants:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">import</span> (
+    <span class="st">&quot;bytes&quot;</span>
+    <span class="st">&quot;fmt&quot;</span>
+    <span class="st">&quot;strings&quot;</span>
+)</code></pre>
+</div>
+<div id="question-18" class="section level3 unnumbered">
+<h3>Question</h3>
+<p>Which of the following is the correct way to import packages in Go?</p>
+<ul>
+<li><code>uses &quot;fmt&quot;</code></li>
+<li><strong><code>import &quot;fmt&quot;</code></strong></li>
+<li><code>#include &lt;fmt&gt;</code></li>
+<li>import fmt</li>
+</ul>
+</div>
 </div>
             </section>
 

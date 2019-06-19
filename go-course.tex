@@ -1187,7 +1187,100 @@ Which of the following indicates a single-line comment?
 \hypertarget{packages-and-imports}{%
 \section{Packages and imports}\label{packages-and-imports}}
 
-TODO:
+Packages are a way to structure code. A program in Go is constructed as a
+package, which may use resourses from other packages.
+
+Every Go file belongs to only one package. Go package may consist of multiple
+Go files.
+
+The first line of every Go file indicates the package to which the Go file
+belongs:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+\end{Highlighting}
+\end{Shaded}
+
+A stanalone executable belongs to package \texttt{main}.
+
+\hypertarget{question-17}{%
+\subsection*{Question}\label{question-17}}
+\addcontentsline{toc}{subsection}{Question}
+
+Which of the following is true about Go packages. Select all that apply:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Packages are used to structure code}
+\item
+  One Go file may belong to multiple packages
+\item
+  \textbf{Go package may consist of multiple Go files}
+\item
+  A standalone executable belongs to package \texttt{application}
+\end{itemize}
+
+\hypertarget{go-standard-library}{%
+\subsection{Go standard library}\label{go-standard-library}}
+
+The standard library of Go contains a lot of packages (like \texttt{fmt}, \texttt{stings},
+etc). It is also possible to create your own packages. For your own packages,
+you must choose a base path that is unlikely to collide with future additions
+to the standard library or other external libraries.
+
+To use \emph{exported} elements (constants, types, variable and functions) from
+another package in your package, that another package must be \emph{imported} using
+the \texttt{import} keyword:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import} \StringTok{"fmt"}
+\end{Highlighting}
+\end{Shaded}
+
+If you need to import multiple packages you can use multiple \texttt{import}
+statements:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import} \StringTok{"bytes"}
+\KeywordTok{import} \StringTok{"fmt"}
+\KeywordTok{import} \StringTok{"strings"}
+\end{Highlighting}
+\end{Shaded}
+
+But the Go idiomatic way of multiple imports is to use \texttt{import} keyword with
+brackets \texttt{(\ )}, the same way as with variables and constants:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import}\NormalTok{ (}
+    \StringTok{"bytes"}
+    \StringTok{"fmt"}
+    \StringTok{"strings"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{question-18}{%
+\subsection*{Question}\label{question-18}}
+\addcontentsline{toc}{subsection}{Question}
+
+Which of the following is the correct way to import packages in Go?
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{uses\ "fmt"}
+\item
+  \textbf{\texttt{import\ "fmt"}}
+\item
+  \texttt{\#include\ \textless{}fmt\textgreater{}}
+\item
+  import fmt
+\end{itemize}
 
 \hypertarget{try-it-yourself}{%
 \section*{Try it yourself}\label{try-it-yourself}}
@@ -1380,87 +1473,87 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
-## but 2
+## herald 1
+## in 1
+## niggarding 1
+## fairest 1
 ## eyes 1
-## where 1
-## grave 1
-## might 2
-## his 2
-## memory 1
+## lies 1
+## fresh 1
+## only 1
+## thee 1
+## but 2
+## flame 1
+## a 1
 ## self 2
 ## now 1
-## due 1
-## as 1
-## flame 1
-## foe 1
-## cruel 1
-## herald 1
-## beauty's 1
-## time 1
-## thy 5
-## die 1
-## bear 1
-## sweet 1
-## never 1
-## tender 2
-## ornament 1
-## eat 1
-## desire 1
-## that 2
 ## riper 1
-## bright 1
-## gaudy 1
-## niggarding 1
-## from 1
-## fairest 1
-## increase 1
-## with 1
-## world 1
-## be 1
-## should 1
-## own 2
-## waste 1
-## content 1
-## glutton 1
-## creatures 1
-## rose 1
-## decease 1
+## tender 2
 ## thou 2
-## fresh 1
-## spring 1
-## thereby 1
-## fuel 1
-## famine 1
-## art 1
-## thee 1
-## or 1
-## thine 2
-## feed'st 1
-## light's 1
 ## self-substantial 1
-## a 1
-## within 1
-## pity 1
-## this 1
-## heir 1
 ## making 1
-## abundance 1
-## bud 1
-## buriest 1
-## churl 1
+## gaudy 1
 ## we 1
-## the 6
-## too 1
-## and 3
-## by 2
-## contracted 1
-## lies 1
+## abundance 1
 ## world's 2
-## only 1
-## in 1
+## bright 1
+## waste 1
+## thereby 1
+## might 2
+## the 6
+## feed'st 1
+## ornament 1
+## desire 1
 ## to 4
+## fuel 1
+## world 1
+## eat 1
+## from 1
+## his 2
+## bear 1
+## glutton 1
 ## mak'st 1
+## creatures 1
+## too 1
+## cruel 1
+## bud 1
+## content 1
+## with 1
+## spring 1
+## that 2
+## beauty's 1
+## never 1
+## should 1
+## memory 1
+## sweet 1
+## and 3
+## buriest 1
+## time 1
+## heir 1
+## contracted 1
+## thy 5
+## foe 1
+## pity 1
+## art 1
+## be 1
+## due 1
+## or 1
+## increase 1
+## as 1
+## thine 2
+## light's 1
+## where 1
+## die 1
+## decease 1
 ## else 1
+## churl 1
+## this 1
+## grave 1
+## rose 1
+## by 2
+## own 2
+## famine 1
+## within 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -2041,49 +2134,56 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
+## Racer #10 is on lap 1
+## Racer #1 is on lap 1
+## Race time: 1.000139066s
+## Racer #7 is on lap 1
+## Racer #6 is on lap 2
 ## Racer #6 is on lap 1
+## Racer #8 finished!
+## Racer #8 is on lap 1
+## Racer #8 is on lap 2
+## Racer #8 is on lap 3
+## Racer #5 is on lap 2
+## Racer #5 is on lap 1
+## Racer #1 is on lap 2
+## Racer #4 is on lap 2
+## Racer #4 is on lap 1
+## Race time: 2.000228514s
+## Racer #10 finished!
 ## Racer #9 finished!
+## Racer #10 is on lap 3
+## Racer #7 is on lap 2
+## Racer #2 is on lap 1
+## Racer #3 is on lap 1
 ## Racer #9 is on lap 3
 ## Racer #9 is on lap 1
 ## Racer #9 is on lap 2
-## Racer #10 is on lap 1
-## Race time: 1.000112957s
 ## Racer #10 is on lap 2
-## Racer #1 is on lap 2
-## Racer #6 is on lap 2
-## Racer #2 is on lap 2
-## Racer #3 is on lap 1
-## Racer #7 is on lap 1
-## Racer #1 is on lap 1
-## Racer #2 is on lap 1
-## Race time: 2.000263709s
-## Racer #2 finished!
-## Racer #2 is on lap 3
-## Racer #5 finished!
-## Racer #4 is on lap 1
-## Racer #8 is on lap 1
-## Racer #5 is on lap 1
-## Racer #5 is on lap 2
-## Racer #5 is on lap 3
-## Race time: 3.000230913s
-## Racer #6 is on lap 3
-## Racer #6 finished!
-## Racer #10 finished!
 ## Racer #1 finished!
-## Racer #10 is on lap 3
+## Racer #5 finished!
+## Racer #5 is on lap 3
 ## Racer #1 is on lap 3
-## Racer #8 finished!
-## Racer #3 finished!
-## Racer #7 finished!
+## Race time: 3.000154729s
 ## Racer #4 finished!
-## Racer #8 is on lap 2
-## Racer #8 is on lap 3
+## Racer #7 finished!
+## Racer #6 finished!
+## Racer #4 is on lap 3
+## Racer #7 is on lap 3
+## Racer #6 is on lap 3
+## Race time: 4.00021849s
 ## Racer #3 is on lap 2
+## Racer #2 is on lap 2
+## Race time: 5.000202162s
+## Racer #3 finished!
+## Racer #3 is on lap 3
+## Race time: 6.00021689s
+## Racer #2 finished!
 ## 
 ## Winners:
-## 1 place: Racer #9
-## 2 place: Racer #2
-## 3 place: Racer #5
+## 1 place: Racer #8
+## 2 place: Racer #10
+## 3 place: Racer #9
 \end{verbatim}
 
 \hypertarget{course-project}{%
