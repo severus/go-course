@@ -799,7 +799,7 @@ Which of the following is the correct way to import packages in Go?
 * `uses "fmt"`
 * **`import "fmt"`**
 * `#include <fmt>`
-* import fmt
+* `import fmt`
 
 ## Try it yourself {-}
 
