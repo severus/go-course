@@ -550,7 +550,151 @@ Go? Select all that apply:
 
 ## Constants
 
-TODO:
+Constants in Go are created at compile time. Constants can only be numbers,
+strings or booleans.
+
+```{go}
+package main
+
+import "fmt"
+
+const a = 42
+
+// Constants can be groupped together
+const (
+	b = true
+	c = "Hello world"
+	pi = 3.14
+)
+
+func main() {
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+	fmt.Println(pi)
+}
+```
+
+#### Question {-}
+
+Fill in the blanks to define a constant `x` which equals to `42`:
+
+**`const`** `x = 42`
+
+### `iota` enumerator
+
+You can use `iota` to enumerate constant values:
+
+```{go}
+package main
+
+import "fmt"
+
+const (
+	a = iota // 0
+	b = iota // 1
+    c = iota // 2
+)
+
+func main() {
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+}
+```
+
+The first use of `iota` will yield 0, so `a` is equal to 0, whenever `iota` is
+used again on a new line its value is incremented with 1, so `b` has a value of
+1 and `c` has the value of 2.
+
+This can be shortened to:
+
+```{go}
+package main
+
+import "fmt"
+
+const (
+	a = iota // 0
+	b        // 1
+	c        // 2
+)
+
+func main() {
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+}
+```
+
+`iota` can also be used in expressions:
+
+```{go}
+package main
+
+import "fmt"
+
+const (
+	a = iota + 10 // 10
+	b             // 11
+	c             // 12
+)
+
+func main() {
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+}
+```
+
+A new `const` block initializes `iota` back to 0:
+
+
+```{go}
+package main
+
+import "fmt"
+
+const (
+	a = iota + 10 // 10
+	b             // 11
+	c             // 12
+)
+
+const (
+	_ = iota      // ignore first value by assigning to blank identifier
+	x = iota * 10 // 10
+	y             // 20
+	z             // 30
+)
+
+func main() {
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+
+	fmt.Println(x)
+	fmt.Println(y)
+	fmt.Println(z)
+}
+```
+
+#### Question {-}
+
+What is the value of the constant `z`?
+
+```{go eval = FALSE}
+const a = iota
+
+const (
+    _ = iota
+    x = iota * 10 - 3
+    y
+    z = iota + 42
+)
+```
+
+**45**
 
 ## Comments
 
