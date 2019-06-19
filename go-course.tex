@@ -122,7 +122,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-14}
+    \date{2019-06-19}
 
 \renewcommand{\chaptername}{Module}
 
@@ -938,7 +938,201 @@ Go? Select all that apply:
 \hypertarget{constants}{%
 \section{Constants}\label{constants}}
 
-TODO:
+Constants in Go are created at compile time. Constants can only be numbers,
+strings or booleans.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{const}\NormalTok{ a = }\DecValTok{42}
+
+\CommentTok{// Constants can be groupped together}
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    b = }\OtherTok{true}
+\NormalTok{    c = }\StringTok{"Hello world"}
+\NormalTok{    pi = }\DecValTok{3}\FloatTok{.14}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{    fmt.Println(b)}
+\NormalTok{    fmt.Println(c)}
+\NormalTok{    fmt.Println(pi)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 42
+## true
+## Hello world
+## 3.14
+\end{verbatim}
+
+\hypertarget{question-14}{%
+\subsubsection*{Question}\label{question-14}}
+\addcontentsline{toc}{subsubsection}{Question}
+
+Fill in the blanks to define a constant \texttt{x} which equals to \texttt{42}:
+
+\textbf{\texttt{const}} \texttt{x\ =\ 42}
+
+\hypertarget{iota-enumerator}{%
+\subsection{\texorpdfstring{\texttt{iota} enumerator}{iota enumerator}}\label{iota-enumerator}}
+
+You can use \texttt{iota} to enumerate constant values:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    a = }\OtherTok{iota} \CommentTok{// 0}
+\NormalTok{    b = }\OtherTok{iota} \CommentTok{// 1}
+\NormalTok{    c = }\OtherTok{iota} \CommentTok{// 2}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{    fmt.Println(b)}
+\NormalTok{    fmt.Println(c)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0
+## 1
+## 2
+\end{verbatim}
+
+The first use of \texttt{iota} will yield 0, so \texttt{a} is equal to 0, whenever \texttt{iota} is
+used again on a new line its value is incremented with 1, so \texttt{b} has a value of
+1 and \texttt{c} has the value of 2.
+
+This can be shortened to:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    a = }\OtherTok{iota} \CommentTok{// 0}
+\NormalTok{    b        }\CommentTok{// 1}
+\NormalTok{    c        }\CommentTok{// 2}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{    fmt.Println(b)}
+\NormalTok{    fmt.Println(c)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0
+## 1
+## 2
+\end{verbatim}
+
+\texttt{iota} can also be used in expressions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    a = }\OtherTok{iota}\NormalTok{ + }\DecValTok{10} \CommentTok{// 10}
+\NormalTok{    b             }\CommentTok{// 11}
+\NormalTok{    c             }\CommentTok{// 12}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{    fmt.Println(b)}
+\NormalTok{    fmt.Println(c)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 10
+## 11
+## 12
+\end{verbatim}
+
+A new \texttt{const} block initializes \texttt{iota} back to 0:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    a = }\OtherTok{iota}\NormalTok{ + }\DecValTok{10} \CommentTok{// 10}
+\NormalTok{    b             }\CommentTok{// 11}
+\NormalTok{    c             }\CommentTok{// 12}
+\NormalTok{)}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    _ = }\OtherTok{iota}      \CommentTok{// ignore first value by assigning to blank identifier}
+\NormalTok{    x = }\OtherTok{iota}\NormalTok{ * }\DecValTok{10} \CommentTok{// 10}
+\NormalTok{    y             }\CommentTok{// 20}
+\NormalTok{    z             }\CommentTok{// 30}
+\NormalTok{)}
+
+\KeywordTok{func}\NormalTok{ main() \{}
+\NormalTok{    fmt.Println(a)}
+\NormalTok{    fmt.Println(b)}
+\NormalTok{    fmt.Println(c)}
+
+\NormalTok{    fmt.Println(x)}
+\NormalTok{    fmt.Println(y)}
+\NormalTok{    fmt.Println(z)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 10
+## 11
+## 12
+## 10
+## 20
+## 30
+\end{verbatim}
+
+\hypertarget{question-15}{%
+\subsubsection*{Question}\label{question-15}}
+\addcontentsline{toc}{subsubsection}{Question}
+
+What is the value of the constant \texttt{z}?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{const}\NormalTok{ a = }\OtherTok{iota}
+
+\KeywordTok{const}\NormalTok{ (}
+\NormalTok{    _ = }\OtherTok{iota}
+\NormalTok{    x = }\OtherTok{iota}\NormalTok{ * }\DecValTok{10}\NormalTok{ - }\DecValTok{3}
+\NormalTok{    y}
+\NormalTok{    z = }\OtherTok{iota}\NormalTok{ + }\DecValTok{42}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{45}
 
 \hypertarget{comments}{%
 \section{Comments}\label{comments}}
@@ -974,8 +1168,8 @@ Comments clarify the program's intent to the reader. Later on you'll learn
 how to use comments to produce documentation for the Go code.
 \EndKnitrBlock{rmdnote}
 
-\hypertarget{question-14}{%
-\subsection*{Question}\label{question-14}}
+\hypertarget{question-16}{%
+\subsection*{Question}\label{question-16}}
 \addcontentsline{toc}{subsection}{Question}
 
 Which of the following indicates a single-line comment?
@@ -1186,87 +1380,87 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
-## that 2
-## time 1
-## self 2
-## gaudy 1
-## within 1
-## content 1
-## from 1
-## we 1
-## thereby 1
-## his 2
-## or 1
-## art 1
-## world's 2
-## mak'st 1
-## in 1
-## increase 1
-## beauty's 1
-## light's 1
-## pity 1
-## fuel 1
-## else 1
-## memory 1
-## too 1
-## bud 1
-## niggarding 1
-## a 1
-## foe 1
-## herald 1
-## thee 1
-## heir 1
-## this 1
-## by 2
+## but 2
 ## eyes 1
-## making 1
-## ornament 1
-## eat 1
-## rose 1
-## bright 1
-## self-substantial 1
-## be 1
-## only 1
-## fairest 1
-## desire 1
-## never 1
-## to 4
-## famine 1
-## now 1
-## and 3
-## churl 1
+## where 1
+## grave 1
 ## might 2
+## his 2
+## memory 1
+## self 2
+## now 1
+## due 1
+## as 1
+## flame 1
+## foe 1
+## cruel 1
+## herald 1
+## beauty's 1
+## time 1
+## thy 5
 ## die 1
 ## bear 1
-## thy 5
-## world 1
-## grave 1
-## flame 1
-## abundance 1
-## cruel 1
-## spring 1
-## as 1
+## sweet 1
+## never 1
+## tender 2
+## ornament 1
+## eat 1
+## desire 1
+## that 2
 ## riper 1
-## thine 2
+## bright 1
+## gaudy 1
+## niggarding 1
+## from 1
+## fairest 1
+## increase 1
+## with 1
+## world 1
+## be 1
+## should 1
 ## own 2
+## waste 1
+## content 1
 ## glutton 1
 ## creatures 1
-## lies 1
-## waste 1
-## the 6
-## tender 2
-## contracted 1
-## sweet 1
-## feed'st 1
-## with 1
-## where 1
-## fresh 1
-## but 2
-## should 1
+## rose 1
 ## decease 1
 ## thou 2
+## fresh 1
+## spring 1
+## thereby 1
+## fuel 1
+## famine 1
+## art 1
+## thee 1
+## or 1
+## thine 2
+## feed'st 1
+## light's 1
+## self-substantial 1
+## a 1
+## within 1
+## pity 1
+## this 1
+## heir 1
+## making 1
+## abundance 1
+## bud 1
 ## buriest 1
-## due 1
+## churl 1
+## we 1
+## the 6
+## too 1
+## and 3
+## by 2
+## contracted 1
+## lies 1
+## world's 2
+## only 1
+## in 1
+## to 4
+## mak'st 1
+## else 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -1847,53 +2041,49 @@ TODO:
 \end{Shaded}
 
 \begin{verbatim}
-## Racer #1 is on lap 1
-## Racer #2 is on lap 1
-## Racer #3 is on lap 1
-## Racer #5 is on lap 1
-## Racer #9 is on lap 1
-## Race time: 1.000143491s
-## Racer #1 is on lap 2
 ## Racer #6 is on lap 1
 ## Racer #9 finished!
-## Racer #4 is on lap 1
-## Racer #9 is on lap 2
 ## Racer #9 is on lap 3
-## Racer #8 is on lap 1
-## Racer #10 is on lap 2
+## Racer #9 is on lap 1
+## Racer #9 is on lap 2
 ## Racer #10 is on lap 1
-## Race time: 2.000121508s
-## Racer #7 is on lap 1
+## Race time: 1.000112957s
+## Racer #10 is on lap 2
+## Racer #1 is on lap 2
+## Racer #6 is on lap 2
 ## Racer #2 is on lap 2
-## Racer #3 is on lap 2
-## Racer #5 finished!
-## Racer #5 is on lap 2
-## Racer #5 is on lap 3
-## Race time: 3.000169186s
-## Racer #7 is on lap 2
-## Racer #1 finished!
-## Racer #1 is on lap 3
+## Racer #3 is on lap 1
+## Racer #7 is on lap 1
+## Racer #1 is on lap 1
+## Racer #2 is on lap 1
+## Race time: 2.000263709s
 ## Racer #2 finished!
 ## Racer #2 is on lap 3
-## Racer #6 finished!
-## Racer #6 is on lap 2
+## Racer #5 finished!
+## Racer #4 is on lap 1
+## Racer #8 is on lap 1
+## Racer #5 is on lap 1
+## Racer #5 is on lap 2
+## Racer #5 is on lap 3
+## Race time: 3.000230913s
 ## Racer #6 is on lap 3
-## Racer #4 is on lap 2
-## Racer #10 is on lap 3
-## Racer #8 is on lap 2
+## Racer #6 finished!
 ## Racer #10 finished!
-## Race time: 4.000163406s
-## Racer #3 finished!
-## Racer #7 is on lap 3
-## Racer #7 finished!
-## Racer #3 is on lap 3
+## Racer #1 finished!
+## Racer #10 is on lap 3
+## Racer #1 is on lap 3
 ## Racer #8 finished!
+## Racer #3 finished!
+## Racer #7 finished!
 ## Racer #4 finished!
+## Racer #8 is on lap 2
+## Racer #8 is on lap 3
+## Racer #3 is on lap 2
 ## 
 ## Winners:
 ## 1 place: Racer #9
-## 2 place: Racer #5
-## 3 place: Racer #1
+## 2 place: Racer #2
+## 3 place: Racer #5
 \end{verbatim}
 
 \hypertarget{course-project}{%

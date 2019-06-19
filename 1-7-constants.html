@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-06-14" />
+<meta name="date" content="2019-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,9 +164,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.2" data-path="1-6-operators.html"><a href="1-6-operators.html#operator-precedence"><i class="fa fa-check"></i><b>1.6.2</b> Operator precedence</a></li>
 <li class="chapter" data-level="1.6.3" data-path="1-6-operators.html"><a href="1-6-operators.html#increment-and-decrement"><i class="fa fa-check"></i><b>1.6.3</b> Increment and decrement</a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="1-7-constants.html"><a href="1-7-constants.html"><i class="fa fa-check"></i><b>1.7</b> Constants</a></li>
+<li class="chapter" data-level="1.7" data-path="1-7-constants.html"><a href="1-7-constants.html"><i class="fa fa-check"></i><b>1.7</b> Constants</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="1-7-constants.html"><a href="1-7-constants.html#iota-enumerator"><i class="fa fa-check"></i><b>1.7.1</b> <code>iota</code> enumerator</a></li>
+</ul></li>
 <li class="chapter" data-level="1.8" data-path="1-8-comments.html"><a href="1-8-comments.html"><i class="fa fa-check"></i><b>1.8</b> Comments</a><ul>
-<li class="chapter" data-level="" data-path="1-8-comments.html"><a href="1-8-comments.html#question-14"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="1-8-comments.html"><a href="1-8-comments.html#question-16"><i class="fa fa-check"></i>Question</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="1-9-packages-and-imports.html"><a href="1-9-packages-and-imports.html"><i class="fa fa-check"></i><b>1.9</b> Packages and imports</a></li>
 <li class="chapter" data-level="" data-path="try-it-yourself.html"><a href="try-it-yourself.html"><i class="fa fa-check"></i>Try it yourself</a></li>
@@ -262,7 +264,145 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="constants" class="section level2">
 <h2><span class="header-section-number">1.7</span> Constants</h2>
-<p>TODO:</p>
+<p>Constants in Go are created at compile time. Constants can only be numbers,
+strings or booleans.</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">const</span> a = <span class="dv">42</span>
+
+<span class="co">// Constants can be groupped together</span>
+<span class="kw">const</span> (
+    b = <span class="ot">true</span>
+    c = <span class="st">&quot;Hello world&quot;</span>
+    pi = <span class="dv">3</span><span class="fl">.14</span>
+)
+
+<span class="kw">func</span> main() {
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+    fmt.Println(pi)
+}</code></pre>
+<pre><code>## 42
+## true
+## Hello world
+## 3.14</code></pre>
+<div id="question-14" class="section level4 unnumbered">
+<h4>Question</h4>
+<p>Fill in the blanks to define a constant <code>x</code> which equals to <code>42</code>:</p>
+<p><strong><code>const</code></strong> <code>x = 42</code></p>
+</div>
+<div id="iota-enumerator" class="section level3">
+<h3><span class="header-section-number">1.7.1</span> <code>iota</code> enumerator</h3>
+<p>You can use <code>iota</code> to enumerate constant values:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">const</span> (
+    a = <span class="ot">iota</span> <span class="co">// 0</span>
+    b = <span class="ot">iota</span> <span class="co">// 1</span>
+    c = <span class="ot">iota</span> <span class="co">// 2</span>
+)
+
+<span class="kw">func</span> main() {
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+}</code></pre>
+<pre><code>## 0
+## 1
+## 2</code></pre>
+<p>The first use of <code>iota</code> will yield 0, so <code>a</code> is equal to 0, whenever <code>iota</code> is
+used again on a new line its value is incremented with 1, so <code>b</code> has a value of
+1 and <code>c</code> has the value of 2.</p>
+<p>This can be shortened to:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">const</span> (
+    a = <span class="ot">iota</span> <span class="co">// 0</span>
+    b        <span class="co">// 1</span>
+    c        <span class="co">// 2</span>
+)
+
+<span class="kw">func</span> main() {
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+}</code></pre>
+<pre><code>## 0
+## 1
+## 2</code></pre>
+<p><code>iota</code> can also be used in expressions:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">const</span> (
+    a = <span class="ot">iota</span> + <span class="dv">10</span> <span class="co">// 10</span>
+    b             <span class="co">// 11</span>
+    c             <span class="co">// 12</span>
+)
+
+<span class="kw">func</span> main() {
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+}</code></pre>
+<pre><code>## 10
+## 11
+## 12</code></pre>
+<p>A new <code>const</code> block initializes <code>iota</code> back to 0:</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="st">&quot;fmt&quot;</span>
+
+<span class="kw">const</span> (
+    a = <span class="ot">iota</span> + <span class="dv">10</span> <span class="co">// 10</span>
+    b             <span class="co">// 11</span>
+    c             <span class="co">// 12</span>
+)
+
+<span class="kw">const</span> (
+    _ = <span class="ot">iota</span>      <span class="co">// ignore first value by assigning to blank identifier</span>
+    x = <span class="ot">iota</span> * <span class="dv">10</span> <span class="co">// 10</span>
+    y             <span class="co">// 20</span>
+    z             <span class="co">// 30</span>
+)
+
+<span class="kw">func</span> main() {
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+
+    fmt.Println(x)
+    fmt.Println(y)
+    fmt.Println(z)
+}</code></pre>
+<pre><code>## 10
+## 11
+## 12
+## 10
+## 20
+## 30</code></pre>
+<div id="question-15" class="section level4 unnumbered">
+<h4>Question</h4>
+<p>What is the value of the constant <code>z</code>?</p>
+<pre class="sourceCode go"><code class="sourceCode go"><span class="kw">const</span> a = <span class="ot">iota</span>
+
+<span class="kw">const</span> (
+    _ = <span class="ot">iota</span>
+    x = <span class="ot">iota</span> * <span class="dv">10</span> - <span class="dv">3</span>
+    y
+    z = <span class="ot">iota</span> + <span class="dv">42</span>
+)</code></pre>
+<p><strong>45</strong></p>
+</div>
+</div>
 </div>
             </section>
 
