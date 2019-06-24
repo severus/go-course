@@ -122,7 +122,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-19}
+    \date{2019-06-24}
 
 \renewcommand{\chaptername}{Module}
 
@@ -228,8 +228,8 @@ What does it mean?
 \addcontentsline{toc}{subsubsection}{Compilation}
 
 During the compilation the source code you wrote is translated into the
-low-level language natural to the computer to execute. Compiled languages are
-tend to \textbf{run faster} because they operate closer to the ``bare metal'', but
+low-level language natural to the computer to execute. Compiled languages tend
+to \textbf{run faster} because they operate closer to the ``bare metal'', but
 sometimes it is unpleasant to work with compiled languages because the
 compilation can be slow. Compilation speed is on of the Go's benefits, it was
 designed to be \textbf{quick to compile}.
@@ -405,9 +405,16 @@ Rearrange the code blocks to form a valid Go program:
 \hypertarget{getting-the-tools}{%
 \subsection{Getting the tools}\label{getting-the-tools}}
 
-TODO:
+You can run, save, and share your Go codes on our \textbf{Code Playground}, without
+installing any additional software.
 
-\href{https://golang.org/doc/install}{Installation instructions}
+\BeginKnitrBlock{rmdnote}
+Reference this lesson if you need yo install the software on your computer.
+\EndKnitrBlock{rmdnote}
+
+Official Go CLI binaries are available for Windows, macOS and Linux. Follow the
+\href{https://golang.org/doc/install}{instructions on the Go site} to install all
+the necessary Go tools on your computer.
 
 \hypertarget{value-types}{%
 \section{Value types}\label{value-types}}
@@ -563,6 +570,42 @@ The naming of identifiers for variables follows the \texttt{camelCase} rules (st
 with a small letter, every new part of the word starts with a capital letter):
 \texttt{startDate}, \texttt{wordCount}.
 
+\hypertarget{predeclared-identifiers}{%
+\subsubsection{Predeclared identifiers}\label{predeclared-identifiers}}
+
+The following are the predefined identifiers and may not be used as variable
+names:
+
+\begin{verbatim}
+Types:
+    bool byte complex64 complex128 error float32 float64
+    int int8 int16 int32 int64 rune string
+    uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+    true false iota
+
+Zero value:
+    nil
+
+Functions:
+    append cap close complex copy delete imag len
+    make new panic print println real recover
+\end{verbatim}
+
+\hypertarget{keywords}{%
+\subsubsection{Keywords}\label{keywords}}
+
+The following keywords are reserved and may not be used as variable names:
+
+\begin{verbatim}
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
+\end{verbatim}
+
 \hypertarget{question-9}{%
 \subsubsection*{Question}\label{question-9}}
 \addcontentsline{toc}{subsubsection}{Question}
@@ -716,7 +759,7 @@ discarded:
 
 \BeginKnitrBlock{rmdnote}
 In later sections you'll learn that Go supports \textbf{multiple return values} from
-functions. Discard addignments are useful if some of the returned values aren't
+functions. Discard assignments are useful if some of the returned values aren't
 needed, so such values can be \emph{discarded}
 \EndKnitrBlock{rmdnote}
 
@@ -1473,87 +1516,87 @@ Which of the following is the correct way to import packages in Go?
 \end{Shaded}
 
 \begin{verbatim}
-## world's 2
-## gaudy 1
-## thee 1
-## time 1
-## tender 2
-## bright 1
-## where 1
-## riper 1
-## thine 2
-## making 1
-## world 1
 ## bear 1
-## memory 1
-## eyes 1
-## ornament 1
-## creatures 1
-## we 1
-## desire 1
-## but 2
-## and 3
-## buriest 1
-## waste 1
-## lies 1
-## sweet 1
-## cruel 1
-## now 1
-## heir 1
+## to 4
 ## light's 1
-## flame 1
 ## with 1
+## too 1
+## cruel 1
 ## art 1
-## spring 1
+## else 1
+## fairest 1
+## the 6
+## contracted 1
+## fuel 1
+## abundance 1
+## only 1
+## waste 1
+## eat 1
+## lies 1
 ## churl 1
 ## niggarding 1
-## beauty's 1
-## his 2
-## thou 2
-## famine 1
-## eat 1
-## too 1
-## in 1
-## this 1
-## be 1
-## abundance 1
-## mak'st 1
-## increase 1
-## that 2
-## the 6
-## self-substantial 1
-## fairest 1
-## might 2
-## never 1
-## decease 1
-## pity 1
-## die 1
-## to 4
-## foe 1
-## due 1
-## feed'st 1
-## fuel 1
-## fresh 1
-## from 1
-## thereby 1
-## by 2
-## own 2
-## thy 5
-## a 1
-## bud 1
-## glutton 1
-## grave 1
-## only 1
-## herald 1
+## creatures 1
+## we 1
+## flame 1
 ## within 1
-## else 1
-## as 1
-## should 1
-## content 1
-## rose 1
-## contracted 1
-## self 2
+## increase 1
+## beauty's 1
+## riper 1
+## tender 2
+## bright 1
+## self-substantial 1
+## herald 1
+## thine 2
+## but 2
+## decease 1
+## his 2
+## own 2
+## might 2
+## gaudy 1
+## buriest 1
+## from 1
+## a 1
+## sweet 1
+## and 3
 ## or 1
+## never 1
+## feed'st 1
+## now 1
+## ornament 1
+## bud 1
+## pity 1
+## grave 1
+## die 1
+## glutton 1
+## due 1
+## thee 1
+## in 1
+## should 1
+## thou 2
+## eyes 1
+## famine 1
+## self 2
+## foe 1
+## spring 1
+## thereby 1
+## as 1
+## by 2
+## content 1
+## world 1
+## this 1
+## desire 1
+## time 1
+## memory 1
+## heir 1
+## thy 5
+## fresh 1
+## mak'st 1
+## that 2
+## rose 1
+## making 1
+## where 1
+## world's 2
+## be 1
 \end{verbatim}
 
 \hypertarget{functions-and-pointers}{%
@@ -2134,56 +2177,55 @@ Which of the following is the correct way to import packages in Go?
 \end{Shaded}
 
 \begin{verbatim}
-## Racer #7 is on lap 1
-## Racer #3 is on lap 2
-## Racer #3 is on lap 1
-## Racer #9 is on lap 1
-## Race time: 1.000155392s
-## Racer #9 is on lap 2
-## Racer #6 is on lap 1
-## Racer #5 is on lap 2
-## Racer #5 is on lap 1
-## Racer #1 is on lap 1
-## Racer #2 is on lap 1
-## Race time: 2.000167773s
-## Racer #3 finished!
 ## Racer #10 is on lap 1
-## Racer #3 is on lap 3
-## Racer #7 is on lap 2
-## Racer #4 is on lap 1
-## Racer #8 is on lap 2
+## Racer #9 is on lap 1
+## Racer #7 is on lap 3
+## Racer #6 is on lap 2
 ## Racer #8 is on lap 1
-## Racer #5 finished!
-## Racer #5 is on lap 3
-## Race time: 3.000151032s
-## Racer #9 finished!
-## Racer #10 finished!
-## Racer #6 finished!
 ## Racer #7 finished!
+## Racer #7 is on lap 1
+## Racer #7 is on lap 2
+## Racer #6 is on lap 1
+## Race time: 1.00017568s
+## Racer #2 is on lap 1
+## Racer #6 is on lap 3
+## Racer #4 is on lap 3
+## Racer #6 finished!
+## Racer #4 finished!
+## Racer #4 is on lap 1
+## Racer #4 is on lap 2
 ## Racer #8 finished!
+## Racer #8 is on lap 3
+## Racer #8 is on lap 2
+## Racer #5 is on lap 1
+## Race time: 2.000197561s
+## Racer #9 finished!
 ## Racer #1 is on lap 2
 ## Racer #9 is on lap 3
 ## Racer #10 is on lap 2
-## Racer #10 is on lap 3
-## Racer #6 is on lap 2
-## Racer #6 is on lap 3
-## Racer #7 is on lap 3
-## Racer #8 is on lap 3
+## Racer #9 is on lap 2
+## Racer #3 is on lap 1
+## Racer #1 is on lap 1
+## Racer #5 finished!
 ## Racer #2 is on lap 2
-## Race time: 4.000248845s
-## Racer #4 is on lap 2
-## Race time: 5.000181689s
-## Racer #4 finished!
-## Racer #2 finished!
-## Racer #2 is on lap 3
+## Racer #5 is on lap 2
+## Racer #5 is on lap 3
+## Race time: 3.000142581s
+## Racer #3 is on lap 2
 ## Racer #1 finished!
 ## Racer #1 is on lap 3
-## Racer #4 is on lap 3
+## Race time: 4.000195514s
+## Racer #3 finished!
+## Racer #10 finished!
+## Racer #3 is on lap 3
+## Racer #10 is on lap 3
+## Racer #2 finished!
+## Racer #2 is on lap 3
 ## 
 ## Winners:
-## 1 place: Racer #3
-## 2 place: Racer #5
-## 3 place: Racer #9
+## 1 place: Racer #7
+## 2 place: Racer #6
+## 3 place: Racer #4
 \end{verbatim}
 
 \hypertarget{course-project}{%

@@ -24,7 +24,7 @@
 <meta name="author" content="Petr Shevtsov" />
 
 
-<meta name="date" content="2019-06-19" />
+<meta name="date" content="2019-06-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -285,6 +285,34 @@ alphabet, so the following variable names are also valid:</p>
 <p>The naming of identifiers for variables follows the <code>camelCase</code> rules (start
 with a small letter, every new part of the word starts with a capital letter):
 <code>startDate</code>, <code>wordCount</code>.</p>
+<div id="predeclared-identifiers" class="section level4">
+<h4><span class="header-section-number">1.5.1.1</span> Predeclared identifiers</h4>
+<p>The following are the predefined identifiers and may not be used as variable
+names:</p>
+<pre><code>Types:
+    bool byte complex64 complex128 error float32 float64
+    int int8 int16 int32 int64 rune string
+    uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+    true false iota
+
+Zero value:
+    nil
+
+Functions:
+    append cap close complex copy delete imag len
+    make new panic print println real recover</code></pre>
+</div>
+<div id="keywords" class="section level4">
+<h4><span class="header-section-number">1.5.1.2</span> Keywords</h4>
+<p>The following keywords are reserved and may not be used as variable names:</p>
+<pre><code>break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var</code></pre>
+</div>
 <div id="question-9" class="section level4 unnumbered">
 <h4>Question</h4>
 <p>Which of the following are valid Go variable names? Select all that apply.</p>
@@ -365,7 +393,7 @@ _, b := <span class="dv">25</span>, <span class="dv">36</span></code></pre>
 
 <div class="rmdnote">
 In later sections you’ll learn that Go supports <strong>multiple return values</strong> from
-functions. Discard addignments are useful if some of the returned values aren’t
+functions. Discard assignments are useful if some of the returned values aren’t
 needed, so such values can be <em>discarded</em>
 </div>
 
