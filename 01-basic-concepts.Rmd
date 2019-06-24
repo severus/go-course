@@ -155,9 +155,16 @@ func main() {
 
 ### Getting the tools
 
-TODO:
+You can run, save, and share your Go codes on our **Code Playground**, without
+installing any additional software.
 
-[Installation instructions](https://golang.org/doc/install)
+```{block2, type="rmdnote"}
+Reference this lesson if you need yo install the software on your computer.
+```
+
+Official Go CLI binaries are available for Windows, macOS and Linux. Follow the
+[instructions on the Go site](https://golang.org/doc/install) to install all
+the necessary Go tools on your computer.
 
 ## Value types
 
