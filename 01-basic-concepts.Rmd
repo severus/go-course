@@ -31,8 +31,8 @@ What does it mean?
 #### Compilation {-}
 
 During the compilation the source code you wrote is translated into the
-low-level language natural to the computer to execute. Compiled languages are
-tend to **run faster** because they operate closer to the “bare metal”, but
+low-level language natural to the computer to execute. Compiled languages tend
+to **run faster** because they operate closer to the “bare metal”, but
 sometimes it is unpleasant to work with compiled languages because the
 compilation can be slow. Compilation speed is on of the Go's benefits, it was
 designed to be **quick to compile**.
