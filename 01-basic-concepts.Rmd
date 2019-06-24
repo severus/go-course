@@ -280,6 +280,40 @@ The naming of identifiers for variables follows the `camelCase` rules (start
 with a small letter, every new part of the word starts with a capital letter):
 `startDate`, `wordCount`.
 
+#### Predeclared identifiers
+
+The following are the predefined identifiers and may not be used as variable
+names:
+
+```
+Types:
+	bool byte complex64 complex128 error float32 float64
+	int int8 int16 int32 int64 rune string
+	uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+	true false iota
+
+Zero value:
+	nil
+
+Functions:
+	append cap close complex copy delete imag len
+	make new panic print println real recover
+```
+
+#### Keywords
+
+The following keywords are reserved and may not be used as variable names:
+
+```
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
+```
+
 #### Question {-}
 
 Which of the following are valid Go variable names? Select all that apply.
